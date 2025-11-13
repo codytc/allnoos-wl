@@ -1,0 +1,313 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Updated to professional design tokens from design brief */
+  --background: #ffffff;
+  --foreground: #1f2937;
+  --card: #f1f5f9;
+  --card-foreground: #1f2937;
+  --popover: #ffffff;
+  --popover-foreground: #1f2937;
+  --primary: #1f2937; /* For call-to-action buttons */
+  --primary-foreground: #ffffff; /* For text on primary backgrounds */
+  --secondary: #6b7280; /* For secondary buttons or accents */
+  --secondary-foreground: #ffffff; /* For text on secondary backgrounds */
+  --muted: #f1f5f9; /* For muted text */
+  --muted-foreground: #6b7280; /* For muted text color */
+  --accent: #8b5cf6; /* For highlighted elements */
+  --accent-foreground: #ffffff; /* For text on accent backgrounds */
+  --destructive: #dc2626; /* For error messages or destructive actions */
+  --destructive-foreground: #ffffff; /* For text on destructive backgrounds */
+  --border: #d1d5db; /* For borders */
+  --input: #f1f5f9; /* For input fields */
+  --ring: #8b5cf6; /* For focus rings */
+  --chart-1: #4f46e5;
+  --chart-2: #3b82f6;
+  --chart-3: #22c55e;
+  --chart-4: #eab308;
+  --chart-5: #f97316;
+  --radius: 0.5rem;
+  --sidebar: #1f2937; /* For sidebar background */
+  --sidebar-foreground: #ffffff; /* For sidebar text */
+  --sidebar-primary: #4b5563; /* For primary sidebar items */
+  --sidebar-primary-foreground: #ffffff; /* For primary sidebar text */
+  --sidebar-accent: #8b5cf6; /* For sidebar accent items */
+  --sidebar-accent-foreground: #ffffff; /* For sidebar accent text */
+  --sidebar-border: #d1d5db; /* For sidebar borders */
+  --sidebar-ring: #8b5cf6; /* For sidebar focus rings */
+}
+
+.dark {
+  /* Updated dark mode tokens to match professional theme */
+  --background: #1f2937;
+  --foreground: #ffffff;
+  --card: #374151;
+  --card-foreground: #ffffff;
+  --popover: #374151;
+  --popover-foreground: #ffffff;
+  --primary: #8b5cf6;
+  --primary-foreground: #ffffff;
+  --secondary: #6b7280;
+  --secondary-foreground: #ffffff;
+  --muted: #374151;
+  --muted-foreground: #9ca3af;
+  --accent: #8b5cf6;
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #4b5563;
+  --input: #374151;
+  --ring: #8b5cf6;
+  --chart-1: #4f46e5;
+  --chart-2: #3b82f6;
+  --chart-3: #22c55e;
+  --chart-4: #eab308;
+  --chart-5: #f97316;
+  --sidebar: #1f2937;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #4b5563;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #8b5cf6;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #4b5563;
+  --sidebar-ring: #8b5cf6;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  /* Fixed font variable definitions to properly reference Next.js font variables */
+  --font-inter: var(--font-inter);
+  --font-urbanist: var(--font-urbanist);
+  --font-sans: var(--v0-font-abel);
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Adding gleam expand animation */
+  --animate-gleam-expand: gleam-expand 800ms ease-out forwards;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Adding radial gleam segment animations for 8 directions */
+  @keyframes gleam-radial-0 {
+    0% {
+      transform: translate(-50%, -50%) translateY(0) scale(0);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) translateY(-120px) scale(1);
+      opacity: 0;
+    }
+  }
+
+  @keyframes gleam-radial-45 {
+    0% {
+      transform: translate(-50%, -50%) translate(0, 0) scale(0);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) translate(85px, -85px) scale(1);
+      opacity: 0;
+    }
+  }
+
+  @keyframes gleam-radial-90 {
+    0% {
+      transform: translate(-50%, -50%) translateX(0) scale(0);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) translateX(120px) scale(1);
+      opacity: 0;
+    }
+  }
+
+  @keyframes gleam-radial-135 {
+    0% {
+      transform: translate(-50%, -50%) translate(0, 0) scale(0);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) translate(85px, 85px) scale(1);
+      opacity: 0;
+    }
+  }
+
+  @keyframes gleam-radial-180 {
+    0% {
+      transform: translate(-50%, -50%) translateY(0) scale(0);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) translateY(120px) scale(1);
+      opacity: 0;
+    }
+  }
+
+  @keyframes gleam-radial-225 {
+    0% {
+      transform: translate(-50%, -50%) translate(0, 0) scale(0);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) translate(-85px, 85px) scale(1);
+      opacity: 0;
+    }
+  }
+
+  @keyframes gleam-radial-270 {
+    0% {
+      transform: translate(-50%, -50%) translateX(0) scale(0);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) translateX(-120px) scale(1);
+      opacity: 0;
+    }
+  }
+
+  @keyframes gleam-radial-315 {
+    0% {
+      transform: translate(-50%, -50%) translate(0, 0) scale(0);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) translate(-85px, -85px) scale(1);
+      opacity: 0;
+    }
+  }
+
+  /* Existing gleam expand animation */
+  @keyframes gleam-expand {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: scale(3);
+      opacity: 0;
+    }
+  }
+
+  .animate-gleam-expand {
+    animation: gleam-expand 800ms ease-out forwards;
+  }
+
+  /* Adding animation classes for radial gleam segments */
+  .animate-gleam-radial-0 {
+    animation: gleam-radial-0 1000ms ease-out forwards;
+  }
+  .animate-gleam-radial-45 {
+    animation: gleam-radial-45 1000ms ease-out 50ms forwards;
+  }
+  .animate-gleam-radial-90 {
+    animation: gleam-radial-90 1000ms ease-out 100ms forwards;
+  }
+  .animate-gleam-radial-135 {
+    animation: gleam-radial-135 1000ms ease-out 150ms forwards;
+  }
+  .animate-gleam-radial-180 {
+    animation: gleam-radial-180 1000ms ease-out 200ms forwards;
+  }
+  .animate-gleam-radial-225 {
+    animation: gleam-radial-225 1000ms ease-out 250ms forwards;
+  }
+  .animate-gleam-radial-270 {
+    animation: gleam-radial-270 1000ms ease-out 300ms forwards;
+  }
+  .animate-gleam-radial-315 {
+    animation: gleam-radial-315 1000ms ease-out 350ms forwards;
+  }
+}
+
+/* Hide number input spinners */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
