@@ -262,7 +262,15 @@ export default function CreatePage() {
 
   return (
     <div className="min-h-screen bg-background pb-16">
-      <div className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
+      <svg width="0" height="0" className="absolute">
+        <defs>
+          <clipPath id="headerCurveClipCreate" clipPathUnits="objectBoundingBox">
+            <path d="M 0,0 L 1,0 L 1,0.733 C 0.861,0.822 0.639,0.822 0.5,0.733 C 0.361,0.651 0.139,0.651 0,0.733 Z" />
+          </clipPath>
+        </defs>
+      </svg>
+
+      <div className="sticky top-0 z-50 bg-background" style={{ clipPath: "url(#headerCurveClipCreate)" }}>
         <div className="p-4">
           <div className="flex justify-between items-center">
             <div className="flex-1">
@@ -308,6 +316,32 @@ export default function CreatePage() {
             </div>
           </div>
         </div>
+
+        <div className="w-full h-8 relative -mb-8 flex items-end z-30" style={{ transform: "translateY(-18px)" }}>
+          <svg
+            viewBox="0 0 1440 50"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-full h-6"
+            preserveAspectRatio="none"
+          >
+            <defs>
+              <linearGradient id="curvedLineGradientCreate" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#94a3b8" />
+                <stop offset="15%" stopColor="#94a3b8" />
+                <stop offset="50%" stopColor="#94a3b8" />
+                <stop offset="85%" stopColor="#94a3b8" />
+                <stop offset="100%" stopColor="#94a3b8" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M 0,25 C 200,5 520,5 720,25 C 920,45 1240,45 1440,25"
+              stroke="url(#curvedLineGradientCreate)"
+              strokeWidth="2.5"
+              fill="none"
+            />
+          </svg>
+        </div>
       </div>
 
       {isPublishing && (
@@ -320,7 +354,7 @@ export default function CreatePage() {
         </div>
       )}
 
-      <div className="p-4 space-y-6">
+      <div className="p-4 space-y-6 pt-10 relative -mt-8" style={{ transform: "translateY(-18px)" }}>
         <Card>
           <CardHeader>
             <CardTitle>Story Details</CardTitle>
