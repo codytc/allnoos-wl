@@ -28,7 +28,7 @@ export default function CreateChannelPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="flex flex-col h-screen bg-background">
       <svg width="0" height="0" className="absolute">
         <defs>
           <clipPath id="headerCurveClipCreateChannel" clipPathUnits="objectBoundingBox">
