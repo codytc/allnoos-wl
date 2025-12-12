@@ -28,7 +28,7 @@ export default function CreateChannelPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       <svg width="0" height="0" className="absolute">
         <defs>
           <clipPath id="headerCurveClipCreateChannel" clipPathUnits="objectBoundingBox">
@@ -99,63 +99,65 @@ export default function CreateChannelPage() {
         </div>
       </div>
 
-      <div className="p-4 max-w-2xl mx-auto pt-10 relative -mt-8" style={{ transform: "translateY(-18px)" }}>
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold mb-2">Create a Channel</h1>
-          <p className="text-muted-foreground">
-            Start your own channel and share your unique perspective with the world.
-          </p>
-        </div>
+      <div className="flex-1 overflow-y-auto">
+        <div className="p-4 max-w-2xl mx-auto pt-10 relative -mt-8" style={{ transform: "translateY(-18px)" }}>
+          <div className="mb-6">
+            <h1 className="text-2xl font-bold mb-2">Create a Channel</h1>
+            <p className="text-muted-foreground">
+              Start your own channel and share your unique perspective with the world.
+            </p>
+          </div>
 
-        <Card className="p-6">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-2">
-              <label htmlFor="channelName" className="text-sm font-medium">
-                Channel Name
-              </label>
-              <Input
-                id="channelName"
-                placeholder="Enter your channel name"
-                value={channelName}
-                onChange={(e) => setChannelName(e.target.value)}
-                required
-                className="focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus:border-input focus-visible:border-input focus:shadow-[inset_0_0_16px_rgba(253,180,132,0.35)]"
-              />
-            </div>
+          <Card className="p-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="space-y-2">
+                <label htmlFor="channelName" className="text-sm font-medium">
+                  Channel Name
+                </label>
+                <Input
+                  id="channelName"
+                  placeholder="Enter your channel name"
+                  value={channelName}
+                  onChange={(e) => setChannelName(e.target.value)}
+                  required
+                  className="focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus:border-input focus-visible:border-input focus:shadow-[inset_0_0_16px_rgba(253,180,132,0.35)]"
+                />
+              </div>
 
-            <div className="space-y-2">
-              <label htmlFor="description" className="text-sm font-medium">
-                Description
-              </label>
-              <Textarea
-                id="description"
-                placeholder="Describe what your channel is about"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                required
-                rows={5}
-                className="resize-none focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus:border-input focus-visible:border-input focus:shadow-[inset_0_0_16px_rgba(253,180,132,0.35)]"
-              />
-            </div>
+              <div className="space-y-2">
+                <label htmlFor="description" className="text-sm font-medium">
+                  Description
+                </label>
+                <Textarea
+                  id="description"
+                  placeholder="Describe what your channel is about"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  required
+                  rows={5}
+                  className="resize-none focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus:border-input focus-visible:border-input focus:shadow-[inset_0_0_16px_rgba(253,180,132,0.35)]"
+                />
+              </div>
 
-            <Button
-              type="submit"
-              disabled={isSubmitting || !channelName.trim() || !description.trim()}
-              className="w-full bg-primary hover:bg-primary/90 active:bg-primary/80 text-white font-semibold py-6 rounded-lg transition-all duration-200 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isSubmitting ? "Creating Channel..." : "Create Channel"}
-            </Button>
-          </form>
-        </Card>
+              <Button
+                type="submit"
+                disabled={isSubmitting || !channelName.trim() || !description.trim()}
+                className="w-full bg-primary hover:bg-primary/90 active:bg-primary/80 text-white font-semibold py-6 rounded-lg transition-all duration-200 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isSubmitting ? "Creating Channel..." : "Create Channel"}
+              </Button>
+            </form>
+          </Card>
 
-        <div className="mt-6 p-4 bg-muted/50 rounded-lg">
-          <h3 className="font-semibold mb-2 text-sm">Channel Guidelines</h3>
-          <ul className="text-xs text-muted-foreground space-y-1">
-            <li>• Choose a clear, descriptive name for your channel</li>
-            <li>• Write a compelling description that explains your channel's focus</li>
-            <li>• Be authentic and share your unique perspective</li>
-            <li>• Follow community guidelines and maintain respectful discourse</li>
-          </ul>
+          <div className="mt-6 p-4 bg-muted/50 rounded-lg">
+            <h3 className="font-semibold mb-2 text-sm">Channel Guidelines</h3>
+            <ul className="text-xs text-muted-foreground space-y-1">
+              <li>• Choose a clear, descriptive name for your channel</li>
+              <li>• Write a compelling description that explains your channel's focus</li>
+              <li>• Be authentic and share your unique perspective</li>
+              <li>• Follow community guidelines and maintain respectful discourse</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
