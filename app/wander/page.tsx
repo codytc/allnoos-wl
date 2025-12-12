@@ -607,7 +607,7 @@ export default function WanderPage() {
       </div>
 
       {/* Main Content */}
-      <div className="px-4 pb-4 space-y-6 pt-10 -mt-6">
+      <div className="px-4 pb-4 space-y-6 -mt-6 pt-4">
         {/* Focus Section */}
         <section>
           <div className="flex items-center justify-between mb-4">
