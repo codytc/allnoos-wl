@@ -99,7 +99,7 @@ export default function CreateChannelPage() {
         </div>
       </div>
 
-      <div className="p-4 max-w-2xl mx-auto pt-10 relative -mt-8" style={{ transform: "translateY(-18px)" }}>
+      <div className="p-4 max-w-2xl mx-auto pt-10 relative -mt-8 pb-20" style={{ transform: "translateY(-18px)" }}>
         <div className="mb-6">
           <h1 className="text-2xl font-bold mb-2">Create a Channel</h1>
           <p className="text-muted-foreground">
@@ -155,6 +155,50 @@ export default function CreateChannelPage() {
             <li>• Write a compelling description that explains your channel's focus</li>
             <li>• Be authentic and share your unique perspective</li>
             <li>• Follow community guidelines and maintain respectful discourse</li>
+          </ul>
+        </div>
+
+        <div className="mt-6 p-4 bg-muted/50 rounded-lg">
+          <h3 className="font-semibold mb-2 text-sm">Content Best Practices</h3>
+          <ul className="text-xs text-muted-foreground space-y-1">
+            <li>• Post consistently to keep your audience engaged</li>
+            <li>• Use high-quality images and media when appropriate</li>
+            <li>• Engage with your community through comments and discussions</li>
+            <li>• Tag your content appropriately for better discoverability</li>
+            <li>• Maintain a consistent voice and style across your posts</li>
+          </ul>
+        </div>
+
+        <div className="mt-6 p-4 bg-muted/50 rounded-lg">
+          <h3 className="font-semibold mb-2 text-sm">Growing Your Channel</h3>
+          <ul className="text-xs text-muted-foreground space-y-1">
+            <li>• Share your channel on social media platforms</li>
+            <li>• Collaborate with other content creators</li>
+            <li>• Respond to comments to build community</li>
+            <li>• Use analytics to understand what content resonates</li>
+            <li>• Stay updated with trending topics in your niche</li>
+          </ul>
+        </div>
+
+        <div className="mt-6 p-4 bg-muted/50 rounded-lg">
+          <h3 className="font-semibold mb-2 text-sm">Monetization Options</h3>
+          <ul className="text-xs text-muted-foreground space-y-1">
+            <li>• Enable subscriptions for exclusive content</li>
+            <li>• Partner with brands for sponsored content</li>
+            <li>• Offer premium tiers with additional benefits</li>
+            <li>• Create merchandise for your most engaged fans</li>
+            <li>• Host live events and Q&A sessions</li>
+          </ul>
+        </div>
+
+        <div className="mt-6 p-4 bg-muted/50 rounded-lg">
+          <h3 className="font-semibold mb-2 text-sm">Support & Resources</h3>
+          <ul className="text-xs text-muted-foreground space-y-1">
+            <li>• Access our creator handbook for detailed guides</li>
+            <li>• Join the creator community forum</li>
+            <li>• Contact support for technical assistance</li>
+            <li>• Attend creator workshops and webinars</li>
+            <li>• Review our terms of service and content policy</li>
           </ul>
         </div>
       </div>
