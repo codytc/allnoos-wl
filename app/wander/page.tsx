@@ -581,23 +581,23 @@ export default function WanderPage() {
             />
           </div>
         </div>
-        <div className="w-full h-8 relative -mb-6 flex items-end z-30">
+        <div className="w-full h-8 relative -mb-6">
           <svg
-            viewBox="0 0 1440 50"
+            viewBox="0 0 1440 100"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             className="w-full h-full"
             preserveAspectRatio="none"
           >
             <defs>
-              <linearGradient id="curvedLineGradientWander" x1="0%" y1="0%" x2="100%" y2="0%">
+              <linearGradient id="curvedLineGradientWander" x1="0%" y1="100%" x2="100%" y2="0%">
                 <stop offset="0%" stopColor="#94a3b8" />
                 <stop offset="50%" stopColor="#94a3b8" />
                 <stop offset="100%" stopColor="#94a3b8" />
               </linearGradient>
             </defs>
             <path
-              d="M 0,25 C 200,5 520,5 720,25 C 920,45 1240,45 1440,25"
+              d="M 0,50 C 200,20 520,20 720,50 C 920,80 1240,80 1440,50"
               stroke="url(#curvedLineGradientWander)"
               strokeWidth="2.5"
               fill="none"
