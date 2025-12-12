@@ -32,7 +32,7 @@ export default function CreateChannelPage() {
       <svg width="0" height="0" className="absolute">
         <defs>
           <clipPath id="headerCurveClipCreateChannel" clipPathUnits="objectBoundingBox">
-            <path d="M 0,0 L 1,0 L 1,0.895 C 0.956,0.897 0.544,0.897 0.5,0.897 C 0.456,0.897 0.044,0.897 0,0.895 Z" />
+            <path d="M 0,0 L 1,0 L 1,0.733 C 0.861,0.822 0.639,0.822 0.5,0.733 C 0.361,0.651 0.139,0.651 0,0.733 Z" />
           </clipPath>
         </defs>
       </svg>
