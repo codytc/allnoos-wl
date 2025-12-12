@@ -597,7 +597,7 @@ export default function WanderPage() {
               </linearGradient>
             </defs>
             <path
-              d="M 0,50 C 200,20 520,20 720,50 C 920,80 1240,80 1440,50"
+              d="M 0,50 C 200,30 520,30 720,50 C 920,80 1240,80 1440,50"
               stroke="url(#curvedLineGradientWander)"
               strokeWidth="2.5"
               fill="none"
