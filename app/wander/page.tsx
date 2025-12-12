@@ -531,7 +531,7 @@ export default function WanderPage() {
       <svg width="0" height="0" className="absolute">
         <defs>
           <clipPath id="headerCurveClipWander" clipPathUnits="objectBoundingBox">
-            <path d="M 0,0 L 1,0 L 1,0.897 C 0.861,0.963 0.639,0.965 0.5,0.905 C 0.361,0.838 0.139,0.838 0,0.909 Z" />
+            <path d="M 0,0 L 1,0 L 1,0.895 C 0.861,0.960 0.639,0.960 0.5,0.908 C 0.361,0.840 0.139,0.840 0,0.907 Z" />
           </clipPath>
         </defs>
       </svg>
