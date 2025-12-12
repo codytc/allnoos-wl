@@ -29,8 +29,15 @@ export default function CreateChannelPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
+      <svg width="0" height="0" className="absolute">
+        <defs>
+          <clipPath id="headerCurveClipCreateChannel" clipPathUnits="objectBoundingBox">
+            <path d="M 0,0 L 1,0 L 1,0.898 C 0.956,0.900 0.544,0.900 0.5,0.900 C 0.456,0.900 0.044,0.900 0,0.898 Z" />
+          </clipPath>
+        </defs>
+      </svg>
+
+      <div className="sticky top-0 z-50 bg-background" style={{ clipPath: "url(#headerCurveClipCreateChannel)" }}>
         <div className="p-4">
           <div className="flex justify-between items-center">
             <div className="flex-1">
@@ -65,10 +72,34 @@ export default function CreateChannelPage() {
             </div>
           </div>
         </div>
+        <div className="w-full h-8 relative -mb-8 flex items-end z-30" style={{ transform: "translateY(-18px)" }}>
+          <svg
+            viewBox="0 0 1440 50"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-full h-6"
+            preserveAspectRatio="none"
+          >
+            <defs>
+              <linearGradient id="curvedLineGradientCreateChannel" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#94a3b8" />
+                <stop offset="15%" stopColor="#94a3b8" />
+                <stop offset="50%" stopColor="#94a3b8" />
+                <stop offset="85%" stopColor="#94a3b8" />
+                <stop offset="100%" stopColor="#94a3b8" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M 0,25 C 200,5 520,5 720,25 C 920,45 1240,45 1440,25"
+              stroke="url(#curvedLineGradientCreateChannel)"
+              strokeWidth="2.5"
+              fill="none"
+            />
+          </svg>
+        </div>
       </div>
 
-      {/* Main Content */}
-      <div className="p-4 max-w-2xl mx-auto">
+      <div className="p-4 max-w-2xl mx-auto pt-10 relative -mt-8" style={{ transform: "translateY(-18px)" }}>
         <div className="mb-6">
           <h1 className="text-2xl font-bold mb-2">Create a Channel</h1>
           <p className="text-muted-foreground">
