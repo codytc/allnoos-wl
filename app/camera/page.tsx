@@ -462,7 +462,7 @@ export default function CameraPage() {
             {isRecording ? (
               <OctagonIcon className="w-8 h-8 text-white drop-shadow-lg relative z-10" />
             ) : (
-              <Video className="w-8 h-8 text-white drop-shadow-lg relative z-10" />
+              <Video className="text-white drop-shadow-lg relative z-10 size-9" />
             )}
             <div className="absolute inset-0 rounded-full bg-red-400/20 blur-xl scale-150 pointer-events-none"></div>
           </button>
