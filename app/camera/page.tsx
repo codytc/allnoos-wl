@@ -394,7 +394,7 @@ export default function CameraPage() {
               {icon2 === "user-x" && <UserXIcon className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
               {icon2 === "user" && <User className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
               {icon2 === "user-square" && (
-                <UserSquare2Icon className="drop-shadow-lg relative z-10 text-white size-7" />
+                <UserSquare2Icon className="drop-shadow-lg relative z-10 text-white size-7" strokeWidth={1.5} />
               )}
             </button>
 
