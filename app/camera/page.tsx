@@ -13,7 +13,7 @@ import {
   Play,
   Pause,
   Scissors,
-  Repeat,
+  CircleUserIcon,
   Grid3x3,
   Timer,
   Settings,
@@ -378,7 +378,7 @@ export default function CameraPage() {
               className="w-12 h-12 flex items-center justify-center active:bg-white/30 transition-all duration-200 active:scale-95 rounded-full border border-white/20 hover:bg-white/20 relative"
             >
               <div className="absolute inset-1 rounded-full bg-gradient-to-b from-white/20 to-transparent pointer-events-none"></div>
-              {icon1 === "camera-flip" && <Repeat className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
+              {icon1 === "camera-flip" && <CircleUserIcon className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
               {icon1 === "grid" && <Grid3x3 className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
               {icon1 === "timer" && <Timer className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
             </button>
