@@ -2,33 +2,10 @@
 
 import type React from "react"
 import { useState, useEffect } from "react"
-import {
-  X,
-  Zap,
-  Camera,
-  Video,
-  OctagonIcon,
-  Trash2,
-  Star,
-  Play,
-  Pause,
-  Scissors,
-  Grid,
-  Timer,
-  Mic,
-  Focus,
-  Aperture,
-  Sun,
-} from "lucide-react"
+import { X, Zap, Camera, Video, OctagonIcon, Trash2, Star, Play, Pause, Scissors } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import AllnoosLogo from "@/components/allnoos-logo"
-
-type IconOption = {
-  name: string
-  icon: React.ComponentType<{ className?: string }>
-  action: () => void
-}
 
 export default function CameraPage() {
   const [isRecording, setIsRecording] = useState(false)
@@ -42,15 +19,16 @@ export default function CameraPage() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [favoriteVideos, setFavoriteVideos] = useState<Set<number>>(new Set())
   const [cameraMode, setCameraMode] = useState<"rear" | "front">("rear")
-  const [showIconSelector, setShowIconSelector] = useState(false)
-  const [selectedSlot, setSelectedSlot] = useState<number | null>(null)
-  const [controlIcons, setControlIcons] = useState<string[]>(["camera-flip", "grid", "flash", "timer"])
   const [showPhotoGallery, setShowPhotoGallery] = useState(false)
   const [emphasizedPhotos, setEmphasizedPhotos] = useState<Set<number>>(new Set())
   const [selectedPhoto, setSelectedPhoto] = useState<number | null>(null)
   const [lastTap, setLastTap] = useState<number>(0)
   const [showCreateButton, setShowCreateButton] = useState(false)
   const router = useRouter()
+
+  const [icon1, setIcon1] = useState<"camera-flip" | "grid" | "timer">("camera-flip")
+  const [icon2, setIcon2] = useState<"settings" | "brightness" | "contrast">("settings")
+  const [icon3, setIcon3] = useState<"flash" | "night-mode" | "hdr">("flash")
 
   useEffect(() => {
     const savedPhotos = localStorage.getItem("cameraPhotos")
@@ -268,88 +246,6 @@ export default function CameraPage() {
     router.push("/feed")
   }
 
-  const availableIcons: Record<string, IconOption> = {
-    "camera-flip": {
-      name: "Flip Camera",
-      icon: ({ className }) => (
-        <svg
-          width="24"
-          height="21"
-          viewBox="0 0 28 25"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className={className}
-        >
-          <path
-            d="M5.50003 13.5035C5.50003 14.44 4.51117 14.9516 3.85984 14.3521L0.859841 11.5906C0.435564 11.2 0.378239 10.5035 0.731804 10.0349C1.08537 9.56621 1.71593 9.50289 2.14021 9.89343L3.50003 11.1451V6.87591C3.50003 3.21558 6.18632 0.248291 9.50002 0.248291H19.5C20.3655 0.248291 21.2076 0.558366 21.9 1.13197L23.1 2.12612C23.5419 2.49215 23.6314 3.18451 23.3 3.67256C22.9687 4.1606 22.3419 4.25951 21.9 3.89348L20.7 2.89934C20.3538 2.61253 19.9328 2.4575 19.5 2.4575H9.50002C7.29089 2.4575 5.50003 4.43569 5.50003 6.87591V13.5035Z"
-            fill="white"
-          />
-          <path
-            d="M22.5001 11.2942C22.5001 10.3577 23.489 9.8461 24.1403 10.4456L27.1403 13.2071C27.5646 13.5977 27.6219 14.2942 27.2684 14.7629C26.9148 15.2315 26.2842 15.2949 25.86 14.9043L24.5001 13.6526V17.9218C24.5001 21.5822 21.8139 24.5494 18.5001 24.5494H8.50014C7.63466 24.5494 6.79253 24.2394 6.10014 23.6658L4.90014 22.6716C4.45832 22.3056 4.36877 21.6132 4.70014 21.1252C5.03151 20.6371 5.65832 20.5382 6.10014 20.9043L7.30014 21.8984C7.64634 22.1852 8.0674 22.3402 8.50014 22.3402H18.5001C20.7093 22.3402 22.5001 20.3621 22.5001 17.9218V11.2942Z"
-            fill="white"
-          />
-          <path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M18.5001 12.3989C18.5001 15.1441 16.4854 17.3696 14.0001 17.3696C11.5148 17.3696 9.50008 15.1441 9.50008 12.3989C9.50008 9.65362 11.5148 7.42816 14.0001 7.42816C16.4854 7.42816 18.5001 9.6537 18.5001 12.3989ZM16.5001 12.3989C16.5001 13.924 15.3808 15.1604 14.0001 15.1604C12.6194 15.1604 11.5001 13.924 11.5001 12.3989C11.5001 10.8737 12.6194 9.63736 14.0001 9.63736C15.3808 9.63736 16.5001 10.8737 16.5001 12.3989Z"
-            fill="white"
-          />
-        </svg>
-      ),
-      action: toggleCamera,
-    },
-    grid: {
-      name: "Grid",
-      icon: Grid,
-      action: () => console.log("[v0] Grid toggled"),
-    },
-    flash: {
-      name: "Flash",
-      icon: Zap,
-      action: toggleFlash,
-    },
-    timer: {
-      name: "Timer",
-      icon: Timer,
-      action: () => console.log("[v0] Timer toggled"),
-    },
-    mic: {
-      name: "Microphone",
-      icon: Mic,
-      action: () => console.log("[v0] Mic toggled"),
-    },
-    focus: {
-      name: "Focus",
-      icon: Focus,
-      action: () => console.log("[v0] Focus toggled"),
-    },
-    aperture: {
-      name: "Aperture",
-      icon: Aperture,
-      action: () => console.log("[v0] Aperture toggled"),
-    },
-    sun: {
-      name: "Brightness",
-      icon: Sun,
-      action: () => console.log("[v0] Brightness toggled"),
-    },
-  }
-
-  const handleIconSelect = (iconKey: string) => {
-    if (selectedSlot !== null) {
-      const newIcons = [...controlIcons]
-      newIcons[selectedSlot] = iconKey
-      setControlIcons(newIcons)
-      setShowIconSelector(false)
-      setSelectedSlot(null)
-    }
-  }
-
-  const openIconSelector = (slotIndex: number) => {
-    setSelectedSlot(slotIndex)
-    setShowIconSelector(true)
-  }
-
   return (
     <div className="relative w-full h-screen bg-black overflow-hidden">
       <div
@@ -458,35 +354,168 @@ export default function CameraPage() {
           </button>
 
           <div className="flex items-center gap-4 px-2 mt-2 mb-[-25px]">
-            {controlIcons.map((iconKey, index) => {
-              const iconData = availableIcons[iconKey]
-              const IconComponent = iconData.icon
-              const isFlashActive = iconKey === "flash" && flashEnabled
-
-              return (
-                <button
-                  key={index}
-                  onClick={iconData.action}
-                  onContextMenu={(e) => {
-                    e.preventDefault()
-                    openIconSelector(index)
-                  }}
-                  className={`w-12 h-12 flex items-center justify-center transition-all duration-200 active:scale-95 rounded-full border relative ${
-                    isFlashActive
-                      ? "bg-gradient-to-br from-yellow-400/40 to-yellow-600/40 border-yellow-300/50 shadow-yellow-500/30"
-                      : "border-white/20 hover:bg-white/20 active:bg-white/30"
-                  }`}
+            <button
+              onClick={toggleCamera}
+              className="w-12 h-12 flex items-center justify-center active:bg-white/30 transition-all duration-200 active:scale-95 rounded-full border border-white/20 hover:bg-white/20 relative"
+            >
+              <div className="absolute inset-1 rounded-full bg-gradient-to-b from-white/20 to-transparent pointer-events-none"></div>
+              {icon1 === "camera-flip" && (
+                <svg
+                  width="24"
+                  height="21"
+                  viewBox="0 0 28 25"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-6 h-6 drop-shadow-lg relative z-10"
                 >
-                  <div className="absolute inset-1 rounded-full bg-gradient-to-b from-white/20 to-transparent pointer-events-none"></div>
-                  <IconComponent
-                    className={`w-6 h-6 drop-shadow-lg relative z-10 ${isFlashActive ? "text-yellow-300" : "text-white"}`}
+                  <path
+                    d="M5.50003 13.5035C5.50003 14.44 4.51117 14.9516 3.85984 14.3521L0.859841 11.5906C0.435564 11.2 0.378239 10.5035 0.731804 10.0349C1.08537 9.56621 1.71593 9.50289 2.14021 9.89343L3.50003 11.1451V6.87591C3.50003 3.21558 6.18632 0.248291 9.50002 0.248291H19.5C20.3655 0.248291 21.2076 0.558366 21.9 1.13197L23.1 2.12612C23.5419 2.49215 23.6314 3.18451 23.3 3.67256C22.9687 4.1606 22.3419 4.25951 21.9 3.89348L20.7 2.89934C20.3538 2.61253 19.9328 2.4575 19.5 2.4575H9.50002C7.29089 2.4575 5.50003 4.43569 5.50003 6.87591V13.5035Z"
+                    fill="white"
                   />
-                  {isFlashActive && (
-                    <div className="absolute inset-0 rounded-full bg-yellow-400/20 blur-lg scale-150 pointer-events-none"></div>
-                  )}
-                </button>
-              )
-            })}
+                  <path
+                    d="M22.5001 11.2942C22.5001 10.3577 23.489 9.8461 24.1403 10.4456L27.1403 13.2071C27.5646 13.5977 27.6219 14.2942 27.2684 14.7629C26.9148 15.2315 26.2842 15.2949 25.86 14.9043L24.5001 13.6526V17.9218C24.5001 21.5822 21.8139 24.5494 18.5001 24.5494H8.50014C7.63466 24.5494 6.79253 24.2394 6.10014 23.6658L4.90014 22.6716C4.45832 22.3056 4.36877 21.6132 4.70014 21.1252C5.03151 20.6371 5.65832 20.5382 6.10014 20.9043L7.30014 21.8984C7.64634 22.1852 8.0674 22.3402 8.50014 22.3402H18.5001C20.7093 22.3402 22.5001 20.3621 22.5001 17.9218V11.2942Z"
+                    fill="white"
+                  />
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M18.5001 12.3989C18.5001 15.1441 16.4854 17.3696 14.0001 17.3696C11.5148 17.3696 9.50008 15.1441 9.50008 12.3989C9.50008 9.65362 11.5148 7.42816 14.0001 7.42816C16.4854 7.42816 18.5001 9.65362 18.5001 12.3989ZM16.5001 12.3989C16.5001 13.924 15.3808 15.1604 14.0001 15.1604C12.6194 15.1604 11.5001 13.924 11.5001 12.3989C11.5001 10.8737 12.6194 9.63736 14.0001 9.63736C15.3808 9.63736 16.5001 10.8737 16.5001 12.3989Z"
+                    fill="white"
+                  />
+                </svg>
+              )}
+              {icon1 === "grid" && (
+                <svg
+                  className="w-6 h-6 drop-shadow-lg relative z-10"
+                  fill="none"
+                  stroke="white"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"
+                  />
+                </svg>
+              )}
+              {icon1 === "timer" && (
+                <svg
+                  className="w-6 h-6 drop-shadow-lg relative z-10"
+                  fill="none"
+                  stroke="white"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              )}
+            </button>
+
+            <button className="w-12 h-12 flex items-center justify-center active:bg-white/30 transition-all duration-200 active:scale-95 rounded-full border border-white/20 hover:bg-white/20 relative">
+              <div className="absolute inset-1 rounded-full bg-gradient-to-b from-white/20 to-transparent pointer-events-none"></div>
+              {icon2 === "settings" && (
+                <svg
+                  className="w-6 h-6 drop-shadow-lg relative z-10"
+                  fill="none"
+                  stroke="white"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+              )}
+              {icon2 === "brightness" && (
+                <svg
+                  className="w-6 h-6 drop-shadow-lg relative z-10"
+                  fill="none"
+                  stroke="white"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                  />
+                </svg>
+              )}
+              {icon2 === "contrast" && (
+                <svg
+                  className="w-6 h-6 drop-shadow-lg relative z-10"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle cx="12" cy="12" r="9" strokeWidth={2} />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v18" />
+                </svg>
+              )}
+            </button>
+
+            <button
+              onClick={toggleFlash}
+              className={`w-12 h-12 flex items-center justify-center transition-all duration-200 active:scale-95 rounded-full border relative ${
+                flashEnabled
+                  ? "bg-gradient-to-br from-yellow-400/40 to-yellow-600/40 border-yellow-300/50 shadow-yellow-500/30"
+                  : "border-white/20 hover:bg-white/20 active:bg-white/30"
+              }`}
+            >
+              <div className="absolute inset-1 rounded-full bg-gradient-to-b from-white/20 to-transparent pointer-events-none"></div>
+              {icon3 === "flash" && (
+                <Zap
+                  className={`w-6 h-6 drop-shadow-lg relative z-10 ${flashEnabled ? "text-yellow-300" : "text-white"}`}
+                />
+              )}
+              {icon3 === "night-mode" && (
+                <svg
+                  className={`w-6 h-6 drop-shadow-lg relative z-10 ${flashEnabled ? "text-yellow-300" : "text-white"}`}
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+                </svg>
+              )}
+              {icon3 === "hdr" && (
+                <svg
+                  className={`w-6 h-6 drop-shadow-lg relative z-10 ${flashEnabled ? "text-yellow-300" : "text-white"}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+                  />
+                </svg>
+              )}
+              {flashEnabled && (
+                <div className="absolute inset-0 rounded-full bg-yellow-400/20 blur-lg scale-150 pointer-events-none"></div>
+              )}
+            </button>
           </div>
 
           <button
@@ -510,50 +539,6 @@ export default function CameraPage() {
           </button>
         </div>
       </div>
-
-      {showIconSelector && (
-        <div
-          className="fixed inset-0 z-[150] flex items-center justify-center"
-          onClick={() => setShowIconSelector(false)}
-        >
-          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
-          <div
-            className="relative bg-white/20 backdrop-blur-xl rounded-3xl p-6 max-w-sm w-full mx-4 border border-white/30"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-white text-lg font-semibold">Select Icon</h3>
-              <button
-                onClick={() => setShowIconSelector(false)}
-                className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center active:bg-white/30 transition-colors"
-              >
-                <X className="w-5 h-5 text-white" />
-              </button>
-            </div>
-            <div className="grid grid-cols-4 gap-3">
-              {Object.entries(availableIcons).map(([key, data]) => {
-                const IconComponent = data.icon
-                const isSelected = selectedSlot !== null && controlIcons[selectedSlot] === key
-                return (
-                  <button
-                    key={key}
-                    onClick={() => handleIconSelect(key)}
-                    className={`aspect-square rounded-xl flex flex-col items-center justify-center gap-1 transition-all ${
-                      isSelected
-                        ? "bg-blue-500 border-2 border-blue-300"
-                        : "bg-white/10 border border-white/20 hover:bg-white/20 active:bg-white/30"
-                    }`}
-                  >
-                    <IconComponent className="w-6 h-6 text-white" />
-                    <span className="text-white text-[10px] text-center leading-tight">{data.name}</span>
-                  </button>
-                )
-              })}
-            </div>
-            <p className="text-white/70 text-xs mt-4 text-center">Long press any control button to customize</p>
-          </div>
-        </div>
-      )}
 
       {showVideoGallery && (
         <div className="fixed inset-0 z-[100] flex items-end" onClick={closeVideoGallery}>
