@@ -17,8 +17,7 @@ import {
   Grid3x3,
   Timer,
   UserXIcon,
-  Sun,
-  Contrast,
+  User,
 } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -44,7 +43,7 @@ export default function CameraPage() {
   const router = useRouter()
 
   const [icon1, setIcon1] = useState<"camera-flip" | "grid" | "timer">("camera-flip")
-  const [icon2, setIcon2] = useState<"settings" | "brightness" | "contrast">("settings")
+  const [icon2, setIcon2] = useState<"user-x" | "user" | "user-square">("user-x") // Changed to user icon types
   const [icon3, setIcon3] = useState<"flash" | "night-mode" | "hdr">("flash")
 
   useEffect(() => {
@@ -378,21 +377,25 @@ export default function CameraPage() {
               className="w-12 h-12 flex items-center justify-center active:bg-white/30 transition-all duration-200 active:scale-95 rounded-full border border-white/20 hover:bg-white/20 relative"
             >
               <div className="absolute inset-1 rounded-full bg-gradient-to-b from-white/20 to-transparent pointer-events-none"></div>
-              {icon1 === "camera-flip" && <UserSquare2Icon className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
+              {icon1 === "camera-flip" && (
+                <UserSquare2Icon className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />
+              )}
               {icon1 === "grid" && <Grid3x3 className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
               {icon1 === "timer" && <Timer className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
             </button>
 
             <button
               onClick={() => {
-                setIcon2(icon2 === "settings" ? "brightness" : icon2 === "brightness" ? "contrast" : "settings")
+                setIcon2(icon2 === "user-x" ? "user" : icon2 === "user" ? "user-square" : "user-x")
               }}
               className="w-12 h-12 flex items-center justify-center active:bg-white/30 transition-all duration-200 active:scale-95 rounded-full border border-white/20 hover:bg-white/20 relative"
             >
               <div className="absolute inset-1 rounded-full bg-gradient-to-b from-white/20 to-transparent pointer-events-none"></div>
-              {icon2 === "settings" && <UserXIcon className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
-              {icon2 === "brightness" && <Sun className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
-              {icon2 === "contrast" && <Contrast className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
+              {icon2 === "user-x" && <UserXIcon className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
+              {icon2 === "user" && <User className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
+              {icon2 === "user-square" && (
+                <UserSquare2Icon className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />
+              )}
             </button>
 
             <button
