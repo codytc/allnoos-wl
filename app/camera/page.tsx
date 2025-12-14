@@ -13,7 +13,8 @@ import {
   Play,
   Pause,
   Scissors,
-  TimerIcon,UserSquare2Icon,
+  TimerIcon,
+  UserSquare2Icon,
   Grid3x3,
   Timer,
   UserXIcon,
@@ -365,7 +366,7 @@ export default function CameraPage() {
             }`}
           >
             <div className="absolute inset-1 rounded-full bg-gradient-to-b from-white/30 to-transparent pointer-events-none"></div>
-            <Camera className="text-white drop-shadow-lg relative z-10 size-9" />
+            <Camera className="text-white drop-shadow-lg relative z-10 size-9" strokeWidth={1.5} />
             <div className="absolute inset-0 rounded-full bg-blue-400/20 blur-xl scale-150 pointer-events-none"></div>
           </button>
 
@@ -377,9 +378,7 @@ export default function CameraPage() {
               className="w-12 h-12 flex items-center justify-center active:bg-white/30 transition-all duration-200 active:scale-95 rounded-full border border-white/20 hover:bg-white/20 relative"
             >
               <div className="absolute inset-1 rounded-full bg-gradient-to-b from-white/20 to-transparent pointer-events-none"></div>
-              {icon1 === "camera-flip" && (
-                <TimerIcon className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />
-              )}
+              {icon1 === "camera-flip" && <TimerIcon className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
               {icon1 === "grid" && <Grid3x3 className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
               {icon1 === "timer" && <Timer className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
             </button>
@@ -460,9 +459,9 @@ export default function CameraPage() {
           >
             <div className="absolute inset-1 rounded-full bg-gradient-to-b from-white/30 to-transparent pointer-events-none"></div>
             {isRecording ? (
-              <OctagonIcon className="w-8 h-8 text-white drop-shadow-lg relative z-10" />
+              <OctagonIcon className="w-8 h-8 text-white drop-shadow-lg relative z-10" strokeWidth={1.5} />
             ) : (
-              <Video className="text-white drop-shadow-lg relative z-10 size-9" />
+              <Video className="text-white drop-shadow-lg relative z-10 size-9" strokeWidth={1.5} />
             )}
             <div className="absolute inset-0 rounded-full bg-red-400/20 blur-xl scale-150 pointer-events-none"></div>
           </button>
