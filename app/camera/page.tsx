@@ -46,6 +46,7 @@ export default function CameraPage() {
   const [icon1, setIcon1] = useState<"camera-flip" | "grid" | "timer">("camera-flip")
   const [icon2, setIcon2] = useState<"user-x" | "user" | "user-square">("user-x") // Changed to user icon types
   const [icon3, setIcon3] = useState<"flash" | "night-mode" | "hdr">("flash")
+  const [timerCountdown, setTimerCountdown] = useState<null | 5 | 10>(null)
 
   useEffect(() => {
     const savedPhotos = localStorage.getItem("cameraPhotos")
@@ -253,6 +254,7 @@ export default function CameraPage() {
     setShowCreateButton(false)
     setIsRecording(false)
     setIsPlaying(false)
+    setTimerCountdown(null)
 
     localStorage.removeItem("cameraPhotos")
     localStorage.removeItem("cameraVideos")
@@ -261,6 +263,18 @@ export default function CameraPage() {
     localStorage.removeItem("favoriteVideos")
 
     router.push("/feed")
+  }
+
+  const cycleTimerState = () => {
+    if (icon1 === "timer") {
+      if (timerCountdown === null) {
+        setTimerCountdown(5)
+      } else if (timerCountdown === 5) {
+        setTimerCountdown(10)
+      } else {
+        setTimerCountdown(null)
+      }
+    }
   }
 
   return (
@@ -373,14 +387,27 @@ export default function CameraPage() {
           <div className="flex items-center gap-4 px-2 mt-2 mb-[-25px]">
             <button
               onClick={() => {
-                setIcon1(icon1 === "camera-flip" ? "grid" : icon1 === "grid" ? "timer" : "camera-flip")
+                if (icon1 === "timer") {
+                  cycleTimerState()
+                } else {
+                  setIcon1(icon1 === "camera-flip" ? "grid" : icon1 === "grid" ? "timer" : "camera-flip")
+                  setTimerCountdown(null)
+                }
               }}
               className="w-12 h-12 flex items-center justify-center active:bg-white/30 transition-all duration-200 active:scale-95 rounded-full border border-white/20 hover:bg-white/20 relative"
             >
               <div className="absolute inset-1 rounded-full bg-gradient-to-b from-white/20 to-transparent pointer-events-none"></div>
               {icon1 === "camera-flip" && <TimerIcon className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
               {icon1 === "grid" && <Grid3x3 className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
-              {icon1 === "timer" && <Timer className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
+              {icon1 === "timer" && timerCountdown === null && (
+                <Timer className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />
+              )}
+              {icon1 === "timer" && timerCountdown === 5 && (
+                <span className="text-white font-bold text-xl drop-shadow-lg relative z-10">5</span>
+              )}
+              {icon1 === "timer" && timerCountdown === 10 && (
+                <span className="text-white font-bold text-xl drop-shadow-lg relative z-10">10</span>
+              )}
             </button>
 
             <button
