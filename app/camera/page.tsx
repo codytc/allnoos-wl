@@ -16,7 +16,7 @@ import {
   UserSquare2Icon,
   Grid3x3,
   Timer,
-  Settings,
+  UserXIcon,
   Sun,
   Contrast,
 } from "lucide-react"
@@ -390,7 +390,7 @@ export default function CameraPage() {
               className="w-12 h-12 flex items-center justify-center active:bg-white/30 transition-all duration-200 active:scale-95 rounded-full border border-white/20 hover:bg-white/20 relative"
             >
               <div className="absolute inset-1 rounded-full bg-gradient-to-b from-white/20 to-transparent pointer-events-none"></div>
-              {icon2 === "settings" && <Settings className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
+              {icon2 === "settings" && <UserXIcon className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
               {icon2 === "brightness" && <Sun className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
               {icon2 === "contrast" && <Contrast className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
             </button>
