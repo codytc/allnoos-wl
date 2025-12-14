@@ -13,7 +13,7 @@ import {
   Play,
   Pause,
   Scissors,
-  UserSquare2Icon,
+  TimerIcon,UserSquare2Icon,
   Grid3x3,
   Timer,
   UserXIcon,
@@ -378,7 +378,7 @@ export default function CameraPage() {
             >
               <div className="absolute inset-1 rounded-full bg-gradient-to-b from-white/20 to-transparent pointer-events-none"></div>
               {icon1 === "camera-flip" && (
-                <UserSquare2Icon className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />
+                <TimerIcon className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />
               )}
               {icon1 === "grid" && <Grid3x3 className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
               {icon1 === "timer" && <Timer className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
