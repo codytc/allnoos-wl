@@ -355,7 +355,9 @@ export default function CameraPage() {
 
           <div className="flex items-center gap-4 px-2 mt-2 mb-[-25px]">
             <button
-              onClick={toggleCamera}
+              onClick={() => {
+                setIcon1(icon1 === "camera-flip" ? "grid" : icon1 === "grid" ? "timer" : "camera-flip")
+              }}
               className="w-12 h-12 flex items-center justify-center active:bg-white/30 transition-all duration-200 active:scale-95 rounded-full border border-white/20 hover:bg-white/20 relative"
             >
               <div className="absolute inset-1 rounded-full bg-gradient-to-b from-white/20 to-transparent pointer-events-none"></div>
@@ -418,7 +420,12 @@ export default function CameraPage() {
               )}
             </button>
 
-            <button className="w-12 h-12 flex items-center justify-center active:bg-white/30 transition-all duration-200 active:scale-95 rounded-full border border-white/20 hover:bg-white/20 relative">
+            <button
+              onClick={() => {
+                setIcon2(icon2 === "settings" ? "brightness" : icon2 === "brightness" ? "contrast" : "settings")
+              }}
+              className="w-12 h-12 flex items-center justify-center active:bg-white/30 transition-all duration-200 active:scale-95 rounded-full border border-white/20 hover:bg-white/20 relative"
+            >
               <div className="absolute inset-1 rounded-full bg-gradient-to-b from-white/20 to-transparent pointer-events-none"></div>
               {icon2 === "settings" && (
                 <svg
@@ -488,19 +495,9 @@ export default function CameraPage() {
               )}
               {icon3 === "night-mode" && (
                 <svg
-                  className={`w-6 h-6 drop-shadow-lg relative z-10 ${flashEnabled ? "text-yellow-300" : "text-white"}`}
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
-                </svg>
-              )}
-              {icon3 === "hdr" && (
-                <svg
-                  className={`w-6 h-6 drop-shadow-lg relative z-10 ${flashEnabled ? "text-yellow-300" : "text-white"}`}
+                  className="w-6 h-6 drop-shadow-lg relative z-10"
                   fill="none"
-                  stroke="currentColor"
+                  stroke="white"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -508,12 +505,25 @@ export default function CameraPage() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
                   />
                 </svg>
               )}
-              {flashEnabled && (
-                <div className="absolute inset-0 rounded-full bg-yellow-400/20 blur-lg scale-150 pointer-events-none"></div>
+              {icon3 === "hdr" && (
+                <svg
+                  className="w-6 h-6 drop-shadow-lg relative z-10"
+                  fill="none"
+                  stroke="white"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
               )}
             </button>
           </div>
