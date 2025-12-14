@@ -2,7 +2,24 @@
 
 import type React from "react"
 import { useState, useEffect } from "react"
-import { X, Zap, Camera, Video, OctagonIcon, Trash2, Star, Play, Pause, Scissors } from "lucide-react"
+import {
+  X,
+  Zap,
+  Camera,
+  Video,
+  OctagonIcon,
+  Trash2,
+  Star,
+  Play,
+  Pause,
+  Scissors,
+  Repeat,
+  Grid3x3,
+  Timer,
+  Settings,
+  Sun,
+  Contrast,
+} from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import AllnoosLogo from "@/components/allnoos-logo"
@@ -361,63 +378,9 @@ export default function CameraPage() {
               className="w-12 h-12 flex items-center justify-center active:bg-white/30 transition-all duration-200 active:scale-95 rounded-full border border-white/20 hover:bg-white/20 relative"
             >
               <div className="absolute inset-1 rounded-full bg-gradient-to-b from-white/20 to-transparent pointer-events-none"></div>
-              {icon1 === "camera-flip" && (
-                <svg
-                  width="24"
-                  height="21"
-                  viewBox="0 0 28 25"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-6 h-6 drop-shadow-lg relative z-10"
-                >
-                  <path
-                    d="M5.50003 13.5035C5.50003 14.44 4.51117 14.9516 3.85984 14.3521L0.859841 11.5906C0.435564 11.2 0.378239 10.5035 0.731804 10.0349C1.08537 9.56621 1.71593 9.50289 2.14021 9.89343L3.50003 11.1451V6.87591C3.50003 3.21558 6.18632 0.248291 9.50002 0.248291H19.5C20.3655 0.248291 21.2076 0.558366 21.9 1.13197L23.1 2.12612C23.5419 2.49215 23.6314 3.18451 23.3 3.67256C22.9687 4.1606 22.3419 4.25951 21.9 3.89348L20.7 2.89934C20.3538 2.61253 19.9328 2.4575 19.5 2.4575H9.50002C7.29089 2.4575 5.50003 4.43569 5.50003 6.87591V13.5035Z"
-                    fill="white"
-                  />
-                  <path
-                    d="M22.5001 11.2942C22.5001 10.3577 23.489 9.8461 24.1403 10.4456L27.1403 13.2071C27.5646 13.5977 27.6219 14.2942 27.2684 14.7629C26.9148 15.2315 26.2842 15.2949 25.86 14.9043L24.5001 13.6526V17.9218C24.5001 21.5822 21.8139 24.5494 18.5001 24.5494H8.50014C7.63466 24.5494 6.79253 24.2394 6.10014 23.6658L4.90014 22.6716C4.45832 22.3056 4.36877 21.6132 4.70014 21.1252C5.03151 20.6371 5.65832 20.5382 6.10014 20.9043L7.30014 21.8984C7.64634 22.1852 8.0674 22.3402 8.50014 22.3402H18.5001C20.7093 22.3402 22.5001 20.3621 22.5001 17.9218V11.2942Z"
-                    fill="white"
-                  />
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M18.5001 12.3989C18.5001 15.1441 16.4854 17.3696 14.0001 17.3696C11.5148 17.3696 9.50008 15.1441 9.50008 12.3989C9.50008 9.65362 11.5148 7.42816 14.0001 7.42816C16.4854 7.42816 18.5001 9.65362 18.5001 12.3989ZM16.5001 12.3989C16.5001 13.924 15.3808 15.1604 14.0001 15.1604C12.6194 15.1604 11.5001 13.924 11.5001 12.3989C11.5001 10.8737 12.6194 9.63736 14.0001 9.63736C15.3808 9.63736 16.5001 10.8737 16.5001 12.3989Z"
-                    fill="white"
-                  />
-                </svg>
-              )}
-              {icon1 === "grid" && (
-                <svg
-                  className="w-6 h-6 drop-shadow-lg relative z-10"
-                  fill="none"
-                  stroke="white"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"
-                  />
-                </svg>
-              )}
-              {icon1 === "timer" && (
-                <svg
-                  className="w-6 h-6 drop-shadow-lg relative z-10"
-                  fill="none"
-                  stroke="white"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              )}
+              {icon1 === "camera-flip" && <Repeat className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
+              {icon1 === "grid" && <Grid3x3 className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
+              {icon1 === "timer" && <Timer className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
             </button>
 
             <button
@@ -427,56 +390,9 @@ export default function CameraPage() {
               className="w-12 h-12 flex items-center justify-center active:bg-white/30 transition-all duration-200 active:scale-95 rounded-full border border-white/20 hover:bg-white/20 relative"
             >
               <div className="absolute inset-1 rounded-full bg-gradient-to-b from-white/20 to-transparent pointer-events-none"></div>
-              {icon2 === "settings" && (
-                <svg
-                  className="w-6 h-6 drop-shadow-lg relative z-10"
-                  fill="none"
-                  stroke="white"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg>
-              )}
-              {icon2 === "brightness" && (
-                <svg
-                  className="w-6 h-6 drop-shadow-lg relative z-10"
-                  fill="none"
-                  stroke="white"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                  />
-                </svg>
-              )}
-              {icon2 === "contrast" && (
-                <svg
-                  className="w-6 h-6 drop-shadow-lg relative z-10"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle cx="12" cy="12" r="9" strokeWidth={2} />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v18" />
-                </svg>
-              )}
+              {icon2 === "settings" && <Settings className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
+              {icon2 === "brightness" && <Sun className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
+              {icon2 === "contrast" && <Contrast className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
             </button>
 
             <button
