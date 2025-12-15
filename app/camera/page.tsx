@@ -386,7 +386,7 @@ export default function CameraPage() {
           </button>
 
           <div className="flex items-center gap-4 px-2 mt-2 mb-[-25px]">
-            <button
+            <div
               onClick={() => {
                 if (icon1 === "timer") {
                   cycleTimerState()
@@ -395,53 +395,39 @@ export default function CameraPage() {
                   setTimerCountdown(null)
                 }
               }}
-              className="w-12 h-12 flex items-center justify-center active:bg-white/40 active:scale-110 transition-all duration-300 rounded-full border border-white/30 hover:bg-white/30 relative bg-white/20 backdrop-blur-md shadow-lg group overflow-hidden"
+              className="cursor-pointer"
             >
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
-              {icon1 === "camera-flip" && <TimerIcon className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
-              {icon1 === "grid" && <Grid3x3 className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
-              {icon1 === "timer" && timerCountdown === null && (
-                <Timer className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />
-              )}
+              {icon1 === "camera-flip" && <TimerIcon className="w-6 h-6 drop-shadow-lg text-white" />}
+              {icon1 === "grid" && <Grid3x3 className="w-6 h-6 drop-shadow-lg text-white" />}
+              {icon1 === "timer" && timerCountdown === null && <Timer className="w-6 h-6 drop-shadow-lg text-white" />}
               {icon1 === "timer" && timerCountdown === 5 && (
-                <span className="text-white font-bold text-xl drop-shadow-lg relative z-10">5</span>
+                <span className="text-white font-bold text-xl drop-shadow-lg">5</span>
               )}
               {icon1 === "timer" && timerCountdown === 10 && (
-                <span className="text-white font-bold text-xl drop-shadow-lg relative z-10">10</span>
+                <span className="text-white font-bold text-xl drop-shadow-lg">10</span>
               )}
-            </button>
+            </div>
 
-            <button
+            <div
               onClick={() => {
                 setIcon2(icon2 === "user-x" ? "user" : icon2 === "user" ? "user-square" : "user-x")
               }}
-              className="w-12 h-12 flex items-center justify-center active:bg-white/40 active:scale-110 transition-all duration-300 rounded-full border border-white/30 hover:bg-white/30 relative bg-white/20 backdrop-blur-md shadow-lg group overflow-hidden"
+              className="cursor-pointer"
             >
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
-              {icon2 === "user-x" && <UserXIcon className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
-              {icon2 === "user" && <User className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
+              {icon2 === "user-x" && <UserXIcon className="w-6 h-6 drop-shadow-lg text-white" />}
+              {icon2 === "user" && <User className="w-6 h-6 drop-shadow-lg text-white" />}
               {icon2 === "user-square" && (
-                <UserSquare2Icon className="drop-shadow-lg relative z-10 text-white size-7" strokeWidth={1.5} />
+                <UserSquare2Icon className="drop-shadow-lg text-white size-7" strokeWidth={1.5} />
               )}
-            </button>
+            </div>
 
-            <button
-              onClick={toggleFlash}
-              className={`w-12 h-12 flex items-center justify-center transition-all duration-300 active:scale-110 rounded-full border relative group overflow-hidden shadow-lg backdrop-blur-md ${
-                flashEnabled
-                  ? "bg-gradient-to-br from-yellow-400/40 to-yellow-600/40 border-yellow-300/50 shadow-yellow-500/30"
-                  : "border-white/30 hover:bg-white/30 active:bg-white/40 bg-white/20"
-              }`}
-            >
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
+            <div onClick={toggleFlash} className="cursor-pointer">
               {icon3 === "flash" && (
-                <Zap
-                  className={`w-6 h-6 drop-shadow-lg relative z-10 ${flashEnabled ? "text-yellow-300" : "text-white"}`}
-                />
+                <Zap className={`w-6 h-6 drop-shadow-lg ${flashEnabled ? "text-yellow-300" : "text-white"}`} />
               )}
               {icon3 === "night-mode" && (
                 <svg
-                  className="w-6 h-6 drop-shadow-lg relative z-10"
+                  className="w-6 h-6 drop-shadow-lg"
                   fill="none"
                   stroke="white"
                   viewBox="0 0 24 24"
@@ -457,7 +443,7 @@ export default function CameraPage() {
               )}
               {icon3 === "hdr" && (
                 <svg
-                  className="w-6 h-6 drop-shadow-lg relative z-10"
+                  className="w-6 h-6 drop-shadow-lg"
                   fill="none"
                   stroke="white"
                   viewBox="0 0 24 24"
@@ -471,7 +457,7 @@ export default function CameraPage() {
                   />
                 </svg>
               )}
-            </button>
+            </div>
           </div>
 
           <button
