@@ -3,7 +3,7 @@
 import type React from "react"
 import { useState, useEffect } from "react"
 import {
-  X,
+  ChevronLeftIcon,X,
   Zap,
   Camera,
   Video,
@@ -19,7 +19,6 @@ import {
   Timer,
   UserXIcon,
   User,
-  ChevronLeftIcon,
 } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -338,10 +337,9 @@ export default function CameraPage() {
 
       <button
         onClick={resetCameraState}
-        className="absolute top-5 left-6 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg hover:bg-white/30 active:bg-white/40 active:scale-110 transition-all duration-300 group relative overflow-hidden"
+        className="absolute top-14 left-6 z-50 w-12 h-12 flex items-center justify-center text-white active:bg-white/10 rounded-full transition-all duration-200"
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent rounded-full opacity-60"></div>
-        <ChevronLeftIcon className="w-5 h-5 group-active:text-primary/80 relative z-10 text-slate-600" />
+        <ChevronLeftIcon className="w-7 h-7 mt-0 mb-[70px] ml-[-30px]" />
       </button>
 
       {isRecording && (
