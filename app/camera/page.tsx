@@ -365,7 +365,7 @@ export default function CameraPage() {
               onClick={openVideoGallery}
               className="relative w-10 h-10 flex items-center justify-center cursor-pointer"
             >
-              <Video className="w-10 h-10 text-white relative z-10" strokeWidth={1.5} />
+              <Video className="w-10 h-10 text-white relative z-10 opacity-90" strokeWidth={1.5} />
               <span
                 className={`absolute ${capturedVideos < 10 ? "left-[10px]" : "left-[6px]"} text-red-400 font-bold text-sm z-20`}
               >
