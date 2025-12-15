@@ -324,7 +324,7 @@ export default function CameraPage() {
           </button>
         </div>
 
-        <div className="relative flex items-center justify-center h-12 px-8">
+        <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center h-12">
           <div className="absolute top-[-18px] left-[50%] transform translate-x-[-10px] z-10 italic text-xs tracking-tighter my-[22px] mb-0 mt-[22px] mr-0 ml-[-8px]">
             <span className="text-white ml-[-1px] mb-0 mt-0 font-medium tracking-tighter text-xs">CAMERA</span>
           </div>
