@@ -370,7 +370,7 @@ export default function CameraPage() {
       )}
 
       <div className="absolute bottom-8 left-0 right-0 z-50 flex items-center justify-center gap-8 px-8">
-        <div className="relative bg-white/20 backdrop-blur-md rounded-full flex items-center border border-white/30 p-2 shadow-lg mb-[-20px] gap-0 px-0.5 py-1">
+        <div className="relative bg-white/5 backdrop-blur-sm rounded-full flex items-center border border-white/10 p-2 shadow-lg mb-[-20px] gap-0 px-0.5 py-1">
           <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
 
           {showCreateButton && (
