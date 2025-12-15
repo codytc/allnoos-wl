@@ -16,10 +16,9 @@ import {
   Scissors,
   TimerIcon,
   UserSquare2Icon,
-  Grid3x3,
-  Timer,
   UserXIcon,
   User,
+  Clock,
 } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -284,18 +283,6 @@ export default function CameraPage() {
     router.push("/feed")
   }
 
-  const cycleTimerState = () => {
-    if (icon1 === "timer") {
-      if (timerCountdown === null) {
-        setTimerCountdown(5)
-      } else if (timerCountdown === 5) {
-        setTimerCountdown(10)
-      } else {
-        setTimerCountdown(null)
-      }
-    }
-  }
-
   const handleCaptureWithTimer = () => {
     if (timerCountdown !== null) {
       setActiveCountdown(timerCountdown)
@@ -444,20 +431,23 @@ export default function CameraPage() {
             <div
               onClick={() => {
                 if (icon1 === "timer") {
-                  cycleTimerState()
+                  if (timerCountdown === 5) {
+                    setTimerCountdown(10)
+                  } else if (timerCountdown === 10) {
+                    setTimerCountdown(null)
+                    setIcon1("camera-flip")
+                  }
                 } else {
-                  setIcon1(icon1 === "camera-flip" ? "grid" : icon1 === "grid" ? "timer" : "camera-flip")
-                  setTimerCountdown(null)
+                  setIcon1("timer")
+                  setTimerCountdown(5)
                 }
               }}
               className="cursor-pointer w-7 flex items-center justify-center"
             >
               {icon1 === "camera-flip" && <TimerIcon className="w-6 h-6 drop-shadow-lg text-white" />}
-              {icon1 === "grid" && <Grid3x3 className="w-6 h-6 drop-shadow-lg text-white" />}
-              {icon1 === "timer" && timerCountdown === null && <Timer className="w-6 h-6 drop-shadow-lg text-white" />}
               {icon1 === "timer" && timerCountdown === 5 && (
                 <div className="relative w-6 h-6">
-                  <Timer className="w-6 h-6 drop-shadow-lg text-white absolute" />
+                  <Clock className="w-6 h-6 drop-shadow-lg text-white absolute" />
                   <span className="absolute inset-0 flex items-center justify-center text-white font-bold text-xs drop-shadow-lg">
                     5
                   </span>
@@ -465,7 +455,7 @@ export default function CameraPage() {
               )}
               {icon1 === "timer" && timerCountdown === 10 && (
                 <div className="relative w-6 h-6">
-                  <Timer className="w-6 h-6 drop-shadow-lg text-white absolute" />
+                  <Clock className="w-6 h-6 drop-shadow-lg text-white absolute" />
                   <span className="absolute inset-0 flex items-center justify-center text-white font-bold text-[10px] drop-shadow-lg">
                     10
                   </span>
