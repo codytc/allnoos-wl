@@ -366,7 +366,11 @@ export default function CameraPage() {
               className="relative w-10 h-10 flex items-center justify-center cursor-pointer"
             >
               <Video className="w-9 h-9 text-white relative z-10" strokeWidth={1.5} />
-              <span className="absolute left-[6px] text-red-400 font-bold text-sm z-20">{capturedVideos}</span>
+              <span
+                className={`absolute ${capturedVideos < 10 ? "left-[10px]" : "left-[6px]"} text-red-400 font-bold text-sm z-20`}
+              >
+                {capturedVideos}
+              </span>
             </div>
           )}
         </div>
