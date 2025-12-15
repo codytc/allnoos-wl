@@ -351,17 +351,15 @@ export default function CameraPage() {
       )}
 
       <div className="absolute bottom-8 left-0 right-0 z-50 flex items-center justify-center gap-8 px-8">
-        <div className="relative bg-gradient-to-r from-white/15 via-white/25 to-white/15 backdrop-blur-xl rounded-full flex items-center border border-white/30 p-2 shadow-2xl mb-[-20px] gap-0 px-0.5 py-1">
-          <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/20 to-transparent pointer-events-none"></div>
+        <div className="relative bg-white/20 backdrop-blur-md rounded-full flex items-center border border-white/30 p-2 shadow-lg mb-[-20px] gap-0 px-0.5 py-1">
+          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
 
           {showCreateButton && (
             <div className="absolute top-[-60px] left-1/2 transform -translate-x-1/2 z-10">
               <Link href="/create" className="flex items-center justify-center">
                 <button className="bg-gradient-to-br from-yellow-400 to-yellow-600 active:from-yellow-500 active:to-yellow-700 transition-all duration-200 active:scale-95 rounded-full flex items-center justify-center shadow-lg border-2 border-yellow-300/50 relative z-10 mt-16 w-28 font-medium h-6">
-                  <div className="absolute inset-1 rounded-full bg-gradient-to-b from-white/40 to-transparent pointer-events-none"></div>
-                  <span className="text-white drop-shadow-lg relative z-10 text-base mt-0 mb-1 font-normal">
-                    DRAFT
-                  </span>
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
+                  <span className="text-white drop-shadow-lg relative z-10 text-base mt-0 mb-1 font-normal">DRAFT</span>
                   <div className="absolute inset-0 rounded-full bg-yellow-400/30 blur-lg scale-150 pointer-events-none"></div>
                 </button>
               </Link>
@@ -379,7 +377,7 @@ export default function CameraPage() {
                 : "bg-gradient-to-br from-blue-500/70 to-blue-700/70 border-blue-400/30 hover:from-blue-400/80 hover:to-blue-600/80"
             }`}
           >
-            <div className="absolute inset-1 rounded-full bg-gradient-to-b from-white/30 to-transparent pointer-events-none"></div>
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
             <Camera className="text-white drop-shadow-lg relative z-10 size-9" strokeWidth={1.5} />
             <div className="absolute inset-0 rounded-full bg-blue-400/20 blur-xl scale-150 pointer-events-none"></div>
           </button>
@@ -394,9 +392,9 @@ export default function CameraPage() {
                   setTimerCountdown(null)
                 }
               }}
-              className="w-12 h-12 flex items-center justify-center active:bg-white/30 transition-all duration-200 active:scale-95 rounded-full border border-white/20 hover:bg-white/20 relative"
+              className="w-12 h-12 flex items-center justify-center active:bg-white/40 active:scale-110 transition-all duration-300 rounded-full border border-white/30 hover:bg-white/30 relative bg-white/20 backdrop-blur-md shadow-lg group overflow-hidden"
             >
-              <div className="absolute inset-1 rounded-full bg-gradient-to-b from-white/20 to-transparent pointer-events-none"></div>
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
               {icon1 === "camera-flip" && <TimerIcon className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
               {icon1 === "grid" && <Grid3x3 className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
               {icon1 === "timer" && timerCountdown === null && (
@@ -414,9 +412,9 @@ export default function CameraPage() {
               onClick={() => {
                 setIcon2(icon2 === "user-x" ? "user" : icon2 === "user" ? "user-square" : "user-x")
               }}
-              className="w-12 h-12 flex items-center justify-center active:bg-white/30 transition-all duration-200 active:scale-95 rounded-full border border-white/20 hover:bg-white/20 relative"
+              className="w-12 h-12 flex items-center justify-center active:bg-white/40 active:scale-110 transition-all duration-300 rounded-full border border-white/30 hover:bg-white/30 relative bg-white/20 backdrop-blur-md shadow-lg group overflow-hidden"
             >
-              <div className="absolute inset-1 rounded-full bg-gradient-to-b from-white/20 to-transparent pointer-events-none"></div>
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
               {icon2 === "user-x" && <UserXIcon className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
               {icon2 === "user" && <User className="w-6 h-6 drop-shadow-lg relative z-10 text-white" />}
               {icon2 === "user-square" && (
@@ -426,13 +424,13 @@ export default function CameraPage() {
 
             <button
               onClick={toggleFlash}
-              className={`w-12 h-12 flex items-center justify-center transition-all duration-200 active:scale-95 rounded-full border relative ${
+              className={`w-12 h-12 flex items-center justify-center transition-all duration-300 active:scale-110 rounded-full border relative group overflow-hidden shadow-lg backdrop-blur-md ${
                 flashEnabled
                   ? "bg-gradient-to-br from-yellow-400/40 to-yellow-600/40 border-yellow-300/50 shadow-yellow-500/30"
-                  : "border-white/20 hover:bg-white/20 active:bg-white/30"
+                  : "border-white/30 hover:bg-white/30 active:bg-white/40 bg-white/20"
               }`}
             >
-              <div className="absolute inset-1 rounded-full bg-gradient-to-b from-white/20 to-transparent pointer-events-none"></div>
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
               {icon3 === "flash" && (
                 <Zap
                   className={`w-6 h-6 drop-shadow-lg relative z-10 ${flashEnabled ? "text-yellow-300" : "text-white"}`}
@@ -484,7 +482,7 @@ export default function CameraPage() {
                 : "bg-gradient-to-br from-red-500/70 to-red-700/70 border-red-400/30 hover:from-red-400/80 hover:to-red-600/80"
             } ${isRecording ? "animate-pulse" : ""}`}
           >
-            <div className="absolute inset-1 rounded-full bg-gradient-to-b from-white/30 to-transparent pointer-events-none"></div>
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
             {isRecording ? (
               <OctagonIcon className="w-8 h-8 text-white drop-shadow-lg relative z-10" strokeWidth={1.5} />
             ) : (
