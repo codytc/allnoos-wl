@@ -335,9 +335,9 @@ export default function CameraPage() {
 
         <div className="flex-1 flex justify-end gap-2">
           {capturedPhotos.length > 0 && (
-            <button
+            <div
               onClick={openPhotoGallery}
-              className="relative w-10 h-10 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-center active:bg-white/10 transition-all duration-200 shadow-lg"
+              className="relative w-10 h-10 flex items-center justify-center cursor-pointer"
             >
               <svg
                 className="w-8 h-8 text-white relative z-10"
@@ -357,13 +357,13 @@ export default function CameraPage() {
                   {capturedPhotos.length}
                 </span>
               )}
-            </button>
+            </div>
           )}
 
           {capturedVideos > 0 && (
-            <button
+            <div
               onClick={openVideoGallery}
-              className="relative w-10 h-10 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-center active:bg-white/10 transition-all duration-200 shadow-lg"
+              className="relative w-10 h-10 flex items-center justify-center cursor-pointer"
             >
               <svg
                 className="w-9 h-9 text-white relative z-10"
@@ -379,7 +379,7 @@ export default function CameraPage() {
                 />
               </svg>
               <span className="absolute left-[6px] text-red-400 font-bold text-sm z-20">{capturedVideos}</span>
-            </button>
+            </div>
           )}
         </div>
       </div>
