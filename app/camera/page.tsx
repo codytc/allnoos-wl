@@ -314,11 +314,11 @@ export default function CameraPage() {
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
 
-      <div className="absolute top-0 left-0 right-0 z-50 flex items-center px-6 py-4 text-white justify-center">
+      <div className="absolute top-0 left-0 right-0 z-50 flex items-end px-6 py-4 text-white justify-center">
         <div className="flex-1 flex justify-start">
           <button
             onClick={resetCameraState}
-            className="w-14 h-14 flex items-center justify-center text-white active:bg-white/10 rounded-full transition-all duration-200"
+            className="w-14 h-12 flex items-center justify-center text-white active:bg-white/10 rounded-full transition-all duration-200"
           >
             <ChevronLeftIcon className="w-8 h-8 opacity-90" />
           </button>
@@ -333,7 +333,7 @@ export default function CameraPage() {
           </div>
         </div>
 
-        <div className="flex-1 flex justify-end gap-2">
+        <div className="flex-1 flex justify-end gap-2 h-12 items-end">
           {capturedPhotos.length > 0 && (
             <div
               onClick={openPhotoGallery}
