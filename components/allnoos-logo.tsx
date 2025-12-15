@@ -51,7 +51,7 @@ export function AllnoosLogo({
 
   return (
     <h1
-      className={`block flex-shrink-0 whitespace-nowrap leading-none italic font-medium ${getColorClass()} ${className} ${onClick ? "cursor-pointer" : ""} ${
+      className={`block flex-shrink-0 whitespace-nowrap leading-none italic font-medium opacity-100 ${getColorClass()} ${className} ${onClick ? "cursor-pointer" : ""} ${
         animated ? "transition-all duration-700 ease-in-out" : ""
       }`}
       style={{

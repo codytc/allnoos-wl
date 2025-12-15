@@ -295,7 +295,7 @@ export default function CameraPage() {
             onClick={resetCameraState}
             className="w-14 h-14 flex items-center justify-center text-white active:bg-white/10 rounded-full transition-all duration-200"
           >
-            <ChevronLeftIcon className="w-8 h-8" />
+            <ChevronLeftIcon className="w-8 h-8 opacity-90" />
           </button>
         </div>
 
