@@ -298,7 +298,6 @@ export default function CameraPage() {
             <ChevronLeftIcon className="w-8 h-8" />
           </button>
         </div>
-        <div className="flex-1"></div>
 
         <div className="relative flex items-center justify-center h-12 px-8">
           <div className="absolute top-[-18px] left-[50%] transform translate-x-[-10px] z-10 italic text-xs tracking-tighter my-[22px] mb-0 mt-[22px] mr-0 ml-[-8px]">
@@ -308,6 +307,8 @@ export default function CameraPage() {
             <AllnoosLogo variant="white" size="md" animated={false} />
           </div>
         </div>
+
+        <div className="flex-1"></div>
       </div>
 
       {(capturedPhotos.length > 0 || capturedVideos > 0) && (
