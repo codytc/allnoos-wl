@@ -366,7 +366,7 @@ export default function CameraPage() {
               className="relative w-10 h-10 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-center active:bg-white/10 transition-all duration-200 shadow-lg"
             >
               <svg
-                className="w-8 h-8 text-white relative z-10"
+                className="w-9 h-9 text-white relative z-10"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -378,7 +378,7 @@ export default function CameraPage() {
                   d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72 4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"
                 />
               </svg>
-              <span className="absolute left-2 text-red-400 font-bold text-sm z-20">{capturedVideos}</span>
+              <span className="absolute left-[6px] text-red-400 font-bold text-sm z-20">{capturedVideos}</span>
             </button>
           )}
         </div>
