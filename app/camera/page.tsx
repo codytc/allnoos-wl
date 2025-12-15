@@ -563,13 +563,17 @@ export default function CameraPage() {
           <button
             onClick={() => {
               handleVideoMode()
-              handleCaptureWithTimer()
+              if (isRecording) {
+                handleVideoCapture()
+              } else {
+                handleCaptureWithTimer()
+              }
             }}
             className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg border-2 ${
               recordingMode === "video"
-                ? "bg-gradient-to-br from-red-400 to-red-600 border-red-300/50 shadow-red-500/30"
-                : "bg-gradient-to-br from-red-500/70 to-red-700/70 border-red-400/30 hover:from-red-400/80 hover:to-red-600/80"
-            } ${isRecording ? "animate-pulse" : ""}`}
+                ? "bg-gradient-to-br from-red-500 to-red-700 border-red-400/50 shadow-red-600/30"
+                : "bg-gradient-to-br from-red-600/70 to-red-800/70 border-red-500/30 hover:from-red-500/80 hover:to-red-700/80"
+            }`}
             disabled={activeCountdown !== null}
           >
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
