@@ -312,11 +312,10 @@ export default function CameraPage() {
           {capturedPhotos.length > 0 && (
             <button
               onClick={openPhotoGallery}
-              className="relative w-10 h-10 rounded-full bg-blue-500/20 backdrop-blur-sm border border-blue-400/30 flex items-center justify-center active:bg-blue-500/30 transition-all duration-200 shadow-lg"
+              className="relative w-10 h-10 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-center active:bg-white/10 transition-all duration-200 shadow-lg"
             >
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 via-transparent to-transparent pointer-events-none opacity-60"></div>
               {capturedPhotos.length > 1 && (
-                <span className="absolute text-blue-400/60 font-bold text-2xl z-0">{capturedPhotos.length}</span>
+                <span className="absolute text-blue-400/80 font-bold text-2xl z-0">{capturedPhotos.length}</span>
               )}
               <Camera className="w-5 h-5 text-white relative z-10" strokeWidth={1.5} />
             </button>
@@ -325,10 +324,9 @@ export default function CameraPage() {
           {capturedVideos > 0 && (
             <button
               onClick={openVideoGallery}
-              className="relative w-10 h-10 rounded-full bg-red-500/20 backdrop-blur-sm border border-red-400/30 flex items-center justify-center active:bg-red-500/30 transition-all duration-200 shadow-lg"
+              className="relative w-10 h-10 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-center active:bg-white/10 transition-all duration-200 shadow-lg"
             >
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 via-transparent to-transparent pointer-events-none opacity-60"></div>
-              <span className="absolute text-red-400/60 font-bold text-2xl z-0">{capturedVideos}</span>
+              <span className="absolute text-red-400/80 font-bold text-2xl z-0">{capturedVideos}</span>
               <Video className="w-5 h-5 text-white relative z-10" strokeWidth={1.5} />
             </button>
           )}
