@@ -395,7 +395,7 @@ export default function CameraPage() {
                   setTimerCountdown(null)
                 }
               }}
-              className="cursor-pointer"
+              className="cursor-pointer w-7 flex items-center justify-center"
             >
               {icon1 === "camera-flip" && <TimerIcon className="w-6 h-6 drop-shadow-lg text-white" />}
               {icon1 === "grid" && <Grid3x3 className="w-6 h-6 drop-shadow-lg text-white" />}
@@ -412,7 +412,7 @@ export default function CameraPage() {
               onClick={() => {
                 setIcon2(icon2 === "user-x" ? "user" : icon2 === "user" ? "user-square" : "user-x")
               }}
-              className="cursor-pointer"
+              className="cursor-pointer w-7 flex items-center justify-center"
             >
               {icon2 === "user-x" && <UserXIcon className="w-6 h-6 drop-shadow-lg text-white" />}
               {icon2 === "user" && <User className="w-6 h-6 drop-shadow-lg text-white" />}
@@ -421,7 +421,7 @@ export default function CameraPage() {
               )}
             </div>
 
-            <div onClick={toggleFlash} className="cursor-pointer">
+            <div onClick={toggleFlash} className="cursor-pointer w-7 flex items-center justify-center">
               {icon3 === "flash" && (
                 <Zap className={`w-6 h-6 drop-shadow-lg ${flashEnabled ? "text-yellow-300" : "text-white"}`} />
               )}
