@@ -17,7 +17,6 @@ import {
   UserSquare2Icon,
   UserXIcon,
   User,
-  Clock,
 } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -451,20 +450,56 @@ export default function CameraPage() {
               }}
               className="cursor-pointer w-7 flex items-center justify-center"
             >
-              {icon1 === "camera-flip" && <Clock className="w-6 h-6 drop-shadow-lg text-white" />}
-              {icon1 === "timer" && timerCountdown === null && <Clock className="w-6 h-6 drop-shadow-lg text-white" />}
+              {icon1 === "camera-flip" && (
+                <svg
+                  className="w-6 h-6 drop-shadow-lg text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                >
+                  <circle cx="12" cy="12" r="9" />
+                </svg>
+              )}
+              {icon1 === "timer" && timerCountdown === null && (
+                <svg
+                  className="w-6 h-6 drop-shadow-lg text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                >
+                  <circle cx="12" cy="12" r="9" />
+                </svg>
+              )}
               {icon1 === "timer" && timerCountdown === 5 && (
                 <div className="relative w-6 h-6">
-                  <Clock className="w-6 h-6 drop-shadow-lg text-white absolute" />
-                  <span className="absolute inset-0 flex items-center justify-center text-white font-bold text-xs drop-shadow-lg">
+                  <svg
+                    className="w-6 h-6 drop-shadow-lg text-white absolute"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                  >
+                    <circle cx="12" cy="12" r="9" />
+                  </svg>
+                  <span className="absolute inset-0 flex items-center justify-center text-white font-bold text-sm drop-shadow-lg">
                     5
                   </span>
                 </div>
               )}
               {icon1 === "timer" && timerCountdown === 10 && (
                 <div className="relative w-6 h-6">
-                  <Clock className="w-6 h-6 drop-shadow-lg text-white absolute" />
-                  <span className="absolute inset-0 flex items-center justify-center text-white font-bold text-[10px] drop-shadow-lg">
+                  <svg
+                    className="w-6 h-6 drop-shadow-lg text-white absolute"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                  >
+                    <circle cx="12" cy="12" r="9" />
+                  </svg>
+                  <span className="absolute inset-0 flex items-center justify-center text-white font-bold text-sm drop-shadow-lg">
                     10
                   </span>
                 </div>
