@@ -42,12 +42,12 @@ export default function CameraPage() {
   const [selectedPhoto, setSelectedPhoto] = useState<number | null>(null)
   const [lastTap, setLastTap] = useState<number>(0)
   const [showCreateButton, setShowCreateButton] = useState(false)
-  const router = useRouter()
-
-  const [icon1, setIcon1] = useState<"camera-flip" | "grid" | "timer">("camera-flip")
-  const [icon2, setIcon2] = useState<"user-x" | "user" | "user-square">("user-x") // Changed to user icon types
-  const [icon3, setIcon3] = useState<"flash" | "night-mode" | "hdr">("flash")
   const [timerCountdown, setTimerCountdown] = useState<null | 5 | 10>(null)
+  const [activeCountdown, setActiveCountdown] = useState<number | null>(null)
+  const [icon1, setIcon1] = useState<"camera-flip" | "grid" | "timer">("camera-flip")
+  const [icon2, setIcon2] = useState<"user-x" | "user" | "user-square">("user-x")
+  const [icon3, setIcon3] = useState<"flash" | "night-mode" | "hdr">("flash")
+  const router = useRouter()
 
   useEffect(() => {
     const savedPhotos = localStorage.getItem("cameraPhotos")
@@ -100,6 +100,23 @@ export default function CameraPage() {
   useEffect(() => {
     localStorage.setItem("favoriteVideos", JSON.stringify(Array.from(favoriteVideos)))
   }, [favoriteVideos])
+
+  useEffect(() => {
+    if (activeCountdown !== null && activeCountdown > 0) {
+      const timer = setTimeout(() => {
+        setActiveCountdown(activeCountdown - 1)
+      }, 1000)
+      return () => clearTimeout(timer)
+    } else if (activeCountdown === 0) {
+      // Trigger capture based on recording mode
+      if (recordingMode === "photo") {
+        handlePhotoCapture()
+      } else {
+        handleVideoCapture()
+      }
+      setActiveCountdown(null)
+    }
+  }, [activeCountdown, recordingMode])
 
   const handlePhotoCapture = () => {
     console.log("[v0] Taking photo...")
@@ -256,6 +273,7 @@ export default function CameraPage() {
     setIsRecording(false)
     setIsPlaying(false)
     setTimerCountdown(null)
+    setActiveCountdown(null)
 
     localStorage.removeItem("cameraPhotos")
     localStorage.removeItem("cameraVideos")
@@ -274,6 +292,18 @@ export default function CameraPage() {
         setTimerCountdown(10)
       } else {
         setTimerCountdown(null)
+      }
+    }
+  }
+
+  const handleCaptureWithTimer = () => {
+    if (timerCountdown !== null) {
+      setActiveCountdown(timerCountdown)
+    } else {
+      if (recordingMode === "photo") {
+        handlePhotoCapture()
+      } else {
+        handleVideoCapture()
       }
     }
   }
@@ -352,7 +382,7 @@ export default function CameraPage() {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"
+                  d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72 4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"
                 />
               </svg>
               <span className="absolute left-2 text-red-400 font-bold text-sm z-20">{capturedVideos}</span>
@@ -365,6 +395,14 @@ export default function CameraPage() {
         <div className="absolute top-16 left-1/2 -translate-x-1/2 z-50">
           <div className="bg-red-500/30 backdrop-blur-sm rounded-full px-6 py-2 animate-pulse">
             <span className="text-white font-semibold text-lg">Recording</span>
+          </div>
+        </div>
+      )}
+
+      {activeCountdown !== null && activeCountdown > 0 && (
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
+          <div className="bg-white/20 backdrop-blur-md rounded-full w-32 h-32 flex items-center justify-center border-4 border-white/40 shadow-2xl">
+            <span className="text-white font-bold text-6xl drop-shadow-lg">{activeCountdown}</span>
           </div>
         </div>
       )}
@@ -388,13 +426,14 @@ export default function CameraPage() {
           <button
             onClick={() => {
               handlePhotoMode()
-              handlePhotoCapture()
+              handleCaptureWithTimer()
             }}
             className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg border-2 ${
               recordingMode === "photo"
                 ? "bg-gradient-to-br from-blue-400 to-blue-600 border-blue-300/50 shadow-blue-500/30"
                 : "bg-gradient-to-br from-blue-500/70 to-blue-700/70 border-blue-400/30 hover:from-blue-400/80 hover:to-blue-600/80"
             }`}
+            disabled={activeCountdown !== null}
           >
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
             <Camera className="text-white drop-shadow-lg relative z-10 size-9" strokeWidth={1.5} />
@@ -417,10 +456,20 @@ export default function CameraPage() {
               {icon1 === "grid" && <Grid3x3 className="w-6 h-6 drop-shadow-lg text-white" />}
               {icon1 === "timer" && timerCountdown === null && <Timer className="w-6 h-6 drop-shadow-lg text-white" />}
               {icon1 === "timer" && timerCountdown === 5 && (
-                <span className="text-white font-bold text-xl drop-shadow-lg">5</span>
+                <div className="relative w-6 h-6">
+                  <Timer className="w-6 h-6 drop-shadow-lg text-white absolute" />
+                  <span className="absolute inset-0 flex items-center justify-center text-white font-bold text-xs drop-shadow-lg">
+                    5
+                  </span>
+                </div>
               )}
               {icon1 === "timer" && timerCountdown === 10 && (
-                <span className="text-white font-bold text-xl drop-shadow-lg">10</span>
+                <div className="relative w-6 h-6">
+                  <Timer className="w-6 h-6 drop-shadow-lg text-white absolute" />
+                  <span className="absolute inset-0 flex items-center justify-center text-white font-bold text-[10px] drop-shadow-lg">
+                    10
+                  </span>
+                </div>
               )}
             </div>
 
@@ -479,13 +528,14 @@ export default function CameraPage() {
           <button
             onClick={() => {
               handleVideoMode()
-              handleVideoCapture()
+              handleCaptureWithTimer()
             }}
             className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg border-2 ${
               recordingMode === "video"
                 ? "bg-gradient-to-br from-red-400 to-red-600 border-red-300/50 shadow-red-500/30"
                 : "bg-gradient-to-br from-red-500/70 to-red-700/70 border-red-400/30 hover:from-red-400/80 hover:to-red-600/80"
             } ${isRecording ? "animate-pulse" : ""}`}
+            disabled={activeCountdown !== null}
           >
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
             {isRecording ? (

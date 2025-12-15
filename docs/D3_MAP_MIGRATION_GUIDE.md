@@ -14,10 +14,10 @@ The new D3-based map system eliminates manual scale adjustments by automatically
 
 ### Step 1: Download Country Data
 
-\`\`\`bash
+```bash
 # In v0, navigate to /scripts/download-country-maps.js and click "Run"
 # This downloads all 195 country GeoJSON files to /public/data/countries/
-\`\`\`
+```
 
 The script will:
 - Fetch metadata from geoBoundaries API
@@ -30,7 +30,7 @@ The script will:
 Replace the old manual approach with the new D3 component:
 
 **OLD (Manual Scaling):**
-\`\`\`tsx
+```tsx
 import { ComposableMap, Geographies, Geography } from "react-simple-maps"
 import { useCountryProjection } from "@/hooks/use-country-projection"
 
@@ -45,10 +45,10 @@ export default function CountryPage({ searchParams }) {
     </CountryMapLayout>
   )
 }
-\`\`\`
+```
 
 **NEW (Auto-Fitting):**
-\`\`\`tsx
+```tsx
 import { D3CountryMap } from "@/components/d3-country-map"
 
 export default function CountryPage({ searchParams }) {
@@ -60,7 +60,7 @@ export default function CountryPage({ searchParams }) {
     </CountryMapLayout>
   )
 }
-\`\`\`
+```
 
 ### Step 3: ISO3 Code Reference
 
@@ -82,7 +82,7 @@ Common country ISO3 codes:
 
 ### D3CountryMap Props
 
-\`\`\`tsx
+```tsx
 interface D3CountryMapProps {
   iso3Code: string                  // Required: ISO3 country code
   fillColor?: string                // Default: "#E5E7EB"
@@ -91,17 +91,17 @@ interface D3CountryMapProps {
   highlightedProvinces?: string[]   // For province-level highlighting
   highlightColor?: string           // Default: "#FDB484"
 }
-\`\`\`
+```
 
 ### Example with Province Highlighting
 
-\`\`\`tsx
+```tsx
 <D3CountryMap 
   iso3Code="CAN" 
   highlightedProvinces={["Ontario", "Quebec"]}
   highlightColor="#FDB484"
 />
-\`\`\`
+```
 
 ## Benefits
 

@@ -40,11 +40,11 @@ Each country map uses one of these data sources:
 
 Use the helper utility in `lib/country-codes.ts`:
 
-\`\`\`typescript
+```typescript
 import { getCountryWithStatesUrl } from "@/lib/country-codes"
 
 const geoUrl = getCountryWithStatesUrl("Argentina") // Returns geoBoundaries API URL
-\`\`\`
+```
 
 This automatically generates the correct geoBoundaries API endpoint for any country.
 
