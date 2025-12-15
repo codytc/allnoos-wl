@@ -344,7 +344,7 @@ export default function CameraPage() {
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
-                strokeWidth={1.5}
+                strokeWidth={2}
               >
                 <path
                   strokeLinecap="round"
@@ -570,7 +570,7 @@ export default function CameraPage() {
             {isRecording ? (
               <OctagonIcon className="w-8 h-8 text-white drop-shadow-lg relative z-10" strokeWidth={1.5} />
             ) : (
-              <Video className="text-white drop-shadow-lg relative z-10 size-10 pt-0 mt-1" strokeWidth={1.5} />
+              <Video className="text-white drop-shadow-lg relative z-10 size-10 pt-0 mt-1" strokeWidth={2} />
             )}
             <div className="absolute inset-0 rounded-full bg-red-400/20 blur-xl scale-150 pointer-events-none"></div>
           </button>
