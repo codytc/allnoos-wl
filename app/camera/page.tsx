@@ -353,7 +353,7 @@ export default function CameraPage() {
                 />
               </svg>
               {capturedPhotos.length > 1 && (
-                <span className="absolute inset-0 flex items-center justify-center text-blue-400 font-bold text-sm z-20">
+                <span className="absolute inset-0 flex items-center justify-center text-blue-400 font-bold text-sm z-20 opacity-70">
                   {capturedPhotos.length}
                 </span>
               )}
