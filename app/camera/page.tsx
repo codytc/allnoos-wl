@@ -7,7 +7,6 @@ import {
   X,
   Zap,
   Camera,
-  Video,
   OctagonIcon,
   Trash2,
   Star,
@@ -557,16 +556,16 @@ export default function CameraPage() {
 
           <button
             onClick={() => {
-              handleVideoMode()
               if (isRecording) {
                 handleVideoCapture()
               } else {
+                handleVideoMode()
                 handleCaptureWithTimer()
               }
             }}
             className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg border-2 ${
               recordingMode === "video"
-                ? "bg-gradient-to-br from-red-500 to-red-700 border-red-400/50 shadow-red-600/30"
+                ? "bg-gradient-to-br from-red-500 to-red-700 border-red-400/50 shadow-red-500/30"
                 : "bg-gradient-to-br from-red-600/70 to-red-800/70 border-red-500/30 hover:from-red-500/80 hover:to-red-700/80"
             }`}
             disabled={activeCountdown !== null}
@@ -575,7 +574,16 @@ export default function CameraPage() {
             {isRecording ? (
               <OctagonIcon className="w-8 h-8 text-white drop-shadow-lg relative z-10" strokeWidth={1.5} />
             ) : (
-              <Video className="text-white drop-shadow-lg relative z-10 size-10 pt-0 mt-1" strokeWidth={1.5} />
+              <svg
+                className="text-white drop-shadow-lg relative z-10 size-10 pt-0 mt-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+              >
+                <rect x="2" y="6" width="14" height="12" rx="2" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M16 9l5-3v12l-5-3" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
             )}
             <div className="absolute inset-0 rounded-full bg-red-400/20 blur-xl scale-150 pointer-events-none"></div>
           </button>
