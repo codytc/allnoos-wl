@@ -423,7 +423,7 @@ export default function CameraPage() {
             disabled={activeCountdown !== null}
           >
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
-            <Camera className="text-white drop-shadow-lg relative z-10 size-9 opacity-90" strokeWidth={1.5} />
+            <Camera className="text-white drop-shadow-lg relative z-10 size-9 opacity-90 mb-0.5" strokeWidth={1.5} />
             <div className="absolute inset-0 rounded-full bg-blue-400/20 blur-xl scale-150 pointer-events-none"></div>
           </button>
 
