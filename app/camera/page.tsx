@@ -303,6 +303,15 @@ export default function CameraPage() {
     }
   }
 
+  const handlePhotoButtonClick = () => {
+    handlePhotoMode()
+    if (timerCountdown !== null) {
+      setActiveCountdown(timerCountdown)
+    } else {
+      handlePhotoCapture()
+    }
+  }
+
   return (
     <div className="relative w-full h-screen bg-black overflow-hidden">
       <div
@@ -409,10 +418,7 @@ export default function CameraPage() {
           )}
 
           <button
-            onClick={() => {
-              handlePhotoMode()
-              handleCaptureWithTimer()
-            }}
+            onClick={handlePhotoButtonClick}
             className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg border-2 ${
               recordingMode === "photo"
                 ? "bg-gradient-to-br from-blue-400 to-blue-600 border-blue-300/50 shadow-blue-500/30"
