@@ -14,7 +14,6 @@ import {
   Play,
   Pause,
   Scissors,
-  TimerIcon,
   UserSquare2Icon,
   UserXIcon,
   User,
@@ -452,7 +451,7 @@ export default function CameraPage() {
               }}
               className="cursor-pointer w-7 flex items-center justify-center"
             >
-              {icon1 === "camera-flip" && <TimerIcon className="w-6 h-6 drop-shadow-lg text-white" />}
+              {icon1 === "camera-flip" && <Clock className="w-6 h-6 drop-shadow-lg text-white" />}
               {icon1 === "timer" && timerCountdown === null && <Clock className="w-6 h-6 drop-shadow-lg text-white" />}
               {icon1 === "timer" && timerCountdown === 5 && (
                 <div className="relative w-6 h-6">
