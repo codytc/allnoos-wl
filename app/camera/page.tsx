@@ -340,7 +340,7 @@ export default function CameraPage() {
               className="relative w-10 h-10 flex items-center justify-center cursor-pointer"
             >
               <svg
-                className="w-8 h-8 text-white relative z-10"
+                className="w-8 h-8 text-white relative z-10 opacity-90"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -367,7 +367,7 @@ export default function CameraPage() {
             >
               <Video className="w-10 h-10 text-white relative z-10 opacity-90" strokeWidth={1.5} />
               <span
-                className={`absolute ${capturedVideos < 10 ? "left-[10px]" : "left-[6px]"} text-red-400 font-bold text-sm z-20`}
+                className={`absolute ${capturedVideos < 10 ? "left-[10px]" : "left-[6px]"} text-red-400 font-bold text-sm z-20 opacity-70`}
               >
                 {capturedVideos}
               </span>
