@@ -339,7 +339,7 @@ export default function CameraPage() {
         onClick={resetCameraState}
         className="absolute top-14 left-6 z-50 w-12 h-12 flex items-center justify-center text-white active:bg-white/10 rounded-full transition-all duration-200"
       >
-        <ChevronLeftIcon className="w-7 h-7 mt-0 mb-[70px] ml-[-30px]" />
+        <ChevronLeftIcon className="mt-0 mb-[70px] ml-[-30px] size-8" />
       </button>
 
       {isRecording && (
