@@ -401,7 +401,7 @@ export default function CameraPage() {
               <Link href="/create" className="flex items-center justify-center">
                 <button className="bg-gradient-to-br from-yellow-400 to-yellow-600 active:from-yellow-500 active:to-yellow-700 transition-all duration-200 active:scale-95 rounded-full flex items-center justify-center shadow-lg border-2 border-yellow-300/50 relative z-10 mt-16 w-28 font-medium h-6">
                   <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
-                  <span className="text-white drop-shadow-lg relative z-10 text-base mt-0 mb-1 font-normal">DRAFT</span>
+                  <span className="text-white drop-shadow-lg relative z-10 text-base mt-0 mb-1 font-normal opacity-90">DRAFT</span>
                   <div className="absolute inset-0 rounded-full bg-yellow-400/30 blur-lg scale-150 pointer-events-none"></div>
                 </button>
               </Link>
@@ -421,7 +421,7 @@ export default function CameraPage() {
             disabled={activeCountdown !== null}
           >
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
-            <Camera className="text-white drop-shadow-lg relative z-10 size-9" strokeWidth={1.5} />
+            <Camera className="text-white drop-shadow-lg relative z-10 size-9 opacity-90" strokeWidth={1.5} />
             <div className="absolute inset-0 rounded-full bg-blue-400/20 blur-xl scale-150 pointer-events-none"></div>
           </button>
 
@@ -570,7 +570,7 @@ export default function CameraPage() {
             {isRecording ? (
               <OctagonIcon className="w-8 h-8 text-white drop-shadow-lg relative z-10" strokeWidth={1.5} />
             ) : (
-              <Video className="text-white drop-shadow-lg relative z-10 size-10 pt-0 mt-1" strokeWidth={2} />
+              <Video className="text-white drop-shadow-lg relative z-10 size-10 pt-0 mt-1 opacity-90" strokeWidth={2} />
             )}
             <div className="absolute inset-0 rounded-full bg-red-400/20 blur-xl scale-150 pointer-events-none"></div>
           </button>
