@@ -359,7 +359,7 @@ export default function CameraPage() {
               <Link href="/create" className="flex items-center justify-center">
                 <button className="bg-gradient-to-br from-yellow-400 to-yellow-600 active:from-yellow-500 active:to-yellow-700 transition-all duration-200 active:scale-95 rounded-full flex items-center justify-center shadow-lg border-2 border-yellow-300/50 relative z-10 mt-16 w-28 font-medium h-6">
                   <div className="absolute inset-1 rounded-full bg-gradient-to-b from-white/40 to-transparent pointer-events-none"></div>
-                  <span className="text-white font-semibold drop-shadow-lg relative z-10 text-base mt-0 mb-1">
+                  <span className="text-white drop-shadow-lg relative z-10 text-base mt-0 mb-1 font-normal">
                     DRAFT
                   </span>
                   <div className="absolute inset-0 rounded-full bg-yellow-400/30 blur-lg scale-150 pointer-events-none"></div>
