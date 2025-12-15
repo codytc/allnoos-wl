@@ -425,7 +425,7 @@ export default function CameraPage() {
             <div className="absolute inset-0 rounded-full bg-blue-400/20 blur-xl scale-150 pointer-events-none"></div>
           </button>
 
-          <div className="flex items-center gap-4 px-2 mt-2 mb-[-25px]">
+          <div className="flex items-center gap-4 px-2 mt-2 mb-[-25px] opacity-90">
             <div
               onClick={() => {
                 if (icon1 === "timer") {
