@@ -312,6 +312,21 @@ export default function CameraPage() {
     }
   }
 
+  const handleVideoButtonClick = () => {
+    handleVideoMode()
+    if (isRecording) {
+      // Stop recording immediately
+      handleVideoCapture()
+    } else {
+      // Start recording with timer if set
+      if (timerCountdown !== null) {
+        setActiveCountdown(timerCountdown)
+      } else {
+        handleVideoCapture()
+      }
+    }
+  }
+
   return (
     <div className="relative w-full h-screen bg-black overflow-hidden">
       <div
@@ -557,18 +572,11 @@ export default function CameraPage() {
           </div>
 
           <button
-            onClick={() => {
-              handleVideoMode()
-              if (isRecording) {
-                handleVideoCapture()
-              } else {
-                handleCaptureWithTimer()
-              }
-            }}
+            onClick={handleVideoButtonClick}
             className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg border-2 ${
               recordingMode === "video"
-                ? "bg-gradient-to-br from-red-400 to-red-600 border-red-300/50 shadow-red-500/30"
-                : "bg-gradient-to-br from-red-500/70 to-red-700/70 border-red-400/30 hover:from-red-400/80 hover:to-red-600/80"
+                ? "bg-gradient-to-br from-red-500 to-red-700 border-red-400/50 shadow-red-500/30"
+                : "bg-gradient-to-br from-red-600/70 to-red-800/70 border-red-500/30 hover:from-red-500/80 hover:to-red-700/80"
             }`}
             disabled={activeCountdown !== null}
           >
