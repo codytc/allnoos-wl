@@ -21,7 +21,6 @@ import {
   UserXIcon,
   User,
 } from "lucide-react"
-import Link from "next/link"
 import { useRouter } from "next/navigation"
 import AllnoosLogo from "@/components/allnoos-logo"
 
@@ -308,42 +307,35 @@ export default function CameraPage() {
           </div>
         </div>
 
-        <div className="flex-1"></div>
-      </div>
-
-      {(capturedPhotos.length > 0 || capturedVideos > 0) && (
-        <div className="absolute top-28 left-6 z-50 flex flex-col gap-3">
+        <div className="flex-1 flex justify-end items-center gap-2">
           {capturedPhotos.length > 0 && (
-            <div className="relative">
-              <button
-                onClick={openPhotoGallery}
-                className="w-16 h-16 rounded-full overflow-hidden border-2 border-white/50 bg-white/20 backdrop-blur-sm flex items-center justify-center active:bg-white/30 transition-all duration-200 mr-0 ml-[-20px]"
-              >
-                <Camera className="w-8 h-8 text-white" />
-              </button>
+            <button
+              onClick={openPhotoGallery}
+              className="relative w-10 h-10 rounded-full bg-blue-500/20 backdrop-blur-sm border border-blue-400/40 flex items-center justify-center active:bg-blue-500/30 transition-all duration-200 shadow-lg"
+            >
+              <Camera className="w-5 h-5 text-white" strokeWidth={1.5} />
               {capturedPhotos.length > 1 && (
-                <div className="absolute -top-2 -right-2 w-7 h-7 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white shadow-lg">
+                <div className="absolute -top-1 -right-1 w-5 h-5 bg-blue-500/90 backdrop-blur-sm rounded-full flex items-center justify-center text-white text-[10px] font-bold border border-blue-300/50 shadow-md">
                   {capturedPhotos.length}
                 </div>
               )}
-            </div>
+            </button>
           )}
 
           {capturedVideos > 0 && (
-            <div className="relative">
-              <button
-                onClick={openVideoGallery}
-                className="w-16 h-16 rounded-full overflow-hidden border-2 border-white/50 bg-white/20 backdrop-blur-sm flex items-center justify-center active:bg-white/30 transition-all duration-200 ml-[-20px]"
-              >
-                <Video className="w-8 h-8 text-white" />
-              </button>
-              <div className="absolute -top-2 -right-2 w-7 h-7 bg-red-500 rounded-full flex items-center justify-center text-white text-xs font-bold border-2 border-white shadow-lg">
+            <button
+              onClick={openVideoGallery}
+              className="relative w-10 h-10 rounded-full bg-red-500/20 backdrop-blur-sm border border-red-400/40 flex items-center justify-center active:bg-red-500/30 transition-all duration-200 shadow-lg"
+            >
+              <Video className="w-5 h-5 text-white" strokeWidth={1.5} />
+              <div className="absolute -top-1 -right-1 w-5 h-5 bg-red-500/90 backdrop-blur-sm rounded-full flex items-center justify-center text-white text-[10px] font-bold border border-red-300/50 shadow-md">
                 {capturedVideos}
               </div>
-            </div>
+            </button>
           )}
         </div>
-      )}
+        {/* </CHANGE> */}
+      </div>
 
       {isRecording && (
         <div className="absolute top-16 left-1/2 -translate-x-1/2 z-50">
@@ -354,132 +346,116 @@ export default function CameraPage() {
       )}
 
       <div className="absolute bottom-8 left-0 right-0 z-50 flex items-center justify-center gap-8 px-8">
-        <div className="relative bg-white/20 backdrop-blur-md rounded-full flex items-center border border-white/30 p-2 shadow-lg mb-[-20px] gap-0 px-0.5 py-1">
+        <button
+          onClick={() => {
+            handlePhotoMode()
+            handlePhotoCapture()
+          }}
+          className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg border-2 ${
+            recordingMode === "photo"
+              ? "bg-gradient-to-br from-blue-400 to-blue-600 border-blue-300/50 shadow-blue-500/30"
+              : "bg-gradient-to-br from-blue-500/70 to-blue-700/70 border-blue-400/30 hover:from-blue-400/80 hover:to-blue-600/80"
+          }`}
+        >
           <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
+          <Camera className="text-white drop-shadow-lg relative z-10 size-9" strokeWidth={1.5} />
+          <div className="absolute inset-0 rounded-full bg-blue-400/20 blur-xl scale-150 pointer-events-none"></div>
+        </button>
 
-          {showCreateButton && (
-            <div className="absolute top-[-60px] left-1/2 transform -translate-x-1/2 z-10">
-              <Link href="/create" className="flex items-center justify-center">
-                <button className="bg-gradient-to-br from-yellow-400 to-yellow-600 active:from-yellow-500 active:to-yellow-700 transition-all duration-200 active:scale-95 rounded-full flex items-center justify-center shadow-lg border-2 border-yellow-300/50 relative z-10 mt-16 w-28 font-medium h-6">
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
-                  <span className="text-white drop-shadow-lg relative z-10 text-base mt-0 mb-1 font-normal">DRAFT</span>
-                  <div className="absolute inset-0 rounded-full bg-yellow-400/30 blur-lg scale-150 pointer-events-none"></div>
-                </button>
-              </Link>
-            </div>
-          )}
-
-          <button
+        <div className="flex items-center gap-4 px-2 mt-2 mb-[-25px]">
+          <div
             onClick={() => {
-              handlePhotoMode()
-              handlePhotoCapture()
+              if (icon1 === "timer") {
+                cycleTimerState()
+              } else {
+                setIcon1(icon1 === "camera-flip" ? "grid" : icon1 === "grid" ? "timer" : "camera-flip")
+                setTimerCountdown(null)
+              }
             }}
-            className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg border-2 ${
-              recordingMode === "photo"
-                ? "bg-gradient-to-br from-blue-400 to-blue-600 border-blue-300/50 shadow-blue-500/30"
-                : "bg-gradient-to-br from-blue-500/70 to-blue-700/70 border-blue-400/30 hover:from-blue-400/80 hover:to-blue-600/80"
-            }`}
+            className="cursor-pointer w-7 flex items-center justify-center"
           >
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
-            <Camera className="text-white drop-shadow-lg relative z-10 size-9" strokeWidth={1.5} />
-            <div className="absolute inset-0 rounded-full bg-blue-400/20 blur-xl scale-150 pointer-events-none"></div>
-          </button>
-
-          <div className="flex items-center gap-4 px-2 mt-2 mb-[-25px]">
-            <div
-              onClick={() => {
-                if (icon1 === "timer") {
-                  cycleTimerState()
-                } else {
-                  setIcon1(icon1 === "camera-flip" ? "grid" : icon1 === "grid" ? "timer" : "camera-flip")
-                  setTimerCountdown(null)
-                }
-              }}
-              className="cursor-pointer w-7 flex items-center justify-center"
-            >
-              {icon1 === "camera-flip" && <TimerIcon className="w-6 h-6 drop-shadow-lg text-white" />}
-              {icon1 === "grid" && <Grid3x3 className="w-6 h-6 drop-shadow-lg text-white" />}
-              {icon1 === "timer" && timerCountdown === null && <Timer className="w-6 h-6 drop-shadow-lg text-white" />}
-              {icon1 === "timer" && timerCountdown === 5 && (
-                <span className="text-white font-bold text-xl drop-shadow-lg">5</span>
-              )}
-              {icon1 === "timer" && timerCountdown === 10 && (
-                <span className="text-white font-bold text-xl drop-shadow-lg">10</span>
-              )}
-            </div>
-
-            <div
-              onClick={() => {
-                setIcon2(icon2 === "user-x" ? "user" : icon2 === "user" ? "user-square" : "user-x")
-              }}
-              className="cursor-pointer w-7 flex items-center justify-center"
-            >
-              {icon2 === "user-x" && <UserXIcon className="w-6 h-6 drop-shadow-lg text-white" />}
-              {icon2 === "user" && <User className="w-6 h-6 drop-shadow-lg text-white" />}
-              {icon2 === "user-square" && (
-                <UserSquare2Icon className="drop-shadow-lg text-white size-7" strokeWidth={1.5} />
-              )}
-            </div>
-
-            <div onClick={toggleFlash} className="cursor-pointer w-7 flex items-center justify-center">
-              {icon3 === "flash" && (
-                <Zap className={`w-6 h-6 drop-shadow-lg ${flashEnabled ? "text-yellow-300" : "text-white"}`} />
-              )}
-              {icon3 === "night-mode" && (
-                <svg
-                  className="w-6 h-6 drop-shadow-lg"
-                  fill="none"
-                  stroke="white"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                  />
-                </svg>
-              )}
-              {icon3 === "hdr" && (
-                <svg
-                  className="w-6 h-6 drop-shadow-lg"
-                  fill="none"
-                  stroke="white"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  />
-                </svg>
-              )}
-            </div>
+            {icon1 === "camera-flip" && <TimerIcon className="w-6 h-6 drop-shadow-lg text-white" />}
+            {icon1 === "grid" && <Grid3x3 className="w-6 h-6 drop-shadow-lg text-white" />}
+            {icon1 === "timer" && timerCountdown === null && <Timer className="w-6 h-6 drop-shadow-lg text-white" />}
+            {icon1 === "timer" && timerCountdown === 5 && (
+              <span className="text-white font-bold text-xl drop-shadow-lg">5</span>
+            )}
+            {icon1 === "timer" && timerCountdown === 10 && (
+              <span className="text-white font-bold text-xl drop-shadow-lg">10</span>
+            )}
           </div>
 
-          <button
+          <div
             onClick={() => {
-              handleVideoMode()
-              handleVideoCapture()
+              setIcon2(icon2 === "user-x" ? "user" : icon2 === "user" ? "user-square" : "user-x")
             }}
-            className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg border-2 ${
-              recordingMode === "video"
-                ? "bg-gradient-to-br from-red-400 to-red-600 border-red-300/50 shadow-red-500/30"
-                : "bg-gradient-to-br from-red-500/70 to-red-700/70 border-red-400/30 hover:from-red-400/80 hover:to-red-600/80"
-            } ${isRecording ? "animate-pulse" : ""}`}
+            className="cursor-pointer w-7 flex items-center justify-center"
           >
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
-            {isRecording ? (
-              <OctagonIcon className="w-8 h-8 text-white drop-shadow-lg relative z-10" strokeWidth={1.5} />
-            ) : (
-              <Video className="text-white drop-shadow-lg relative z-10 size-10 pt-0 mt-1" strokeWidth={1.5} />
+            {icon2 === "user-x" && <UserXIcon className="w-6 h-6 drop-shadow-lg text-white" />}
+            {icon2 === "user" && <User className="w-6 h-6 drop-shadow-lg text-white" />}
+            {icon2 === "user-square" && (
+              <UserSquare2Icon className="drop-shadow-lg text-white size-7" strokeWidth={1.5} />
             )}
-            <div className="absolute inset-0 rounded-full bg-red-400/20 blur-xl scale-150 pointer-events-none"></div>
-          </button>
+          </div>
+
+          <div onClick={toggleFlash} className="cursor-pointer w-7 flex items-center justify-center">
+            {icon3 === "flash" && (
+              <Zap className={`w-6 h-6 drop-shadow-lg ${flashEnabled ? "text-yellow-300" : "text-white"}`} />
+            )}
+            {icon3 === "night-mode" && (
+              <svg
+                className="w-6 h-6 drop-shadow-lg"
+                fill="none"
+                stroke="white"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                />
+              </svg>
+            )}
+            {icon3 === "hdr" && (
+              <svg
+                className="w-6 h-6 drop-shadow-lg"
+                fill="none"
+                stroke="white"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                />
+              </svg>
+            )}
+          </div>
         </div>
+
+        <button
+          onClick={() => {
+            handleVideoMode()
+            handleVideoCapture()
+          }}
+          className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg border-2 ${
+            recordingMode === "video"
+              ? "bg-gradient-to-br from-red-400 to-red-600 border-red-300/50 shadow-red-500/30"
+              : "bg-gradient-to-br from-red-500/70 to-red-700/70 border-red-400/30 hover:from-red-400/80 hover:to-red-600/80"
+          } ${isRecording ? "animate-pulse" : ""}`}
+        >
+          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
+          {isRecording ? (
+            <OctagonIcon className="w-8 h-8 text-white drop-shadow-lg relative z-10" strokeWidth={1.5} />
+          ) : (
+            <Video className="text-white drop-shadow-lg relative z-10 size-10 pt-0 mt-1" strokeWidth={1.5} />
+          )}
+          <div className="absolute inset-0 rounded-full bg-red-400/20 blur-xl scale-150 pointer-events-none"></div>
+        </button>
       </div>
 
       {showVideoGallery && (
