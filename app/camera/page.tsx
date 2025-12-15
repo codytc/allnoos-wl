@@ -283,6 +283,16 @@ export default function CameraPage() {
     router.push("/feed")
   }
 
+  const cycleTimerState = () => {
+    if (timerCountdown === null) {
+      setTimerCountdown(5)
+    } else if (timerCountdown === 5) {
+      setTimerCountdown(10)
+    } else {
+      setTimerCountdown(null)
+    }
+  }
+
   const handleCaptureWithTimer = () => {
     if (timerCountdown !== null) {
       setActiveCountdown(timerCountdown)
@@ -431,20 +441,19 @@ export default function CameraPage() {
             <div
               onClick={() => {
                 if (icon1 === "timer") {
-                  if (timerCountdown === 5) {
-                    setTimerCountdown(10)
-                  } else if (timerCountdown === 10) {
-                    setTimerCountdown(null)
-                    setIcon1("camera-flip")
-                  }
-                } else {
+                  cycleTimerState()
+                } else if (icon1 === "camera-flip") {
                   setIcon1("timer")
-                  setTimerCountdown(5)
+                  setTimerCountdown(null)
+                } else {
+                  setIcon1("camera-flip")
+                  setTimerCountdown(null)
                 }
               }}
               className="cursor-pointer w-7 flex items-center justify-center"
             >
               {icon1 === "camera-flip" && <TimerIcon className="w-6 h-6 drop-shadow-lg text-white" />}
+              {icon1 === "timer" && timerCountdown === null && <Clock className="w-6 h-6 drop-shadow-lg text-white" />}
               {icon1 === "timer" && timerCountdown === 5 && (
                 <div className="relative w-6 h-6">
                   <Clock className="w-6 h-6 drop-shadow-lg text-white absolute" />
