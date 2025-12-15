@@ -452,30 +452,32 @@ export default function CameraPage() {
             >
               {icon1 === "camera-flip" && (
                 <svg
-                  className="w-6 h-6 drop-shadow-lg text-white"
+                  className="w-7 h-7 drop-shadow-lg text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                   strokeWidth={2}
                 >
                   <circle cx="12" cy="12" r="9" />
+                  <path d="M12 6v6l4 2" strokeLinecap="round" />
                 </svg>
               )}
               {icon1 === "timer" && timerCountdown === null && (
                 <svg
-                  className="w-6 h-6 drop-shadow-lg text-white"
+                  className="w-7 h-7 drop-shadow-lg text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                   strokeWidth={2}
                 >
                   <circle cx="12" cy="12" r="9" />
+                  <path d="M12 6v6l4 2" strokeLinecap="round" />
                 </svg>
               )}
               {icon1 === "timer" && timerCountdown === 5 && (
-                <div className="relative w-6 h-6">
+                <div className="relative w-7 h-7">
                   <svg
-                    className="w-6 h-6 drop-shadow-lg text-white absolute"
+                    className="w-7 h-7 drop-shadow-lg text-white absolute"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -489,9 +491,9 @@ export default function CameraPage() {
                 </div>
               )}
               {icon1 === "timer" && timerCountdown === 10 && (
-                <div className="relative w-6 h-6">
+                <div className="relative w-7 h-7">
                   <svg
-                    className="w-6 h-6 drop-shadow-lg text-white absolute"
+                    className="w-7 h-7 drop-shadow-lg text-white absolute"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -499,7 +501,7 @@ export default function CameraPage() {
                   >
                     <circle cx="12" cy="12" r="9" />
                   </svg>
-                  <span className="absolute inset-0 flex items-center justify-center text-white font-bold text-sm drop-shadow-lg">
+                  <span className="absolute inset-0 flex items-center justify-center text-white font-bold text-xs drop-shadow-lg">
                     10
                   </span>
                 </div>
