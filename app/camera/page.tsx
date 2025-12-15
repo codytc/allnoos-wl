@@ -389,7 +389,12 @@ export default function CameraPage() {
             >
               <Video className="w-10 h-10 text-white relative z-10 opacity-90" strokeWidth={1.5} />
               <span
-                className={`absolute ${capturedVideos < 10 ? "left-[10px]" : "left-[6px]"} text-red-400 font-bold text-sm z-20 opacity-70`}
+                className="absolute text-red-400 font-bold text-sm z-20 opacity-70"
+                style={{
+                  left: capturedVideos < 10 ? "9px" : "6px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                }}
               >
                 {capturedVideos}
               </span>
