@@ -289,16 +289,16 @@ export default function CameraPage() {
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
 
-      <div className="absolute top-0 left-0 right-0 z-50 flex justify-between items-center px-4 py-4 text-white">
+      <div className="absolute top-0 left-0 right-0 z-50 flex items-center px-6 py-4 text-white justify-center">
         <div className="flex-1 flex justify-start">
           <button
             onClick={resetCameraState}
-            className="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg hover:bg-white/30 active:bg-white/40 active:scale-110 transition-all duration-300 group relative overflow-hidden"
+            className="w-14 h-14 flex items-center justify-center text-white active:bg-white/10 rounded-full transition-all duration-200"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent rounded-full opacity-60"></div>
-            <ChevronLeftIcon className="w-5 h-5 group-active:text-primary/80 relative z-10 text-slate-600" />
+            <ChevronLeftIcon className="w-8 h-8" />
           </button>
         </div>
+        <div className="flex-1"></div>
 
         <div className="relative flex items-center justify-center h-12 px-8">
           <div className="absolute top-[-18px] left-[50%] transform translate-x-[-10px] z-10 italic text-xs tracking-tighter my-[22px] mb-0 mt-[22px] mr-0 ml-[-8px]">
@@ -308,8 +308,6 @@ export default function CameraPage() {
             <AllnoosLogo variant="white" size="md" animated={false} />
           </div>
         </div>
-
-        <div className="flex-1"></div>
       </div>
 
       {(capturedPhotos.length > 0 || capturedVideos > 0) && (
