@@ -401,7 +401,9 @@ export default function CameraPage() {
               <Link href="/create" className="flex items-center justify-center">
                 <button className="bg-gradient-to-br from-yellow-400 to-yellow-600 active:from-yellow-500 active:to-yellow-700 transition-all duration-200 active:scale-95 rounded-full flex items-center justify-center shadow-lg border-2 border-yellow-300/50 relative z-10 mt-16 w-28 font-medium h-6">
                   <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
-                  <span className="text-white drop-shadow-lg relative z-10 text-base mt-0 mb-1 font-normal opacity-90">DRAFT</span>
+                  <span className="text-white drop-shadow-lg relative z-10 text-base mt-0 mb-1 font-normal opacity-90">
+                    DRAFT
+                  </span>
                   <div className="absolute inset-0 rounded-full bg-yellow-400/30 blur-lg scale-150 pointer-events-none"></div>
                 </button>
               </Link>
@@ -561,8 +563,8 @@ export default function CameraPage() {
             }}
             className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg border-2 ${
               recordingMode === "video"
-                ? "bg-gradient-to-br from-red-500 to-red-700 border-red-400/50 shadow-red-600/30"
-                : "bg-gradient-to-br from-red-600/70 to-red-800/70 border-red-500/30 hover:from-red-500/80 hover:to-red-700/80"
+                ? "bg-gradient-to-br from-red-400 to-red-600 border-red-300/50 shadow-red-500/30"
+                : "bg-gradient-to-br from-red-500/70 to-red-700/70 border-red-400/30 hover:from-red-400/80 hover:to-red-600/80"
             }`}
             disabled={activeCountdown !== null}
           >
@@ -570,7 +572,7 @@ export default function CameraPage() {
             {isRecording ? (
               <OctagonIcon className="w-8 h-8 text-white drop-shadow-lg relative z-10" strokeWidth={1.5} />
             ) : (
-              <Video className="text-white drop-shadow-lg relative z-10 size-10 pt-0 mt-1 opacity-90" strokeWidth={2} />
+              <Video className="text-white drop-shadow-lg relative z-10 size-9 opacity-90" strokeWidth={1.5} />
             )}
             <div className="absolute inset-0 rounded-full bg-red-400/20 blur-xl scale-150 pointer-events-none"></div>
           </button>
