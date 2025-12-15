@@ -329,9 +329,10 @@ export default function CameraPage() {
                 {/* Lens outline without inner circle */}
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z" />
               </svg>
-              {/* Number positioned in center of lens */}
               {capturedPhotos.length > 1 && (
-                <span className="absolute text-blue-400 font-bold text-sm z-20">{capturedPhotos.length}</span>
+                <span className="absolute inset-0 flex items-center justify-center text-blue-400 font-bold text-sm z-20">
+                  {capturedPhotos.length}
+                </span>
               )}
             </button>
           )}
@@ -354,8 +355,7 @@ export default function CameraPage() {
                   d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"
                 />
               </svg>
-              {/* Number positioned in center of video rectangle */}
-              <span className="absolute text-red-400 font-bold text-sm z-20">{capturedVideos}</span>
+              <span className="absolute left-2 text-red-400 font-bold text-sm z-20">{capturedVideos}</span>
             </button>
           )}
         </div>
