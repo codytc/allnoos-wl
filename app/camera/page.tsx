@@ -395,7 +395,7 @@ export default function CameraPage() {
               <span
                 className="absolute text-red-400 font-bold text-sm z-20 opacity-70"
                 style={{
-                  left: capturedVideos < 10 ? "30%" : "6px",
+                  left: capturedVideos < 10 ? "38%" : "6px",
                   top: "50%",
                   transform: capturedVideos < 10 ? "translate(-50%, -50%)" : "translateY(-50%)",
                 }}
