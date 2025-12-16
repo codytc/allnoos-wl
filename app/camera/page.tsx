@@ -451,7 +451,7 @@ export default function CameraPage() {
             disabled={activeCountdown !== null}
           >
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
-            <Camera className="text-white drop-shadow-lg relative z-10 size-9 opacity-90 mb-0.5" strokeWidth={1.5} />
+            <Camera className="text-white drop-shadow-lg relative z-10 size-9 opacity-90" strokeWidth={1.5} />
             <div className="absolute inset-0 rounded-full bg-blue-400/20 blur-xl scale-150 pointer-events-none"></div>
           </button>
 
@@ -584,8 +584,8 @@ export default function CameraPage() {
             onClick={handleVideoButtonClick}
             className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg border-2 ${
               recordingMode === "video"
-                ? "bg-gradient-to-br from-red-500 to-red-700 border-red-400/50 shadow-red-500/30"
-                : "bg-gradient-to-br from-red-600/70 to-red-800/70 border-red-500/30 hover:from-red-500/80 hover:to-red-700/80"
+                ? "bg-gradient-to-br from-red-400 to-red-600 border-red-300/50 shadow-red-500/30"
+                : "bg-gradient-to-br from-red-500/70 to-red-700/70 border-red-400/30 hover:from-red-400/80 hover:to-red-600/80"
             }`}
             disabled={activeCountdown !== null}
           >
@@ -593,7 +593,7 @@ export default function CameraPage() {
             {isRecording ? (
               <OctagonIcon className="w-8 h-8 text-white drop-shadow-lg relative z-10" strokeWidth={1.5} />
             ) : (
-              <Video className="text-white drop-shadow-lg relative z-10 opacity-90 size-10 mt-1.5" strokeWidth={1.5} />
+              <Video className="text-white drop-shadow-lg relative z-10 opacity-90 size-9" strokeWidth={1.5} />
             )}
             <div className="absolute inset-0 rounded-full bg-red-400/20 blur-xl scale-150 pointer-events-none"></div>
           </button>
