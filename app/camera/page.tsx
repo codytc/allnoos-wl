@@ -602,10 +602,8 @@ export default function CameraPage() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                {/* Main rectangular body - same size as camera body */}
-                <rect x="3" y="6" width="14" height="12" rx="2" />
-                {/* Subtle lens detail on the right - minimal protrusion */}
-                <path d="M17 10l3.5-2v8l-3.5-2" />
+                <rect x="2.25" y="9.574" width="13" height="8.426" rx="2" />
+                <path d="M15.25 12l4 -1.5v5l-4 -1.5" />
               </svg>
             )}
             <div className="absolute inset-0 rounded-full bg-red-400/20 blur-xl scale-150 pointer-events-none"></div>
