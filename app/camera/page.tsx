@@ -357,7 +357,7 @@ export default function CameraPage() {
           </div>
         </div>
 
-        <div className="flex-1 flex justify-end gap-2 h-12 items-end min-w-[88px]">
+        <div className="flex-1 flex justify-end gap-1 h-12 items-end min-w-[80px]">
           {capturedPhotos.length > 0 && (
             <div
               onClick={openPhotoGallery}
