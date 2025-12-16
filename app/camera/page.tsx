@@ -348,7 +348,7 @@ export default function CameraPage() {
           </button>
         </div>
 
-        <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center h-12">
+        <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center h-12 max-w-[120px] px-2">
           <div className="absolute top-[-18px] left-[50%] transform translate-x-[-10px] z-10 italic text-xs tracking-tighter my-[22px] mb-0 mt-[22px] mr-0 ml-[-8px]">
             <span className="text-white ml-[-1px] mb-0 mt-0 font-medium tracking-tighter text-xs">CAMERA</span>
           </div>
@@ -357,7 +357,7 @@ export default function CameraPage() {
           </div>
         </div>
 
-        <div className="flex-1 flex justify-end gap-2 h-12 items-end">
+        <div className="flex-1 flex justify-end gap-2 h-12 items-end min-w-[88px]">
           {capturedPhotos.length > 0 && (
             <div
               onClick={openPhotoGallery}
@@ -583,9 +583,9 @@ export default function CameraPage() {
           <button
             onClick={handleVideoButtonClick}
             className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg border-2 ${
-              recordingMode === "video" || isRecording
-                ? "bg-gradient-to-br from-red-500 to-red-700 border-red-400/50 shadow-red-600/30"
-                : "bg-gradient-to-br from-red-600/70 to-red-800/70 border-red-500/30 hover:from-red-500/80 hover:to-red-700/80"
+              recordingMode === "video"
+                ? "bg-gradient-to-br from-red-400 to-red-600 border-red-300/50 shadow-red-500/30"
+                : "bg-gradient-to-br from-red-500/70 to-red-700/70 border-red-400/30 hover:from-red-400/80 hover:to-red-600/80"
             }`}
             disabled={activeCountdown !== null}
           >
@@ -593,26 +593,7 @@ export default function CameraPage() {
             {isRecording ? (
               <OctagonIcon className="w-8 h-8 text-white drop-shadow-lg relative z-10" strokeWidth={1.5} />
             ) : (
-              <svg
-                className="text-white drop-shadow-lg relative z-10 opacity-90 size-9"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-              >
-                {/* Camera body rectangle only - removed top viewfinder section */}
-                <rect
-                  x="2.25"
-                  y="9.574"
-                  width="19.5"
-                  height="8.426"
-                  rx="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                {/* Pronounced rounded lens on right side */}
-                <ellipse cx="22.5" cy="13.787" rx="2" ry="3" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+              <Video className="text-white drop-shadow-lg relative z-10 opacity-90 size-10" strokeWidth={1.5} />
             )}
             <div className="absolute inset-0 rounded-full bg-red-400/20 blur-xl scale-150 pointer-events-none"></div>
           </button>
