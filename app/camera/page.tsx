@@ -593,7 +593,20 @@ export default function CameraPage() {
             {isRecording ? (
               <OctagonIcon className="w-8 h-8 text-white drop-shadow-lg relative z-10" strokeWidth={1.5} />
             ) : (
-              <Video className="text-white drop-shadow-lg relative z-10 opacity-90 size-10" strokeWidth={1.5} />
+              <svg
+                className="text-white drop-shadow-lg relative z-10 opacity-90 size-9"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                {/* Main rectangular body - same size as camera body */}
+                <rect x="3" y="6" width="14" height="12" rx="2" />
+                {/* Subtle lens detail on the right - minimal protrusion */}
+                <path d="M17 10l3.5-2v8l-3.5-2" />
+              </svg>
             )}
             <div className="absolute inset-0 rounded-full bg-red-400/20 blur-xl scale-150 pointer-events-none"></div>
           </button>
