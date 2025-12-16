@@ -587,23 +587,27 @@ export default function CameraPage() {
                 ? "bg-gradient-to-br from-red-400 to-red-600 border-red-300/50 shadow-red-500/30"
                 : "bg-gradient-to-br from-red-500/70 to-red-700/70 border-red-400/30 hover:from-red-400/80 hover:to-red-600/80"
             }`}
-            disabled={activeCountdown !== null}
+            disabled={isRecording}
           >
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
             {isRecording ? (
               <OctagonIcon className="w-8 h-8 text-white drop-shadow-lg relative z-10" strokeWidth={1.5} />
             ) : (
               <svg
-                className="text-white drop-shadow-lg relative z-10 opacity-90 size-9"
+                className="w-9 h-9 text-white drop-shadow-lg relative z-10 opacity-90"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
-                strokeLinecap="round"
-                strokeLinejoin="round"
               >
-                <rect x="2.25" y="9.574" width="13" height="8.426" rx="2" />
-                <path d="M15.25 12l4 -1.5v5l-4 -1.5" />
+                {/* Main camera body - same as photo camera */}
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M2.25 9.574C2.25 8.507 2.999 7.58 4.052 7.405c.377-.063.754-.121 1.134-.175A2.31 2.31 0 006.827 6.175l.821-1.316a2.192 2.192 0 011.736-1.039 48.774 48.774 0 015.232 0 2.192 2.192 0 011.736 1.039l.822 1.316a2.31 2.31 0 001.64 1.055c.38.054.757.112 1.134.175 1.053.175 1.802 1.102 1.802 2.169V18a2.25 2.25 0 01-2.25 2.25h-15A2.25 2.25 0 012.25 18V9.574z"
+                />
+                {/* Lens detail on the right side - viewfinder moved to right */}
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 11.5l1.5-1v5l-1.5-1z" />
               </svg>
             )}
             <div className="absolute inset-0 rounded-full bg-red-400/20 blur-xl scale-150 pointer-events-none"></div>
