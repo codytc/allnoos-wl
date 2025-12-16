@@ -369,6 +369,7 @@ export default function CameraPage() {
                 stroke="currentColor"
                 viewBox="0 0 24 24"
                 strokeWidth={2}
+                style={{ marginTop: "-2px" }}
               >
                 <path
                   strokeLinecap="round"
@@ -378,7 +379,7 @@ export default function CameraPage() {
               </svg>
               <span
                 className="absolute inset-0 flex items-center justify-center text-blue-400 font-bold text-sm z-20 opacity-70"
-                style={{ marginTop: "3px" }}
+                style={{ marginTop: "1px" }}
               >
                 {capturedPhotos.length}
               </span>
@@ -395,7 +396,7 @@ export default function CameraPage() {
                 className="absolute text-red-400 font-bold text-sm z-20 opacity-70"
                 style={{
                   left: capturedVideos < 10 ? "9px" : "6px",
-                  top: "calc(50% + 3px)",
+                  top: "calc(50% + 1px)",
                   transform: "translateY(-50%)",
                 }}
               >
