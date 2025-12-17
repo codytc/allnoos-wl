@@ -444,7 +444,10 @@ export default function CameraPage() {
               <Link href="/create" className="flex items-center justify-center">
                 <button
                   onClick={handleDraftButtonClick}
-                  className="bg-gradient-to-br from-orange-300/50 to-orange-500/50 backdrop-blur-md active:from-orange-400/60 active:to-orange-600/60 transition-all duration-200 active:scale-95 rounded-full flex items-center justify-center shadow-lg border border-orange-200/50 relative z-10 w-28 font-medium h-7 px-4 mb-0 mt-[68px] overflow-hidden"
+                  className="bg-gradient-to-br from-orange-200/30 to-orange-400/30 backdrop-blur-md active:from-orange-300/40 active:to-orange-500/40 transition-all duration-200 active:scale-95 rounded-full flex items-center justify-center shadow-lg relative z-10 w-28 font-medium h-7 px-4 mb-0 mt-[68px] overflow-hidden"
+                  style={{
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.3), inset 0 -4px 8px rgba(251, 146, 60, 0.5)",
+                  }}
                 >
                   <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
                   {showDraftGlare && (
@@ -462,9 +465,9 @@ export default function CameraPage() {
 
           <button
             onClick={handlePhotoButtonClick}
-            className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg overflow-hidden bg-gradient-to-br from-blue-400/50 to-blue-600/50 backdrop-blur-md`}
+            className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg overflow-hidden bg-gradient-to-br from-blue-300/30 to-blue-500/30 backdrop-blur-md`}
             style={{
-              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.3), inset 0 -8px 12px rgba(59, 130, 246, 0.6)",
+              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.3), inset 0 -8px 12px rgba(96, 165, 250, 0.6)",
             }}
             disabled={activeCountdown !== null}
           >
@@ -474,7 +477,6 @@ export default function CameraPage() {
                 <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/60 to-transparent animate-[slide_0.6s_ease-out]"></div>
               </div>
             )}
-            {/* */}
             <Camera className="text-white drop-shadow-lg relative z-10 size-9 opacity-90" strokeWidth={1.5} />
           </button>
 
@@ -605,9 +607,9 @@ export default function CameraPage() {
 
           <button
             onClick={handleVideoButtonClick}
-            className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg overflow-hidden bg-gradient-to-br from-red-400/50 to-red-600/50 backdrop-blur-md`}
+            className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg overflow-hidden bg-gradient-to-br from-red-300/30 to-red-500/30 backdrop-blur-md`}
             style={{
-              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.3), inset 0 -8px 12px rgba(239, 68, 68, 0.6)",
+              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.3), inset 0 -8px 12px rgba(248, 113, 113, 0.6)",
             }}
           >
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
