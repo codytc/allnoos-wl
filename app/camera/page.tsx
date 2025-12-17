@@ -47,6 +47,7 @@ export default function CameraPage() {
   const router = useRouter()
   const [showPhotoGlare, setShowPhotoGlare] = useState(false) // Declare showPhotoGlare here
   const [showVideoGlare, setShowVideoGlare] = useState(false) // Added showVideoGlare state for red button glare effect
+  const [showDraftGlare, setShowDraftGlare] = useState(false) // Added state for DRAFT button glare effect
 
   useEffect(() => {
     const savedPhotos = localStorage.getItem("cameraPhotos")
@@ -333,6 +334,11 @@ export default function CameraPage() {
     }
   }
 
+  const handleDraftButtonClick = () => {
+    setShowDraftGlare(true)
+    setTimeout(() => setShowDraftGlare(false), 600)
+  }
+
   return (
     <div className="relative w-full h-screen bg-black overflow-hidden">
       <div
@@ -436,8 +442,16 @@ export default function CameraPage() {
           {showCreateButton && (
             <div className="absolute top-[-60px] left-1/2 transform -translate-x-1/2 z-10">
               <Link href="/create" className="flex items-center justify-center">
-                <button className="bg-gradient-to-br from-orange-300/50 to-orange-500/50 backdrop-blur-md active:from-orange-400/60 active:to-orange-600/60 transition-all duration-200 active:scale-95 rounded-full flex items-center justify-center shadow-lg border border-orange-200/50 relative z-10 w-28 font-medium h-7 px-4 mb-0 mt-[68px]">
+                <button
+                  onClick={handleDraftButtonClick}
+                  className="bg-gradient-to-br from-orange-300/50 to-orange-500/50 backdrop-blur-md active:from-orange-400/60 active:to-orange-600/60 transition-all duration-200 active:scale-95 rounded-full flex items-center justify-center shadow-lg border border-orange-200/50 relative z-10 w-28 font-medium h-7 px-4 mb-0 mt-[68px] overflow-hidden"
+                >
                   <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
+                  {showDraftGlare && (
+                    <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
+                      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/60 to-transparent animate-[slide_0.6s_ease-out]"></div>
+                    </div>
+                  )}
                   <span className="text-white drop-shadow-lg relative z-10 text-sm font-medium tracking-wide opacity-95">
                     DRAFT
                   </span>
