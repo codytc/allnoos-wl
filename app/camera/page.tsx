@@ -425,7 +425,7 @@ export default function CameraPage() {
 
       <div className="absolute bottom-8 left-0 right-0 z-50 flex items-center justify-center gap-8 px-8">
         <div className="relative bg-white/5 backdrop-blur-sm rounded-full flex items-center border border-white/10 p-2 shadow-lg mb-[-20px] gap-0 px-0.5 py-1">
-          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
+          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-50"></div>
 
           {showCreateButton && (
             <div className="absolute top-[-60px] left-1/2 transform -translate-x-1/2 z-10">
@@ -442,7 +442,7 @@ export default function CameraPage() {
 
           <button
             onClick={handlePhotoButtonClick}
-            className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg border-2 ${
+            className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg border-2 overflow-hidden ${
               recordingMode === "photo"
                 ? "bg-gradient-to-br from-blue-400/30 to-blue-600/30 backdrop-blur-md border-blue-300/50 shadow-blue-500/30"
                 : "bg-gradient-to-br from-blue-500/50 to-blue-700/50 backdrop-blur-md border-blue-400/30 hover:from-blue-400/60 hover:to-blue-600/60"
@@ -451,7 +451,6 @@ export default function CameraPage() {
           >
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
             <Camera className="text-white drop-shadow-lg relative z-10 size-9 opacity-90" strokeWidth={1.5} />
-            <div className="absolute inset-0 rounded-full bg-blue-400/20 blur-xl scale-150 pointer-events-none"></div>
           </button>
 
           <div className="flex items-center gap-4 px-2 mt-2 mb-[-25px] opacity-90">
@@ -581,7 +580,7 @@ export default function CameraPage() {
 
           <button
             onClick={handleVideoButtonClick}
-            className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg border-2 ${
+            className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg border-2 overflow-hidden ${
               recordingMode === "video"
                 ? "bg-gradient-to-br from-red-400/30 to-red-600/30 backdrop-blur-md border-red-300/50 shadow-red-500/30"
                 : "bg-gradient-to-br from-red-500/50 to-red-700/50 backdrop-blur-md border-red-400/30 hover:from-red-400/60 hover:to-red-600/60"
@@ -594,7 +593,6 @@ export default function CameraPage() {
             ) : (
               <Video className="text-white drop-shadow-lg relative z-10 opacity-90 size-10" strokeWidth={1.5} />
             )}
-            <div className="absolute inset-0 rounded-full bg-red-400/20 blur-xl scale-150 pointer-events-none"></div>
           </button>
         </div>
       </div>
