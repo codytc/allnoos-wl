@@ -430,7 +430,7 @@ export default function CameraPage() {
           {showCreateButton && (
             <div className="absolute top-[-60px] left-1/2 transform -translate-x-1/2 z-10">
               <Link href="/create" className="flex items-center justify-center">
-                <button className="bg-white/10 backdrop-blur-md active:bg-white/15 transition-all duration-200 active:scale-95 rounded-full flex items-center justify-center shadow-lg border border-white/20 relative z-10 mt-16 w-28 font-medium h-7 px-4">
+                <button className="bg-white/10 backdrop-blur-md active:bg-white/15 transition-all duration-200 active:scale-95 rounded-full flex items-center justify-center shadow-lg border border-white/20 relative z-10 w-28 font-medium h-7 px-4 mb-0 mt-[70px]">
                   <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/30 via-transparent to-transparent pointer-events-none opacity-50"></div>
                   <span className="text-white drop-shadow-lg relative z-10 text-sm font-medium tracking-wide opacity-95">
                     DRAFT
