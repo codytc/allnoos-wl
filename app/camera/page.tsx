@@ -462,7 +462,10 @@ export default function CameraPage() {
 
           <button
             onClick={handlePhotoButtonClick}
-            className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg border-2 overflow-hidden bg-gradient-to-br from-blue-400/50 to-blue-600/50 backdrop-blur-md border-blue-400/60`}
+            className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg overflow-hidden bg-gradient-to-br from-blue-400/50 to-blue-600/50 backdrop-blur-md`}
+            style={{
+              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.3), inset 0 -8px 12px rgba(59, 130, 246, 0.6)",
+            }}
             disabled={activeCountdown !== null}
           >
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
@@ -602,8 +605,10 @@ export default function CameraPage() {
 
           <button
             onClick={handleVideoButtonClick}
-            className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg border-2 overflow-hidden bg-gradient-to-br from-red-400/50 to-red-600/50 backdrop-blur-md border-red-400/60`}
-            disabled={activeCountdown !== null}
+            className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg overflow-hidden bg-gradient-to-br from-red-400/50 to-red-600/50 backdrop-blur-md`}
+            style={{
+              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.3), inset 0 -8px 12px rgba(239, 68, 68, 0.6)",
+            }}
           >
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
             {showVideoGlare && (
