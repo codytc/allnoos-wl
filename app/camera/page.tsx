@@ -46,6 +46,7 @@ export default function CameraPage() {
   const [icon3, setIcon3] = useState<"flash" | "night-mode" | "hdr">("flash")
   const router = useRouter()
   const [showPhotoGlare, setShowPhotoGlare] = useState(false) // Declare showPhotoGlare here
+  const [showVideoGlare, setShowVideoGlare] = useState(false) // Added showVideoGlare state for red button glare effect
 
   useEffect(() => {
     const savedPhotos = localStorage.getItem("cameraPhotos")
@@ -317,6 +318,8 @@ export default function CameraPage() {
 
   const handleVideoButtonClick = () => {
     handleVideoMode()
+    setShowVideoGlare(true)
+    setTimeout(() => setShowVideoGlare(false), 600)
     if (isRecording) {
       // Stop recording immediately
       handleVideoCapture()
@@ -593,6 +596,11 @@ export default function CameraPage() {
             disabled={activeCountdown !== null}
           >
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
+            {showVideoGlare && (
+              <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
+                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/60 to-transparent animate-[slide_0.6s_ease-out]"></div>
+              </div>
+            )}
             {isRecording ? (
               <OctagonIcon className="w-8 h-8 text-white drop-shadow-lg relative z-10" strokeWidth={1.5} />
             ) : (
