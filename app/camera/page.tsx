@@ -588,11 +588,7 @@ export default function CameraPage() {
 
           <button
             onClick={handleVideoButtonClick}
-            className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg border-2 overflow-hidden ${
-              recordingMode === "video"
-                ? "bg-gradient-to-br from-red-400/40 to-red-600/40 backdrop-blur-md border-red-300/50"
-                : "bg-gradient-to-br from-red-500/60 to-red-700/60 backdrop-blur-md border-red-400/30 hover:from-red-400/70 hover:to-red-600/70"
-            }`}
+            className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg border-2 overflow-hidden bg-gradient-to-br from-red-400/50 to-red-600/50 backdrop-blur-md border-red-400/60`}
             disabled={activeCountdown !== null}
           >
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
