@@ -45,6 +45,7 @@ export default function CameraPage() {
   const [icon2, setIcon2] = useState<"user-x" | "user" | "user-square">("user-x")
   const [icon3, setIcon3] = useState<"flash" | "night-mode" | "hdr">("flash")
   const router = useRouter()
+  const [showPhotoGlare, setShowPhotoGlare] = useState(false) // Declare showPhotoGlare here
 
   useEffect(() => {
     const savedPhotos = localStorage.getItem("cameraPhotos")
@@ -305,6 +306,8 @@ export default function CameraPage() {
 
   const handlePhotoButtonClick = () => {
     handlePhotoMode()
+    setShowPhotoGlare(true)
+    setTimeout(() => setShowPhotoGlare(false), 600)
     if (timerCountdown !== null) {
       setActiveCountdown(timerCountdown)
     } else {
@@ -431,7 +434,7 @@ export default function CameraPage() {
             <div className="absolute top-[-60px] left-1/2 transform -translate-x-1/2 z-10">
               <Link href="/create" className="flex items-center justify-center">
                 <button className="bg-gradient-to-br from-orange-300/50 to-orange-500/50 backdrop-blur-md active:from-orange-400/60 active:to-orange-600/60 transition-all duration-200 active:scale-95 rounded-full flex items-center justify-center shadow-lg border border-orange-200/50 relative z-10 w-28 font-medium h-7 px-4 mb-0 mt-[68px]">
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/30 via-transparent to-transparent pointer-events-none opacity-50"></div>
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
                   <span className="text-white drop-shadow-lg relative z-10 text-sm font-medium tracking-wide opacity-95">
                     DRAFT
                   </span>
@@ -442,14 +445,16 @@ export default function CameraPage() {
 
           <button
             onClick={handlePhotoButtonClick}
-            className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg border-2 overflow-hidden ${
-              recordingMode === "photo"
-                ? "bg-gradient-to-br from-blue-300/50 to-blue-500/50 backdrop-blur-md border-blue-500/70 shadow-[inset_0_0_60px_20px_rgba(59,130,246,0.7),inset_0_0_40px_10px_rgba(96,165,250,0.5),inset_0_0_20px_5px_rgba(147,197,253,0.3)]"
-                : "bg-gradient-to-br from-blue-400/40 to-blue-600/40 backdrop-blur-md border-blue-300/50 hover:from-blue-300/50 hover:to-blue-500/50 shadow-[inset_0_0_50px_15px_rgba(96,165,250,0.6),inset_0_0_30px_8px_rgba(147,197,253,0.4)]"
-            }`}
+            className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg border-2 overflow-hidden bg-gradient-to-br from-blue-400/50 to-blue-600/50 backdrop-blur-md border-blue-400/60`}
             disabled={activeCountdown !== null}
           >
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
+            {showPhotoGlare && (
+              <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
+                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/60 to-transparent animate-[slide_0.6s_ease-out]"></div>
+              </div>
+            )}
+            {/* */}
             <Camera className="text-white drop-shadow-lg relative z-10 size-9 opacity-90" strokeWidth={1.5} />
           </button>
 
