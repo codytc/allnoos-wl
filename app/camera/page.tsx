@@ -462,15 +462,22 @@ export default function CameraPage() {
 
           <button
             onClick={handlePhotoButtonClick}
-            className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg overflow-hidden bg-gradient-to-br from-blue-300/25 to-blue-500/25 backdrop-blur-md`}
+            className={`relative w-20 h-20 flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg overflow-hidden bg-gradient-to-br from-blue-300/25 to-blue-500/25 backdrop-blur-md`}
             style={{
               boxShadow: "0 4px 6px rgba(0, 0, 0, 0.3), inset 0 -8px 12px rgba(96, 165, 250, 0.5)",
+              borderRadius: "50% 50% 0 0",
             }}
             disabled={activeCountdown !== null}
           >
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
+            <div
+              className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"
+              style={{ borderRadius: "50% 50% 0 0" }}
+            ></div>
             {showPhotoGlare && (
-              <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
+              <div
+                className="absolute inset-0 overflow-hidden pointer-events-none"
+                style={{ borderRadius: "50% 50% 0 0" }}
+              >
                 <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/60 to-transparent animate-[slide_0.6s_ease-out]"></div>
               </div>
             )}
@@ -605,14 +612,21 @@ export default function CameraPage() {
 
           <button
             onClick={handleVideoButtonClick}
-            className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg overflow-hidden bg-gradient-to-br from-red-300/25 to-red-500/25 backdrop-blur-md`}
+            className={`relative w-20 h-20 flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg overflow-hidden bg-gradient-to-br from-red-300/25 to-red-500/25 backdrop-blur-md`}
             style={{
               boxShadow: "0 4px 6px rgba(0, 0, 0, 0.3), inset 0 -8px 12px rgba(248, 113, 113, 0.5)",
+              borderRadius: "50% 50% 0 0",
             }}
           >
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
+            <div
+              className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"
+              style={{ borderRadius: "50% 50% 0 0" }}
+            ></div>
             {showVideoGlare && (
-              <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
+              <div
+                className="absolute inset-0 overflow-hidden pointer-events-none"
+                style={{ borderRadius: "50% 50% 0 0" }}
+              >
                 <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/60 to-transparent animate-[slide_0.6s_ease-out]"></div>
               </div>
             )}
