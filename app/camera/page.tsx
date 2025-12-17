@@ -425,7 +425,7 @@ export default function CameraPage() {
 
       <div className="absolute bottom-8 left-0 right-0 z-50 flex items-center justify-center gap-8 px-8">
         <div className="relative bg-white/5 backdrop-blur-sm rounded-full flex items-center border border-white/10 p-2 shadow-lg mb-[-20px] gap-0 px-0.5 py-1">
-          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-50"></div>
+          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/30 via-transparent to-transparent pointer-events-none opacity-50"></div>
 
           {showCreateButton && (
             <div className="absolute top-[-60px] left-1/2 transform -translate-x-1/2 z-10">
@@ -444,8 +444,8 @@ export default function CameraPage() {
             onClick={handlePhotoButtonClick}
             className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg border-2 overflow-hidden ${
               recordingMode === "photo"
-                ? "bg-gradient-to-br from-blue-400/40 to-blue-600/40 backdrop-blur-md border-blue-300/50"
-                : "bg-gradient-to-br from-blue-500/60 to-blue-700/60 backdrop-blur-md border-blue-400/30 hover:from-blue-400/70 hover:to-blue-600/70"
+                ? "bg-gradient-to-br from-blue-300/50 to-blue-300/50 backdrop-blur-md border-blue-500/40"
+                : "bg-gradient-to-br from-blue-400/30 to-blue-400/30 backdrop-blur-md border-blue-600/60 hover:from-blue-300/40 hover:to-blue-300/40"
             }`}
             disabled={activeCountdown !== null}
           >
