@@ -461,7 +461,7 @@ export default function CameraPage() {
                   cycleTimerState()
                 } else if (icon1 === "camera-flip") {
                   setIcon1("timer")
-                  setTimerCountdown(null)
+                  setTimerCountdown(5)
                 } else {
                   setIcon1("camera-flip")
                   setTimerCountdown(null)
