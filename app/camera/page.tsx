@@ -444,8 +444,8 @@ export default function CameraPage() {
             onClick={handlePhotoButtonClick}
             className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg border-2 overflow-hidden ${
               recordingMode === "photo"
-                ? "bg-gradient-to-br from-blue-300/50 to-blue-500/50 backdrop-blur-md border-blue-500/70"
-                : "bg-gradient-to-br from-blue-400/40 to-blue-600/40 backdrop-blur-md border-blue-300/50 hover:from-blue-300/50 hover:to-blue-500/50"
+                ? "bg-gradient-to-br from-blue-300/50 to-blue-500/50 backdrop-blur-md border-blue-500/70 shadow-[inset_0_0_20px_rgba(59,130,246,0.5)]"
+                : "bg-gradient-to-br from-blue-400/40 to-blue-600/40 backdrop-blur-md border-blue-300/50 hover:from-blue-300/50 hover:to-blue-500/50 shadow-[inset_0_0_15px_rgba(96,165,250,0.4)]"
             }`}
             disabled={activeCountdown !== null}
           >
