@@ -455,16 +455,6 @@
     }
   }
 
-  /* Adding slide animation for glare effect on blue button */
-  @keyframes slide {
-    0% {
-      transform: translateX(-150%);
-    }
-    100% {
-      transform: translateX(150%);
-    }
-  }
-
   .animate-gleam-expand {
     animation: gleam-expand 800ms ease-out forwards;
   }

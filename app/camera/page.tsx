@@ -45,9 +45,6 @@ export default function CameraPage() {
   const [icon2, setIcon2] = useState<"user-x" | "user" | "user-square">("user-x")
   const [icon3, setIcon3] = useState<"flash" | "night-mode" | "hdr">("flash")
   const router = useRouter()
-  const [showPhotoGlare, setShowPhotoGlare] = useState(false) // Declare showPhotoGlare here
-  const [showVideoGlare, setShowVideoGlare] = useState(false) // Added showVideoGlare state for red button glare effect
-  const [showDraftGlare, setShowDraftGlare] = useState(false) // Added state for DRAFT button glare effect
 
   useEffect(() => {
     const savedPhotos = localStorage.getItem("cameraPhotos")
@@ -308,8 +305,6 @@ export default function CameraPage() {
 
   const handlePhotoButtonClick = () => {
     handlePhotoMode()
-    setShowPhotoGlare(true)
-    setTimeout(() => setShowPhotoGlare(false), 600)
     if (timerCountdown !== null) {
       setActiveCountdown(timerCountdown)
     } else {
@@ -319,8 +314,6 @@ export default function CameraPage() {
 
   const handleVideoButtonClick = () => {
     handleVideoMode()
-    setShowVideoGlare(true)
-    setTimeout(() => setShowVideoGlare(false), 600)
     if (isRecording) {
       // Stop recording immediately
       handleVideoCapture()
@@ -332,11 +325,6 @@ export default function CameraPage() {
         handleVideoCapture()
       }
     }
-  }
-
-  const handleDraftButtonClick = () => {
-    setShowDraftGlare(true)
-    setTimeout(() => setShowDraftGlare(false), 600)
   }
 
   return (
@@ -437,21 +425,13 @@ export default function CameraPage() {
 
       <div className="absolute bottom-8 left-0 right-0 z-50 flex items-center justify-center gap-8 px-8">
         <div className="relative bg-white/5 backdrop-blur-sm rounded-full flex items-center border border-white/10 p-2 shadow-lg mb-[-20px] gap-0 px-0.5 py-1">
-          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-50"></div>
+          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
 
           {showCreateButton && (
             <div className="absolute top-[-60px] left-1/2 transform -translate-x-1/2 z-10">
               <Link href="/create" className="flex items-center justify-center">
-                <button
-                  onClick={handleDraftButtonClick}
-                  className="bg-gradient-to-br from-orange-200/25 to-orange-400/25 backdrop-blur-md active:from-orange-300/35 active:to-orange-500/35 transition-all duration-200 active:scale-95 rounded-full flex items-center justify-center shadow-lg border border-orange-100/40 relative z-10 w-28 font-medium h-7 px-4 mb-0 mt-[68px] overflow-hidden"
-                >
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
-                  {showDraftGlare && (
-                    <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
-                      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/60 to-transparent animate-[slide_0.6s_ease-out]"></div>
-                    </div>
-                  )}
+                <button className="bg-gradient-to-br from-blue-400/30 to-blue-600/30 backdrop-blur-md active:from-blue-500/40 active:to-blue-700/40 transition-all duration-200 active:scale-95 rounded-full flex items-center justify-center shadow-lg shadow-blue-500/20 border border-blue-300/30 relative z-10 w-28 font-medium h-7 px-4 mb-0 mt-[68px]">
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/30 via-transparent to-transparent pointer-events-none opacity-50"></div>
                   <span className="text-white drop-shadow-lg relative z-10 text-sm font-medium tracking-wide opacity-95">
                     DRAFT
                   </span>
@@ -462,27 +442,16 @@ export default function CameraPage() {
 
           <button
             onClick={handlePhotoButtonClick}
-            className={`relative w-20 h-20 flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg overflow-hidden bg-gradient-to-br from-blue-300/25 to-blue-500/25 backdrop-blur-md`}
-            style={{
-              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.3), inset 0 -8px 12px rgba(96, 165, 250, 0.5)",
-              borderRadius: "50% 50% 0 0",
-            }}
+            className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg border-2 ${
+              recordingMode === "photo"
+                ? "bg-gradient-to-br from-blue-400 to-blue-600 border-blue-300/50 shadow-blue-500/30 hover:from-blue-300 hover:to-blue-500"
+                : "bg-gradient-to-br from-blue-500/70 to-blue-700/70 border-blue-400/30 hover:from-blue-400/80 hover:to-blue-600/80"
+            }`}
             disabled={activeCountdown !== null}
           >
-            <div
-              className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"
-              style={{ borderRadius: "50% 50% 0 0" }}
-            ></div>
-            {showPhotoGlare && (
-              <div
-                className="absolute inset-0 overflow-hidden pointer-events-none"
-                style={{ borderRadius: "50% 50% 0 0" }}
-              >
-                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/60 to-transparent animate-[slide_0.6s_ease-out]"></div>
-              </div>
-            )}
-            {/* */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
             <Camera className="text-white drop-shadow-lg relative z-10 size-9 opacity-90" strokeWidth={1.5} />
+            <div className="absolute inset-0 rounded-full bg-blue-400/20 blur-xl scale-150 pointer-events-none"></div>
           </button>
 
           <div className="flex items-center gap-4 px-2 mt-2 mb-[-25px] opacity-90">
@@ -612,29 +581,20 @@ export default function CameraPage() {
 
           <button
             onClick={handleVideoButtonClick}
-            className={`relative w-20 h-20 flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg overflow-hidden bg-gradient-to-br from-red-300/25 to-red-500/25 backdrop-blur-md`}
-            style={{
-              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.3), inset 0 -8px 12px rgba(248, 113, 113, 0.5)",
-              borderRadius: "50% 50% 0 0",
-            }}
+            className={`relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 active:scale-95 shadow-lg border-2 ${
+              recordingMode === "video"
+                ? "bg-gradient-to-br from-red-400 to-red-600 border-red-300/50 shadow-red-500/30"
+                : "bg-gradient-to-br from-red-500/70 to-red-700/70 border-red-400/30 hover:from-red-400/80 hover:to-red-600/80"
+            }`}
+            disabled={activeCountdown !== null}
           >
-            <div
-              className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"
-              style={{ borderRadius: "50% 50% 0 0" }}
-            ></div>
-            {showVideoGlare && (
-              <div
-                className="absolute inset-0 overflow-hidden pointer-events-none"
-                style={{ borderRadius: "50% 50% 0 0" }}
-              >
-                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/60 to-transparent animate-[slide_0.6s_ease-out]"></div>
-              </div>
-            )}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
             {isRecording ? (
               <OctagonIcon className="w-8 h-8 text-white drop-shadow-lg relative z-10" strokeWidth={1.5} />
             ) : (
               <Video className="text-white drop-shadow-lg relative z-10 opacity-90 size-10" strokeWidth={1.5} />
             )}
+            <div className="absolute inset-0 rounded-full bg-red-400/20 blur-xl scale-150 pointer-events-none"></div>
           </button>
         </div>
       </div>
