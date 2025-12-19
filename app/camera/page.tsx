@@ -457,9 +457,9 @@ export default function CameraPage() {
 
           {!showCreateButton && !isRecording ? (
             <div className="absolute top-[-60px] left-1/2 transform -translate-x-1/2 z-10">
-              <div className="backdrop-blur-md bg-gradient-to-br from-slate-400/20 to-slate-600/25 border-slate-300/25 [box-shadow:inset_0_0_20px_rgba(147,197,253,0.1)] rounded-full flex items-center justify-center shadow-lg border w-auto h-7 px-5 mb-0 mt-[68px] min-w-[120px] max-w-[200px]">
+              <div className="backdrop-blur-md bg-gradient-to-br from-slate-400/20 to-slate-600/25 border-slate-300/25 [box-shadow:inset_0_0_20px_rgba(147,197,253,0.1)] rounded-full flex items-center justify-center shadow-lg border w-auto h-auto px-5 py-1.5 mb-0 mt-[68px] min-w-[120px] max-w-[180px]">
                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/30 via-transparent to-transparent pointer-events-none opacity-50"></div>
-                <span className="text-white drop-shadow-lg relative z-10 text-xs font-medium tracking-wide opacity-95 whitespace-nowrap overflow-hidden text-ellipsis">
+                <span className="text-white drop-shadow-lg relative z-10 text-xs font-medium tracking-wide opacity-95 text-center leading-tight">
                   {phrases[phraseIndex]}
                 </span>
               </div>
