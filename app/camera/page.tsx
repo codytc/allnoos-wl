@@ -52,7 +52,7 @@ export default function CameraPage() {
     "Work the Scene",
     "To the Wire",
     "Money Shot",
-    "Don't Bury Lede",
+    "Don't Bury the Lede",
     "Work the Rope",
     "Stake Out",
     "Pancaking",
@@ -448,11 +448,11 @@ export default function CameraPage() {
 
       <div className="absolute bottom-8 left-0 right-0 z-50 flex items-center justify-center gap-8 px-8">
         <div className="relative bg-white/5 backdrop-blur-sm rounded-full flex items-center border border-white/10 p-2 shadow-lg mb-[-20px] gap-0 px-0.5 py-1">
-          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
+          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/30 via-transparent to-transparent pointer-events-none opacity-50"></div>
 
           {!showCreateButton && !isRecording ? (
             <div className="absolute top-[-60px] left-1/2 transform -translate-x-1/2 z-10 mt-[68px]">
-              <span className="text-white drop-shadow-lg text-sm font-medium tracking-wide opacity-90 text-center whitespace-nowrap">
+              <span className="text-white drop-shadow-lg text-sm font-medium tracking-wide opacity-90 text-center block max-w-[160px] leading-tight">
                 {phrases[phraseIndex]}
               </span>
             </div>
@@ -471,7 +471,7 @@ export default function CameraPage() {
                       if (isRecording) e.preventDefault()
                     }}
                   >
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/30 via-transparent to-transparent pointer-events-none opacity-50"></div>
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
                     <span className="text-white drop-shadow-lg relative z-10 text-sm font-medium tracking-wide opacity-95">
                       {isRecording ? "RECORDING" : "DRAFT"}
                     </span>
