@@ -57,6 +57,20 @@ export default function CameraPage() {
     "Stake Out",
     "Pancaking",
   ]
+  const [showDefinition, setShowDefinition] = useState(false)
+  const definitions: Record<string, string> = {
+    Pancaking: "Lying flat for a low-angle shot, often to see under a crowd or make a subject look more powerful.",
+    "To the Wire": "Sending stories directly to Allnoos for instant global distribution.",
+    "The Decisive Moment":
+      "The exact millisecond where the action, emotion, and lighting perfectly align for a single shot.",
+    SOOC: '"Straight Out Of Camera." A photo or video without editing. At Allnoos we call it "raw honesty".',
+    "Work the Scene": "Moving to find every possible angle of a story.",
+    "Money Shot": "The specific video or image that will be the first slide; the one that defines the story.",
+    "Don't Bury the Lede":
+      'Don\'t hide the most important news deep in the story; put the "who, what, where, and why" in the very first paragraph.',
+    "Work the Rope": "Moving along the security barricades at an event to snag quick interviews or close-up photos.",
+    "Stake Out": "Waiting at a fixed location for a specific person to appear.",
+  }
   const router = useRouter()
 
   useEffect(() => {
@@ -450,9 +464,20 @@ export default function CameraPage() {
 
           {!showCreateButton && !isRecording ? (
             <div className="absolute top-[-60px] left-1/2 transform -translate-x-1/2 z-10 mt-[68px]">
-              <span className="text-white drop-shadow-lg text-sm font-medium tracking-wide opacity-90 text-center block max-w-[160px] leading-tight">
+              <span
+                className="text-white drop-shadow-lg text-sm font-medium tracking-wide opacity-90 text-center block max-w-[160px] leading-tight cursor-pointer hover:opacity-100 transition-opacity"
+                onClick={() => setShowDefinition(!showDefinition)}
+              >
                 {phrases[phraseIndex]}
               </span>
+
+              {showDefinition && definitions[phrases[phraseIndex]] && (
+                <div className="mt-3 max-w-[200px] mx-auto">
+                  <p className="text-white/80 drop-shadow-lg text-xs leading-tight text-center">
+                    {definitions[phrases[phraseIndex]]}
+                  </p>
+                </div>
+              )}
             </div>
           ) : (
             (showCreateButton || isRecording) && (
