@@ -114,13 +114,8 @@ export default function CameraPage() {
   }, [favoriteVideos])
 
   useEffect(() => {
-    if (!showCreateButton && !isRecording) {
-      const interval = setInterval(() => {
-        setPhraseIndex((prev) => (prev + 1) % phrases.length)
-      }, 3000)
-      return () => clearInterval(interval)
-    }
-  }, [showCreateButton, isRecording, phrases.length])
+    setPhraseIndex(Math.floor(Math.random() * phrases.length))
+  }, [])
 
   useEffect(() => {
     if (activeCountdown !== null && activeCountdown > 0) {
@@ -456,13 +451,10 @@ export default function CameraPage() {
           <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
 
           {!showCreateButton && !isRecording ? (
-            <div className="absolute top-[-60px] left-1/2 transform -translate-x-1/2 z-10">
-              <div className="backdrop-blur-md bg-gradient-to-br from-slate-400/20 to-slate-600/25 border-slate-300/25 [box-shadow:inset_0_0_20px_rgba(147,197,253,0.1)] rounded-full flex items-center justify-center shadow-lg border w-auto h-auto px-5 py-1.5 mb-0 mt-[68px] min-w-[120px] max-w-[180px]">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/30 via-transparent to-transparent pointer-events-none opacity-50"></div>
-                <span className="text-white drop-shadow-lg relative z-10 text-xs font-medium tracking-wide opacity-95 text-center leading-tight">
-                  {phrases[phraseIndex]}
-                </span>
-              </div>
+            <div className="absolute top-[-60px] left-1/2 transform -translate-x-1/2 z-10 mt-[68px]">
+              <span className="text-white drop-shadow-lg text-sm font-medium tracking-wide opacity-90 text-center whitespace-nowrap">
+                {phrases[phraseIndex]}
+              </span>
             </div>
           ) : (
             (showCreateButton || isRecording) && (
@@ -472,7 +464,7 @@ export default function CameraPage() {
                     className={`backdrop-blur-md transition-all duration-200 active:scale-95 rounded-full flex items-center justify-center shadow-lg border relative z-10 w-28 font-medium h-7 px-4 mb-0 mt-[68px] ${
                       isRecording
                         ? "bg-gradient-to-br from-red-400/25 to-red-600/30 border-red-300/30 [box-shadow:inset_0_0_20px_rgba(248,113,113,0.15)] animate-pulse cursor-default active:from-red-400/25 active:to-red-600/30"
-                        : "bg-gradient-to-br from-slate-400/20 to-slate-600/25 border-slate-300/25 [box-shadow:inset_0_0_20px_rgba(147,197,253,0.1)] active:from-slate-500/30 active:to-slate-700/30"
+                        : "bg-gradient-to-br from-yellow-300/25 to-yellow-500/30 border-yellow-300/30 [box-shadow:inset_0_0_20px_rgba(250,204,21,0.15)] active:from-yellow-400/35 active:to-yellow-600/40"
                     }`}
                     disabled={isRecording}
                     onClick={(e) => {
