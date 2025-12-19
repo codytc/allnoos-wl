@@ -444,8 +444,10 @@ export default function CameraPage() {
             <div className="absolute top-[-60px] left-1/2 transform -translate-x-1/2 z-10">
               <Link href="/create" className="flex items-center justify-center">
                 <button
-                  className={`bg-gradient-to-br from-slate-400/20 to-slate-600/25 backdrop-blur-md active:from-slate-500/30 active:to-slate-700/30 transition-all duration-200 active:scale-95 rounded-full flex items-center justify-center shadow-lg border border-slate-300/25 relative z-10 w-28 font-medium h-7 px-4 mb-0 mt-[68px] [box-shadow:inset_0_0_20px_rgba(147,197,253,0.1)] ${
-                    isRecording ? "animate-pulse cursor-default" : ""
+                  className={`backdrop-blur-md transition-all duration-200 active:scale-95 rounded-full flex items-center justify-center shadow-lg border relative z-10 w-28 font-medium h-7 px-4 mb-0 mt-[68px] ${
+                    isRecording
+                      ? "bg-gradient-to-br from-red-400/25 to-red-600/30 border-red-300/30 [box-shadow:inset_0_0_20px_rgba(248,113,113,0.15)] animate-pulse cursor-default active:from-red-400/25 active:to-red-600/30"
+                      : "bg-gradient-to-br from-slate-400/20 to-slate-600/25 border-slate-300/25 [box-shadow:inset_0_0_20px_rgba(147,197,253,0.1)] active:from-slate-500/30 active:to-slate-700/30"
                   }`}
                   disabled={isRecording}
                   onClick={(e) => {
