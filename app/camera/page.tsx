@@ -473,7 +473,7 @@ export default function CameraPage() {
 
               {showDefinition && definitions[phrases[phraseIndex]] && (
                 <div className="absolute left-1/2 -translate-x-1/2 bottom-14 w-screen px-8">
-                  <p className="text-white/80 drop-shadow-lg text-xs leading-relaxed text-center max-w-md mx-auto">
+                  <p className="text-white/80 drop-shadow-lg text-xs leading-relaxed max-w-md mx-auto text-left">
                     {definitions[phrases[phraseIndex]]}
                   </p>
                 </div>
