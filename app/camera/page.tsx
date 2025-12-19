@@ -410,14 +410,6 @@ export default function CameraPage() {
         </div>
       </div>
 
-      {isRecording && (
-        <div className="absolute top-16 left-1/2 -translate-x-1/2 z-50">
-          <div className="bg-red-500/30 backdrop-blur-sm rounded-full px-6 py-2 animate-pulse">
-            <span className="text-white font-semibold text-lg">Recording</span>
-          </div>
-        </div>
-      )}
-
       {activeCountdown !== null && activeCountdown > 0 && (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
           <div
