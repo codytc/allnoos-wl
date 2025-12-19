@@ -45,6 +45,20 @@ export default function CameraPage() {
   const [icon1, setIcon1] = useState<"camera-flip" | "grid" | "timer">("camera-flip")
   const [icon2, setIcon2] = useState<"user-x" | "user" | "user-square">("user-x")
   const [icon3, setIcon3] = useState<"flash" | "night-mode" | "hdr">("flash")
+  const [phraseIndex, setPhraseIndex] = useState(0)
+  const phrases = [
+    "The Decisive Moment",
+    "SOOC",
+    "Work the Scene",
+    "To the Wire",
+    "Money Shot",
+    "Don't Bury Lede",
+    "Work the Rope",
+    "Stake Out",
+    "Pancaking",
+    "Chase the Tail",
+    "Pre-roll",
+  ]
   const router = useRouter()
 
   useEffect(() => {
@@ -98,6 +112,15 @@ export default function CameraPage() {
   useEffect(() => {
     localStorage.setItem("favoriteVideos", JSON.stringify(Array.from(favoriteVideos)))
   }, [favoriteVideos])
+
+  useEffect(() => {
+    if (!showCreateButton && !isRecording) {
+      const interval = setInterval(() => {
+        setPhraseIndex((prev) => (prev + 1) % phrases.length)
+      }, 3000)
+      return () => clearInterval(interval)
+    }
+  }, [showCreateButton, isRecording, phrases.length])
 
   useEffect(() => {
     if (activeCountdown !== null && activeCountdown > 0) {
@@ -432,27 +455,38 @@ export default function CameraPage() {
         <div className="relative bg-white/5 backdrop-blur-sm rounded-full flex items-center border border-white/10 p-2 shadow-lg mb-[-20px] gap-0 px-0.5 py-1">
           <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
 
-          {(showCreateButton || isRecording) && (
+          {!showCreateButton && !isRecording ? (
             <div className="absolute top-[-60px] left-1/2 transform -translate-x-1/2 z-10">
-              <Link href="/create" className="flex items-center justify-center">
-                <button
-                  className={`backdrop-blur-md transition-all duration-200 active:scale-95 rounded-full flex items-center justify-center shadow-lg border relative z-10 w-28 font-medium h-7 px-4 mb-0 mt-[68px] ${
-                    isRecording
-                      ? "bg-gradient-to-br from-red-400/25 to-red-600/30 border-red-300/30 [box-shadow:inset_0_0_20px_rgba(248,113,113,0.15)] animate-pulse cursor-default active:from-red-400/25 active:to-red-600/30"
-                      : "bg-gradient-to-br from-slate-400/20 to-slate-600/25 border-slate-300/25 [box-shadow:inset_0_0_20px_rgba(147,197,253,0.1)] active:from-slate-500/30 active:to-slate-700/30"
-                  }`}
-                  disabled={isRecording}
-                  onClick={(e) => {
-                    if (isRecording) e.preventDefault()
-                  }}
-                >
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/30 via-transparent to-transparent pointer-events-none opacity-50"></div>
-                  <span className="text-white drop-shadow-lg relative z-10 text-sm font-medium tracking-wide opacity-95">
-                    {isRecording ? "RECORDING" : "DRAFT"}
-                  </span>
-                </button>
-              </Link>
+              <div className="backdrop-blur-md bg-gradient-to-br from-slate-400/20 to-slate-600/25 border-slate-300/25 [box-shadow:inset_0_0_20px_rgba(147,197,253,0.1)] rounded-full flex items-center justify-center shadow-lg border w-auto h-7 px-5 mb-0 mt-[68px] min-w-[120px] max-w-[200px]">
+                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/30 via-transparent to-transparent pointer-events-none opacity-50"></div>
+                <span className="text-white drop-shadow-lg relative z-10 text-xs font-medium tracking-wide opacity-95 whitespace-nowrap overflow-hidden text-ellipsis">
+                  {phrases[phraseIndex]}
+                </span>
+              </div>
             </div>
+          ) : (
+            (showCreateButton || isRecording) && (
+              <div className="absolute top-[-60px] left-1/2 transform -translate-x-1/2 z-10">
+                <Link href="/create" className="flex items-center justify-center">
+                  <button
+                    className={`backdrop-blur-md transition-all duration-200 active:scale-95 rounded-full flex items-center justify-center shadow-lg border relative z-10 w-28 font-medium h-7 px-4 mb-0 mt-[68px] ${
+                      isRecording
+                        ? "bg-gradient-to-br from-red-400/25 to-red-600/30 border-red-300/30 [box-shadow:inset_0_0_20px_rgba(248,113,113,0.15)] animate-pulse cursor-default active:from-red-400/25 active:to-red-600/30"
+                        : "bg-gradient-to-br from-slate-400/20 to-slate-600/25 border-slate-300/25 [box-shadow:inset_0_0_20px_rgba(147,197,253,0.1)] active:from-slate-500/30 active:to-slate-700/30"
+                    }`}
+                    disabled={isRecording}
+                    onClick={(e) => {
+                      if (isRecording) e.preventDefault()
+                    }}
+                  >
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/30 via-transparent to-transparent pointer-events-none opacity-50"></div>
+                    <span className="text-white drop-shadow-lg relative z-10 text-sm font-medium tracking-wide opacity-95">
+                      {isRecording ? "RECORDING" : "DRAFT"}
+                    </span>
+                  </button>
+                </Link>
+              </div>
+            )
           )}
 
           <button
