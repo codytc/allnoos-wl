@@ -56,8 +56,6 @@ export default function CameraPage() {
     "Work the Rope",
     "Stake Out",
     "Pancaking",
-    "Chase the Tail",
-    "Pre-roll",
   ]
   const router = useRouter()
 
