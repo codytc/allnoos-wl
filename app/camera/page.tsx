@@ -41,6 +41,7 @@ export default function CameraPage() {
   const [showCreateButton, setShowCreateButton] = useState(false)
   const [timerCountdown, setTimerCountdown] = useState<null | 5 | 10>(null)
   const [activeCountdown, setActiveCountdown] = useState<number | null>(null)
+  const [countdownMode, setCountdownMode] = useState<"photo" | "video">("photo")
   const [icon1, setIcon1] = useState<"camera-flip" | "grid" | "timer">("camera-flip")
   const [icon2, setIcon2] = useState<"user-x" | "user" | "user-square">("user-x")
   const [icon3, setIcon3] = useState<"flash" | "night-mode" | "hdr">("flash")
@@ -307,6 +308,7 @@ export default function CameraPage() {
     handlePhotoMode()
     if (timerCountdown !== null) {
       setActiveCountdown(timerCountdown)
+      setCountdownMode("photo")
     } else {
       handlePhotoCapture()
     }
@@ -321,6 +323,7 @@ export default function CameraPage() {
       // Start recording with timer if set
       if (timerCountdown !== null) {
         setActiveCountdown(timerCountdown)
+        setCountdownMode("video")
       } else {
         handleVideoCapture()
       }
@@ -417,8 +420,18 @@ export default function CameraPage() {
 
       {activeCountdown !== null && activeCountdown > 0 && (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
-          <div className="bg-white/20 backdrop-blur-md rounded-full w-32 h-32 flex items-center justify-center border-4 border-white/40 shadow-2xl">
-            <span className="text-white font-bold text-6xl drop-shadow-lg">{activeCountdown}</span>
+          <div
+            className={`bg-white/20 backdrop-blur-md rounded-full w-32 h-32 flex items-center justify-center border-4 shadow-2xl ${
+              countdownMode === "photo" ? "border-blue-400/60" : "border-red-400/60"
+            }`}
+          >
+            <span
+              className={`font-bold text-6xl drop-shadow-lg ${
+                countdownMode === "photo" ? "text-blue-400" : "text-red-400"
+              }`}
+            >
+              {activeCountdown}
+            </span>
           </div>
         </div>
       )}
@@ -427,13 +440,21 @@ export default function CameraPage() {
         <div className="relative bg-white/5 backdrop-blur-sm rounded-full flex items-center border border-white/10 p-2 shadow-lg mb-[-20px] gap-0 px-0.5 py-1">
           <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
 
-          {showCreateButton && (
+          {(showCreateButton || isRecording) && (
             <div className="absolute top-[-60px] left-1/2 transform -translate-x-1/2 z-10">
               <Link href="/create" className="flex items-center justify-center">
-                <button className="bg-gradient-to-br from-slate-400/20 to-slate-600/25 backdrop-blur-md active:from-slate-500/30 active:to-slate-700/30 transition-all duration-200 active:scale-95 rounded-full flex items-center justify-center shadow-lg border border-slate-300/25 relative z-10 w-28 font-medium h-7 px-4 mb-0 mt-[68px] [box-shadow:inset_0_0_20px_rgba(147,197,253,0.1)]">
+                <button
+                  className={`bg-gradient-to-br from-slate-400/20 to-slate-600/25 backdrop-blur-md active:from-slate-500/30 active:to-slate-700/30 transition-all duration-200 active:scale-95 rounded-full flex items-center justify-center shadow-lg border border-slate-300/25 relative z-10 w-28 font-medium h-7 px-4 mb-0 mt-[68px] [box-shadow:inset_0_0_20px_rgba(147,197,253,0.1)] ${
+                    isRecording ? "animate-pulse cursor-default" : ""
+                  }`}
+                  disabled={isRecording}
+                  onClick={(e) => {
+                    if (isRecording) e.preventDefault()
+                  }}
+                >
                   <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/30 via-transparent to-transparent pointer-events-none opacity-50"></div>
                   <span className="text-white drop-shadow-lg relative z-10 text-sm font-medium tracking-wide opacity-95">
-                    DRAFT
+                    {isRecording ? "RECORDING" : "DRAFT"}
                   </span>
                 </button>
               </Link>
