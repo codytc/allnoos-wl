@@ -200,7 +200,13 @@ export default function CameraPage() {
   }
 
   const deletePhoto = (index: number) => {
-    setCapturedPhotos((prev) => prev.filter((_, i) => i !== index))
+    setCapturedPhotos((prev) => {
+      const newPhotos = prev.filter((_, i) => i !== index)
+      if (newPhotos.length === 0 && capturedVideos === 0) {
+        setShowCreateButton(false)
+      }
+      return newPhotos
+    })
     setEmphasizedPhotos((prev) => {
       const newSet = new Set(prev)
       newSet.delete(index)
@@ -264,7 +270,13 @@ export default function CameraPage() {
 
   const deleteVideo = (videoId: number) => {
     setVideoData((prev) => prev.filter((video) => video.id !== videoId))
-    setCapturedVideos((prev) => prev - 1)
+    setCapturedVideos((prev) => {
+      const newCount = prev - 1
+      if (newCount === 0 && capturedPhotos.length === 0) {
+        setShowCreateButton(false)
+      }
+      return newCount
+    })
     setFavoriteVideos((prev) => {
       const newSet = new Set(prev)
       newSet.delete(videoId)
