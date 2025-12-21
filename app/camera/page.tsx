@@ -830,7 +830,47 @@ export default function CameraPage() {
           >
             <div className="p-6 h-full flex flex-col">
               {selectedPhoto !== null ? (
-                <div className="h-full flex flex-col">{/* Additional code for selected photo can be added here */}</div>
+                <div className="h-full flex flex-col">
+                  <div className="grid grid-cols-2 grid-rows-2 gap-4">
+                    {capturedPhotos.map((photo, index) => (
+                      <div
+                        key={index}
+                        className={`relative group ${selectedPhoto === index ? "col-span-2 row-span-2" : ""}`}
+                      >
+                        <div
+                          className={`relative rounded-lg overflow-hidden cursor-pointer ${
+                            emphasizedPhotos.has(index) ? "ring-4 ring-yellow-400" : ""
+                          }`}
+                          onClick={() => selectPhoto(selectedPhoto === index ? null : index)}
+                        >
+                          <img
+                            src={photo || "/placeholder.svg"}
+                            alt={`Photo ${index}`}
+                            className="w-full aspect-video object-cover"
+                          />
+
+                          <div className="absolute top-2 left-2 flex gap-2"></div>
+
+                          <div className="absolute top-2 right-2 text-2xl">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                deletePhoto(index)
+                              }}
+                              className="rounded-full bg-green-700/80 text-white flex items-center justify-center active:bg-green-700 transition-colors size-12"
+                            >
+                              <Trash2 className="size-7" />
+                            </button>
+                          </div>
+
+                          <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-black/70 text-white px-2 py-1 rounded text-2xl mt-0.5">
+                            {/* Additional code for photo details can be added here */}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               ) : (
                 <>
                   <div className="flex items-center justify-between mb-6">
