@@ -204,6 +204,7 @@ export default function CameraPage() {
       const newPhotos = prev.filter((_, i) => i !== index)
       if (newPhotos.length === 0 && capturedVideos === 0) {
         setShowCreateButton(false)
+        setShowPhotoGallery(false)
       }
       return newPhotos
     })
@@ -274,6 +275,7 @@ export default function CameraPage() {
       const newCount = prev - 1
       if (newCount === 0 && capturedPhotos.length === 0) {
         setShowCreateButton(false)
+        setShowVideoGallery(false)
       }
       return newCount
     })
