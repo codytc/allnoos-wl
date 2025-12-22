@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ChevronLeft, Mic, MapPin, Play, Trash2, X, Loader2, Camera } from "lucide-react"
+import { ChevronLeft, Mic, MapPin, Play, Trash2, X, Loader2 } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { AllnoosLogo } from "@/components/allnoos-logo"
@@ -410,13 +410,29 @@ export default function CreatePage() {
             <CardHeader className="relative">
               <button
                 onClick={openVideoGallery}
-                className="absolute top-4 left-4 w-10 h-10 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center transition-colors shadow-lg"
+                className="absolute top-4 left-4 w-10 h-10 flex items-center justify-center cursor-pointer"
                 aria-label="Open video gallery"
               >
-                <Camera className="w-5 h-5" />
-                <div className="absolute -top-1 -right-1 w-5 h-5 bg-white text-red-600 rounded-full flex items-center justify-center text-xs font-bold border-2 border-red-600">
+                <svg
+                  className="w-8 h-8 text-red-600 relative z-10 opacity-90"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  style={{ marginTop: "-2px" }}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z"
+                  />
+                </svg>
+                <span
+                  className="absolute inset-0 flex items-center justify-center text-red-400 font-bold text-sm z-20 opacity-70"
+                  style={{ marginTop: "1px" }}
+                >
                   {capturedVideos.length}
-                </div>
+                </span>
               </button>
               <CardTitle className="text-center pt-2">Captured Videos</CardTitle>
             </CardHeader>
