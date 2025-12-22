@@ -408,9 +408,7 @@ export default function CreatePage() {
         {capturedVideos.length > 0 && (
           <>
             <div className="flex items-center gap-2 mb-3">
-              <div style={{ width: "32px", height: "32px" }}>
-                <AllnoosLogo variant="default" size="sm" />
-              </div>
+              <Video className="w-8 h-8 text-red-500" strokeWidth={1.5} />
               <h2 className="text-lg font-semibold">Captured Videos</h2>
             </div>
             <Card>
