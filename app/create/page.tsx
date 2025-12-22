@@ -454,13 +454,13 @@ export default function CreatePage() {
                           e.stopPropagation()
                           toggleContentSelection("photo", index)
                         }}
-                        className={`absolute top-2 left-2 w-8 h-8 rounded-full flex items-center justify-center transition-colors font-bold text-sm ${
+                        className={`absolute top-2 left-2 w-6 h-6 rounded-full flex items-center justify-center transition-all font-bold text-xs border-2 ${
                           isSelected
-                            ? "bg-blue-500 text-white"
-                            : "bg-white/80 text-gray-600 hover:bg-blue-500 hover:text-white"
+                            ? "bg-blue-500 text-white border-blue-500"
+                            : "bg-transparent text-white border-white hover:bg-white/20 hover:border-white"
                         }`}
                       >
-                        {orderNumber || "+"}
+                        {orderNumber || ""}
                       </button>
                       <button
                         onClick={(e) => {
@@ -536,13 +536,13 @@ export default function CreatePage() {
                           e.stopPropagation()
                           toggleContentSelection("video", 0, video.id)
                         }}
-                        className={`absolute top-2 left-2 w-8 h-8 rounded-full flex items-center justify-center transition-colors font-bold text-sm ${
+                        className={`absolute top-2 left-2 w-6 h-6 rounded-full flex items-center justify-center transition-all font-bold text-xs border-2 ${
                           isSelected
-                            ? "bg-blue-500 text-white"
-                            : "bg-white/80 text-gray-600 hover:bg-blue-500 hover:text-white"
+                            ? "bg-blue-500 text-white border-blue-500"
+                            : "bg-transparent text-white border-white hover:bg-white/20 hover:border-white"
                         }`}
                       >
-                        {orderNumber || "+"}
+                        {orderNumber || ""}
                       </button>
                       <button
                         onClick={(e) => {
@@ -629,7 +629,7 @@ export default function CreatePage() {
                           e.stopPropagation()
                           toggleContentSelection("photo", selectedPhoto)
                         }}
-                        className={`w-12 h-12 rounded-full flex items-center justify-center transition-colors font-bold ${
+                        className={`w-12 h-12 rounded-full flex items-center justify-center transition-all font-bold ${
                           isContentSelected("photo", selectedPhoto)
                             ? "bg-blue-500 text-white"
                             : "bg-white/20 text-white hover:bg-white/30"
@@ -677,8 +677,10 @@ export default function CreatePage() {
                             e.stopPropagation()
                             toggleContentSelection("photo", index)
                           }}
-                          className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors font-bold ${
-                            isSelected ? "bg-blue-500 text-white" : "bg-white/20 text-white hover:bg-white/30"
+                          className={`w-10 h-10 rounded-full flex items-center justify-center transition-all font-bold ${
+                            isSelected
+                              ? "bg-blue-500 text-white border-blue-500"
+                              : "bg-transparent text-white border-white hover:bg-white/20 hover:border-white"
                           }`}
                         >
                           {orderNumber || "+"}
@@ -745,7 +747,7 @@ export default function CreatePage() {
                           e.stopPropagation()
                           toggleContentSelection("video", 0, capturedVideos[selectedVideo].id)
                         }}
-                        className={`w-12 h-12 rounded-full flex items-center justify-center transition-colors font-bold ${
+                        className={`w-12 h-12 rounded-full flex items-center justify-center transition-all font-bold ${
                           isContentSelected("video", 0, capturedVideos[selectedVideo].id)
                             ? "bg-blue-500 text-white"
                             : "bg-white/20 text-white hover:bg-white/30"
@@ -801,8 +803,10 @@ export default function CreatePage() {
                             e.stopPropagation()
                             toggleContentSelection("video", 0, video.id)
                           }}
-                          className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors font-bold ${
-                            isSelected ? "bg-blue-500 text-white" : "bg-white/20 text-white hover:bg-white/30"
+                          className={`w-10 h-10 rounded-full flex items-center justify-center transition-all font-bold ${
+                            isSelected
+                              ? "bg-blue-500 text-white border-blue-500"
+                              : "bg-transparent text-white border-white hover:bg-white/20 hover:border-white"
                           }`}
                         >
                           {orderNumber || "+"}
