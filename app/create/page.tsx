@@ -452,10 +452,10 @@ export default function CreatePage() {
                               e.stopPropagation()
                               toggleContentSelection("video", 0, video.id)
                             }}
-                            className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all shadow-lg ${
+                            className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all shadow-lg backdrop-blur-sm hover:scale-110 active:scale-110 hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] p-2 ${
                               isSelected
                                 ? "bg-blue-500 border-blue-500 text-white"
-                                : "bg-white/60 backdrop-blur-sm border-white/80 text-white"
+                                : "bg-white/20 border-white/30 text-white"
                             }`}
                           >
                             {orderNumber && <span className="text-xs font-bold">{orderNumber}</span>}
@@ -472,9 +472,9 @@ export default function CreatePage() {
                                 deleteVideo(video.id)
                               }
                             }}
-                            className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-transparent p-2.5"
+                            className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 p-2 border border-white/30"
                           >
-                            <Trash2 className="w-5 h-5 text-white" />
+                            <Trash2 className="size-4 text-white" />
                           </button>
                         </div>
                         <div className="absolute inset-0 bg-black/30 flex items-center justify-center rounded-t-lg">
@@ -766,7 +766,7 @@ export default function CreatePage() {
                           deleteVideo(capturedVideos[selectedVideo].id)
                           setSelectedVideo(null)
                         }}
-                        className="w-10 h-10 rounded-full bg-green-700/80 text-white flex items-center justify-center hover:bg-green-700 transition-colors"
+                        className="w-10 h-10 rounded-full bg-green-700/80 backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-transparent p-2.5"
                       >
                         <Trash2 className="w-5 h-5 text-white drop-shadow-lg" />
                       </button>
