@@ -967,7 +967,7 @@ export default function UserProfilePage() {
                             viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
-                            strokeWidth="2.5"
+                            strokeWidth="2"
                             style={{ transform: "rotate(80deg)" }}
                           >
                             <path d="M7 17L17 7" strokeLinecap="round" strokeLinejoin="round" />
