@@ -406,156 +406,179 @@ export default function CreatePage() {
         </Card>
 
         {capturedVideos.length > 0 && (
-          <Card>
-            <CardHeader className="relative">
-              <button
-                onClick={openVideoGallery}
-                className="absolute top-4 left-4 w-10 h-10 flex items-center justify-center cursor-pointer"
-                aria-label="Open video gallery"
-              >
-                <Video className="w-10 h-10 text-white relative z-10 opacity-90" strokeWidth={1.5} />
-                <span
-                  className="absolute text-red-400 font-bold text-sm z-20 opacity-70"
-                  style={{
-                    left: capturedVideos.length < 10 ? "38%" : "6px",
-                    top: "50%",
-                    transform: capturedVideos.length < 10 ? "translate(-50%, -50%)" : "translateY(-50%)",
-                  }}
+          <>
+            <div className="flex items-center gap-2 mb-3">
+              <div style={{ width: "32px", height: "32px" }}>
+                <AllnoosLogo variant="default" size="sm" />
+              </div>
+              <h2 className="text-lg font-semibold">Captured Videos</h2>
+            </div>
+            <Card>
+              <CardHeader className="relative pb-4">
+                <button
+                  onClick={openVideoGallery}
+                  className="absolute top-4 left-4 w-10 h-10 flex items-center justify-center cursor-pointer"
+                  aria-label="Open video gallery"
                 >
-                  {capturedVideos.length}
-                </span>
-              </button>
-              <CardTitle className="text-center pt-2">Captured Videos</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-2 gap-3">
-                {capturedVideos.map((video) => {
-                  const orderNumber = getContentOrderNumber("video", 0, video.id)
-                  const isSelected = isContentSelected("video", 0, video.id)
+                  <Video className="w-10 h-10 text-white relative z-10 opacity-90" strokeWidth={1.5} />
+                  <span
+                    className="absolute text-red-400 font-bold text-sm z-20 opacity-70"
+                    style={{
+                      left: capturedVideos.length < 10 ? "38%" : "6px",
+                      top: "50%",
+                      transform: capturedVideos.length < 10 ? "translate(-50%, -50%)" : "translateY(-50%)",
+                    }}
+                  >
+                    {capturedVideos.length}
+                  </span>
+                </button>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 gap-3">
+                  {capturedVideos.map((video) => {
+                    const orderNumber = getContentOrderNumber("video", 0, video.id)
+                    const isSelected = isContentSelected("video", 0, video.id)
 
-                  return (
-                    <div key={video.id} className="relative group">
-                      <div
-                        className={`aspect-video rounded-lg overflow-hidden bg-muted ${
-                          isSelected ? "ring-4 ring-blue-500" : ""
-                        }`}
-                      >
-                        <img
-                          src={video.thumbnail || "/placeholder.svg"}
-                          alt={`Video ${video.id}`}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-black/30 flex items-center justify-center rounded-lg">
-                          <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                            <Play className="w-6 h-6 text-white ml-1" />
+                    return (
+                      <div key={video.id} className="relative group">
+                        <div
+                          className={`aspect-video rounded-lg overflow-hidden bg-muted ${
+                            isSelected ? "ring-4 ring-blue-500" : ""
+                          }`}
+                        >
+                          <img
+                            src={video.thumbnail || "/placeholder.svg"}
+                            alt={`Video ${video.id}`}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-black/30 flex items-center justify-center rounded-lg">
+                            <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                              <Play className="w-6 h-6 text-white ml-1" />
+                            </div>
+                          </div>
+                          <div className="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded">
+                            {video.duration}
                           </div>
                         </div>
-                        <div className="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded">
-                          {video.duration}
-                        </div>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            toggleContentSelection("video", 0, video.id)
+                          }}
+                          className={`absolute top-2 left-2 w-6 h-6 rounded-full flex items-center justify-center transition-all font-bold text-xs border-2 ${
+                            isSelected
+                              ? "bg-blue-500 text-white border-blue-500"
+                              : "bg-transparent text-white border-white hover:bg-white/20 hover:border-white"
+                          }`}
+                        >
+                          {orderNumber || ""}
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            deleteVideo(video.id)
+                          }}
+                          className="absolute top-2 right-2 w-6 h-6 bg-green-700/80 rounded-full flex items-center justify-center transition-opacity hover:bg-green-700"
+                        >
+                          <Trash2 className="w-3 h-3 text-white" />
+                        </button>
                       </div>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          toggleContentSelection("video", 0, video.id)
-                        }}
-                        className={`absolute top-2 left-2 w-6 h-6 rounded-full flex items-center justify-center transition-all font-bold text-xs border-2 ${
-                          isSelected
-                            ? "bg-blue-500 text-white border-blue-500"
-                            : "bg-transparent text-white border-white hover:bg-white/20 hover:border-white"
-                        }`}
-                      >
-                        {orderNumber || ""}
-                      </button>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          deleteVideo(video.id)
-                        }}
-                        className="absolute top-2 right-2 w-6 h-6 bg-green-700/80 rounded-full flex items-center justify-center transition-opacity hover:bg-green-700"
-                      >
-                        <Trash2 className="w-3 h-3 text-white" />
-                      </button>
-                    </div>
-                  )
-                })}
-              </div>
-            </CardContent>
-          </Card>
+                    )
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+          </>
         )}
 
         {capturedPhotos.length > 0 && (
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center justify-center">
+          <>
+            <div className="flex items-center gap-2 mb-3">
+              <div style={{ width: "32px", height: "32px" }}>
+                <AllnoosLogo variant="default" size="sm" />
+              </div>
+              <h2 className="text-lg font-semibold">Captured Photos</h2>
+            </div>
+            <Card>
+              <CardHeader className="relative pb-4">
                 <button
                   onClick={openPhotoGallery}
-                  className="bg-blue-600 text-white px-6 py-3 rounded-lg flex items-center gap-3 min-w-[200px] justify-center hover:bg-blue-700 transition-colors h-[60px]"
+                  className="absolute top-4 left-4 w-10 h-10 flex items-center justify-center cursor-pointer"
+                  aria-label="Open photo gallery"
                 >
-                  <div className="relative">
-                    <svg className="w-12 h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2v8a2 2 0 002 2z"
-                      />
-                    </svg>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-sm font-bold">{capturedPhotos.length}</span>
-                    </div>
-                  </div>
-                  <span className="font-medium">Captured Photos</span>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="w-10 h-10 text-white"
+                  >
+                    <path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2v8a2 2 0 002 2z"></path>
+                  </svg>
+                  <span
+                    className="absolute text-red-400 font-bold text-sm z-20 opacity-70"
+                    style={{
+                      left: capturedPhotos.length < 10 ? "38%" : "6px",
+                      top: "50%",
+                      transform: capturedPhotos.length < 10 ? "translate(-50%, -50%)" : "translateY(-50%)",
+                    }}
+                  >
+                    {capturedPhotos.length}
+                  </span>
                 </button>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-3 gap-3">
-                {capturedPhotos.map((photo, index) => {
-                  const orderNumber = getContentOrderNumber("photo", index)
-                  const isSelected = isContentSelected("photo", index)
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-3 gap-3">
+                  {capturedPhotos.map((photo, index) => {
+                    const orderNumber = getContentOrderNumber("photo", index)
+                    const isSelected = isContentSelected("photo", index)
 
-                  return (
-                    <div key={index} className="relative group">
-                      <div
-                        className={`aspect-square rounded-lg overflow-hidden bg-muted ${
-                          isSelected ? "ring-4 ring-blue-500" : ""
-                        }`}
-                      >
-                        <img
-                          src={photo || "/placeholder.svg"}
-                          alt={`Captured photo ${index + 1}`}
-                          className="w-full h-full object-cover"
-                        />
+                    return (
+                      <div key={index} className="relative group">
+                        <div
+                          className={`aspect-square rounded-lg overflow-hidden bg-muted ${
+                            isSelected ? "ring-4 ring-blue-500" : ""
+                          }`}
+                        >
+                          <img
+                            src={photo || "/placeholder.svg"}
+                            alt={`Captured photo ${index + 1}`}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            toggleContentSelection("photo", index)
+                          }}
+                          className={`absolute top-2 left-2 w-6 h-6 rounded-full flex items-center justify-center transition-all font-bold text-xs border-2 ${
+                            isSelected
+                              ? "bg-blue-500 text-white border-blue-500"
+                              : "bg-transparent text-white border-white hover:bg-white/20 hover:border-white"
+                          }`}
+                        >
+                          {orderNumber || ""}
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            deletePhoto(index)
+                          }}
+                          className="absolute top-2 right-2 w-6 h-6 bg-green-700/80 rounded-full flex items-center justify-center transition-opacity hover:bg-green-700"
+                        >
+                          <Trash2 className="w-3 h-3 text-white" />
+                        </button>
                       </div>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          toggleContentSelection("photo", index)
-                        }}
-                        className={`absolute top-2 left-2 w-6 h-6 rounded-full flex items-center justify-center transition-all font-bold text-xs border-2 ${
-                          isSelected
-                            ? "bg-blue-500 text-white border-blue-500"
-                            : "bg-transparent text-white border-white hover:bg-white/20 hover:border-white"
-                        }`}
-                      >
-                        {orderNumber || ""}
-                      </button>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          deletePhoto(index)
-                        }}
-                        className="absolute top-2 right-2 w-6 h-6 bg-green-700/80 rounded-full flex items-center justify-center transition-opacity hover:bg-green-700"
-                      >
-                        <Trash2 className="w-3 h-3 text-white" />
-                      </button>
-                    </div>
-                  )
-                })}
-              </div>
-            </CardContent>
-          </Card>
+                    )
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+          </>
         )}
 
         <Card>
