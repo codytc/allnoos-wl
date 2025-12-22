@@ -409,7 +409,7 @@ export default function CreatePage() {
           <>
             <div className="flex items-center gap-2 mb-3">
               <div className="relative w-8 h-8 flex items-center justify-center">
-                <Video className="w-8 h-8 text-white relative z-10 opacity-90" strokeWidth={1.5} />
+                <Video className="w-8 h-8 relative z-10 opacity-90 text-red-400" strokeWidth={1.5} />
                 <span
                   className="absolute text-red-400 font-bold text-sm z-20 opacity-90"
                   style={{
