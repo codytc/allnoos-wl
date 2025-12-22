@@ -436,13 +436,13 @@ export default function CreatePage() {
                   return (
                     <Card
                       key={video.id}
-                      className={`shadow-none cursor-pointer transition-all duration-200 touch-manipulation group relative overflow-hidden bg-gradient-to-br from-background via-background to-muted/20 border p-0 w-[320px] flex-shrink-0 flex flex-col hover:scale-95 active:scale-95 hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] ${
+                      className={`shadow-none cursor-pointer transition-all duration-200 touch-manipulation group relative overflow-hidden bg-gradient-to-br from-background via-background to-muted/20 border p-0 w-[240px] flex-shrink-0 flex flex-col hover:scale-95 active:scale-95 hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] ${
                         isSelected ? "ring-4 ring-blue-500" : ""
                       }`}
                     >
                       <CardContent className="p-0">
                         <div className="relative">
-                          <div className="aspect-video rounded-t-lg overflow-hidden bg-muted">
+                          <div className="aspect-[9/16] rounded-t-lg overflow-hidden bg-muted">
                             <img
                               src={video.thumbnail || "/placeholder.svg"}
                               alt={`Video ${video.id}`}
@@ -463,22 +463,26 @@ export default function CreatePage() {
                               e.stopPropagation()
                               toggleContentSelection("video", 0, video.id)
                             }}
-                            className={`absolute top-2 left-2 w-6 h-6 rounded-full flex items-center justify-center transition-all font-bold text-xs border-2 ${
+                            className={`absolute top-2 left-2 rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] p-2 ${
                               isSelected
-                                ? "bg-blue-500 text-white border-blue-500"
-                                : "bg-transparent text-white border-white hover:bg-white/20 hover:border-white"
+                                ? "bg-blue-500 text-white border-2 border-blue-500"
+                                : "bg-white/20 text-white border-2 border-white/30"
                             }`}
                           >
-                            {orderNumber || ""}
+                            {isSelected && orderNumber ? (
+                              <span className="text-xs font-bold">{orderNumber}</span>
+                            ) : (
+                              <span className="w-2 h-2 block" />
+                            )}
                           </button>
                           <button
                             onClick={(e) => {
                               e.stopPropagation()
                               deleteVideo(video.id)
                             }}
-                            className="absolute top-2 right-2 w-8 h-8 bg-red-500/80 backdrop-blur-sm text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-all duration-200 hover:scale-110 active:scale-110"
+                            className="absolute top-2 right-2 rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-transparent p-2.5"
                           >
-                            <Trash2 className="w-4 h-4" />
+                            <Trash2 className="w-5 h-5 text-white" />
                           </button>
                         </div>
                       </CardContent>
@@ -545,7 +549,7 @@ export default function CreatePage() {
                           className={`absolute top-2 left-2 w-6 h-6 rounded-full flex items-center justify-center transition-all font-bold text-xs border-2 ${
                             isSelected
                               ? "bg-blue-500 text-white border-blue-500"
-                              : "bg-transparent text-white border-white hover:bg-white/20 hover:border-white"
+                              : "bg-transparent text-white border-white/30"
                           }`}
                         >
                           {orderNumber || ""}
@@ -806,13 +810,17 @@ export default function CreatePage() {
                             e.stopPropagation()
                             toggleContentSelection("video", 0, video.id)
                           }}
-                          className={`w-10 h-10 rounded-full flex items-center justify-center transition-all font-bold ${
+                          className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] p-2 ${
                             isSelected
-                              ? "bg-blue-500 text-white border-blue-500"
-                              : "bg-transparent text-white border-white hover:bg-white/20 hover:border-white"
+                              ? "bg-blue-500 text-white border-2 border-blue-500"
+                              : "bg-white/20 text-white border-2 border-white/30"
                           }`}
                         >
-                          {orderNumber || "+"}
+                          {isSelected && orderNumber ? (
+                            <span className="text-xs font-bold">{orderNumber}</span>
+                          ) : (
+                            <span className="w-2 h-2 block" />
+                          )}
                         </button>
                       </div>
                       <div className="absolute top-2 right-2">
@@ -821,9 +829,9 @@ export default function CreatePage() {
                             e.stopPropagation()
                             deleteVideo(video.id)
                           }}
-                          className="w-8 h-8 rounded-full bg-red-500/80 backdrop-blur-sm text-white flex items-center justify-center hover:bg-red-600 transition-all duration-200 hover:scale-110 active:scale-110"
+                          className="w-8 h-8 rounded-full bg-red-500/80 backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-transparent p-2.5"
                         >
-                          <Trash2 className="w-4 h-4" />
+                          <Trash2 className="w-5 h-5 text-white" />
                         </button>
                       </div>
                     </div>
