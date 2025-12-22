@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ChevronLeft, Mic, MapPin, Play, Trash2, X, Loader2 } from "lucide-react"
+import { ChevronLeftIcon, X, MapPin, Play, Trash2, Video } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { AllnoosLogo } from "@/components/allnoos-logo"
@@ -277,7 +277,7 @@ export default function CreatePage() {
               <Link href="/camera">
                 <button className="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg hover:bg-white/30 active:bg-white/40 active:scale-110 transition-all duration-300 group relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent rounded-full opacity-60"></div>
-                  <ChevronLeft className="w-5 h-5 text-slate-600 group-active:text-slate-600/80 relative z-10" />
+                  <ChevronLeftIcon className="w-5 h-5 text-slate-600 group-active:text-slate-600/80 relative z-10" />
                 </button>
               </Link>
             </div>
@@ -305,7 +305,7 @@ export default function CreatePage() {
                 <span className="relative z-10 font-semibold text-sm text-primary flex items-center gap-2">
                   {isPublishing ? (
                     <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <Play className="w-4 h-4 animate-spin" />
                       Publishing
                     </>
                   ) : (
@@ -347,7 +347,7 @@ export default function CreatePage() {
       {isPublishing && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
           <div className="bg-white rounded-lg p-8 max-w-sm mx-4 text-center">
-            <Loader2 className="w-12 h-12 animate-spin mx-auto mb-4 text-blue-600" />
+            <Play className="w-12 h-12 animate-spin mx-auto mb-4 text-blue-600" />
             <h3 className="text-lg font-semibold mb-2">Creating Your Story</h3>
             <p className="text-muted-foreground">{publishingStep}</p>
           </div>
@@ -398,7 +398,7 @@ export default function CreatePage() {
 
             <div className="pt-4 flex justify-center">
               <Button variant="outline" className="flex items-center gap-2 bg-transparent px-8">
-                <Mic className="w-4 h-4" />
+                <Play className="w-4 h-4" />
                 Record Audio
               </Button>
             </div>
@@ -413,23 +413,14 @@ export default function CreatePage() {
                 className="absolute top-4 left-4 w-10 h-10 flex items-center justify-center cursor-pointer"
                 aria-label="Open video gallery"
               >
-                <svg
-                  className="w-8 h-8 text-red-600 relative z-10 opacity-90"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  style={{ marginTop: "-2px" }}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z"
-                  />
-                </svg>
+                <Video className="w-10 h-10 text-white relative z-10 opacity-90" strokeWidth={1.5} />
                 <span
-                  className="absolute inset-0 flex items-center justify-center text-red-400 font-bold text-sm z-20 opacity-70"
-                  style={{ marginTop: "1px" }}
+                  className="absolute text-red-400 font-bold text-sm z-20 opacity-70"
+                  style={{
+                    left: capturedVideos.length < 10 ? "38%" : "6px",
+                    top: "50%",
+                    transform: capturedVideos.length < 10 ? "translate(-50%, -50%)" : "translateY(-50%)",
+                  }}
                 >
                   {capturedVideos.length}
                 </span>
