@@ -427,70 +427,72 @@ export default function CreatePage() {
               </div>
               <h2 className="text-lg font-semibold">Captured Videos</h2>
             </div>
-            <div className="overflow-x-auto overflow-y-hidden -mx-4 px-4 scrollbar-hide w-full max-w-full">
-              <div className="flex gap-3 pb-2">
-                {capturedVideos.map((video) => {
-                  const orderNumber = getContentOrderNumber("video", 0, video.id)
-                  const isSelected = isContentSelected("video", 0, video.id)
+            <Card>
+              <CardContent className="p-4">
+                <div className="overflow-x-auto overflow-y-hidden -mx-4 px-4 scrollbar-hide w-full max-w-full">
+                  <div className="flex gap-3 pb-2">
+                    {capturedVideos.map((video) => {
+                      const orderNumber = getContentOrderNumber("video", 0, video.id)
+                      const isSelected = isContentSelected("video", 0, video.id)
 
-                  return (
-                    <Card
-                      key={video.id}
-                      className={`shadow-none cursor-pointer transition-all duration-200 touch-manipulation group relative overflow-hidden bg-gradient-to-br from-background via-background to-muted/20 border p-0 w-[240px] flex-shrink-0 flex flex-col hover:scale-95 active:scale-95 hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] ${
-                        isSelected ? "ring-4 ring-blue-500" : ""
-                      }`}
-                    >
-                      <CardContent className="p-0">
-                        <div className="relative">
-                          <div className="aspect-[9/16] rounded-t-lg overflow-hidden bg-muted">
-                            <img
-                              src={video.thumbnail || "/placeholder.svg"}
-                              alt={`Video ${video.id}`}
-                              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                            />
-                            <div className="absolute inset-0 bg-black/30 flex items-center justify-center rounded-t-lg">
-                              <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                                <Play className="w-6 h-6 text-white ml-1" />
+                      return (
+                        <div
+                          key={video.id}
+                          className={`shadow-none cursor-pointer transition-all duration-200 touch-manipulation group relative overflow-hidden bg-gradient-to-br from-background via-background to-muted/20 border rounded-lg p-0 w-[240px] flex-shrink-0 flex flex-col hover:scale-95 active:scale-95 hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] ${
+                            isSelected ? "ring-4 ring-blue-500" : ""
+                          }`}
+                        >
+                          <div className="relative">
+                            <div className="aspect-[9/16] rounded-t-lg overflow-hidden bg-muted">
+                              <img
+                                src={video.thumbnail || "/placeholder.svg"}
+                                alt={`Video ${video.id}`}
+                                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                              />
+                              <div className="absolute inset-0 bg-black/30 flex items-center justify-center rounded-t-lg">
+                                <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                                  <Play className="w-6 h-6 text-white ml-1" />
+                                </div>
                               </div>
+                              <div className="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded">
+                                {video.duration}
+                              </div>
+                              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-t-lg" />
                             </div>
-                            <div className="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded">
-                              {video.duration}
-                            </div>
-                            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-t-lg" />
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                toggleContentSelection("video", 0, video.id)
+                              }}
+                              className={`absolute top-2 left-2 rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] p-2 ${
+                                isSelected
+                                  ? "bg-blue-500 text-white border-2 border-blue-500"
+                                  : "bg-white/20 text-white border-2 border-white/30"
+                              }`}
+                            >
+                              {isSelected && orderNumber ? (
+                                <span className="text-xs font-bold">{orderNumber}</span>
+                              ) : (
+                                <span className="w-2 h-2 block" />
+                              )}
+                            </button>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                deleteVideo(video.id)
+                              }}
+                              className="absolute top-2 right-2 rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-transparent p-2.5"
+                            >
+                              <Trash2 className="w-5 h-5 text-white" />
+                            </button>
                           </div>
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              toggleContentSelection("video", 0, video.id)
-                            }}
-                            className={`absolute top-2 left-2 rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] p-2 ${
-                              isSelected
-                                ? "bg-blue-500 text-white border-2 border-blue-500"
-                                : "bg-white/20 text-white border-2 border-white/30"
-                            }`}
-                          >
-                            {isSelected && orderNumber ? (
-                              <span className="text-xs font-bold">{orderNumber}</span>
-                            ) : (
-                              <span className="w-2 h-2 block" />
-                            )}
-                          </button>
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              deleteVideo(video.id)
-                            }}
-                            className="absolute top-2 right-2 rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-transparent p-2.5"
-                          >
-                            <Trash2 className="w-5 h-5 text-white" />
-                          </button>
                         </div>
-                      </CardContent>
-                    </Card>
-                  )
-                })}
-              </div>
-            </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </>
         )}
 
