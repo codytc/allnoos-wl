@@ -504,8 +504,31 @@ export default function CreatePage() {
         {capturedPhotos.length > 0 && (
           <>
             <div className="flex items-center gap-2 mb-3">
-              <div style={{ width: "32px", height: "32px" }}>
-                <AllnoosLogo variant="default" size="sm" />
+              <div className="relative w-8 h-8 flex items-center justify-center">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-8 h-8 text-blue-400 relative z-10 opacity-90"
+                >
+                  <path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2v-9z"></path>
+                  <circle cx="12" cy="13" r="3"></circle>
+                </svg>
+                <span
+                  className="absolute text-blue-400 font-bold text-sm z-20 opacity-90"
+                  style={{
+                    left: capturedPhotos.length < 10 ? "38%" : "6px",
+                    top: "50%",
+                    transform: capturedPhotos.length < 10 ? "translate(-50%, -50%)" : "translateY(-50%)",
+                  }}
+                >
+                  {capturedPhotos.length}
+                </span>
               </div>
               <h2 className="text-lg font-semibold">Captured Photos</h2>
             </div>
@@ -530,7 +553,7 @@ export default function CreatePage() {
                     <path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2v8a2 2 0 002 2z"></path>
                   </svg>
                   <span
-                    className="absolute text-red-400 font-bold text-sm z-20 opacity-70"
+                    className="absolute text-blue-400 font-bold text-sm z-20 opacity-70"
                     style={{
                       left: capturedPhotos.length < 10 ? "38%" : "6px",
                       top: "50%",
