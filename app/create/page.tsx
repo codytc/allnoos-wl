@@ -408,10 +408,10 @@ export default function CreatePage() {
         {capturedVideos.length > 0 && (
           <>
             <div className="flex items-center gap-2 mb-3">
-              <div className="relative w-8 h-8 flex items-center justify-center">
-                <Video className="w-8 h-8 relative z-10 opacity-90 text-red-400" strokeWidth={1.5} />
+              <div className="relative w-10 h-10 flex items-center justify-center">
+                <Video className="w-10 h-10 text-white relative z-10 opacity-90" strokeWidth={1.5} />
                 <span
-                  className="absolute text-red-400 font-bold text-sm z-20 opacity-90"
+                  className="absolute text-red-400 font-bold text-sm z-20 opacity-70"
                   style={{
                     left: capturedVideos.length < 10 ? "38%" : "6px",
                     top: "50%",
@@ -424,9 +424,7 @@ export default function CreatePage() {
               <h2 className="text-lg font-semibold">Captured Videos</h2>
             </div>
             <Card>
-              <CardHeader className="relative pb-4">
-                
-              </CardHeader>
+              <CardHeader className="relative pb-4"></CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 gap-3">
                   {capturedVideos.map((video) => {
@@ -488,28 +486,24 @@ export default function CreatePage() {
         {capturedPhotos.length > 0 && (
           <>
             <div className="flex items-center gap-2 mb-3">
-              <div className="relative w-8 h-8 flex items-center justify-center">
+              <div className="relative w-10 h-10 flex items-center justify-center">
                 <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
+                  className="w-8 h-8 text-white relative z-10 opacity-90"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="w-8 h-8 text-blue-400 relative z-10 opacity-90"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  style={{ marginTop: "-2px" }}
                 >
-                  <path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2v-9z"></path>
-                  <circle cx="12" cy="13" r="3"></circle>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z"
+                  />
                 </svg>
                 <span
-                  className="absolute text-blue-400 font-bold text-sm z-20 opacity-90"
-                  style={{
-                    left: capturedPhotos.length < 10 ? "38%" : "6px",
-                    top: "50%",
-                    transform: capturedPhotos.length < 10 ? "translate(-50%, -50%)" : "translateY(-50%)",
-                  }}
+                  className="absolute inset-0 flex items-center justify-center text-blue-400 font-bold text-sm z-20 opacity-70"
+                  style={{ marginTop: "1px" }}
                 >
                   {capturedPhotos.length}
                 </span>
@@ -517,9 +511,7 @@ export default function CreatePage() {
               <h2 className="text-lg font-semibold">Captured Photos</h2>
             </div>
             <Card>
-              <CardHeader className="relative pb-4">
-                
-              </CardHeader>
+              <CardHeader className="relative pb-4"></CardHeader>
               <CardContent>
                 <div className="grid grid-cols-3 gap-3">
                   {capturedPhotos.map((photo, index) => {
