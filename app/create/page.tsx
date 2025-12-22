@@ -260,6 +260,10 @@ export default function CreatePage() {
     setSelectedVideo(null)
   }
 
+  const selectPhoto = (index: number) => {
+    setSelectedPhoto(index)
+  }
+
   return (
     <div className="min-h-screen bg-background pb-16">
       <svg width="0" height="0" className="absolute">
@@ -424,7 +428,7 @@ export default function CreatePage() {
               <h2 className="text-lg font-semibold">Captured Videos</h2>
             </div>
             <Card>
-              <CardHeader className="relative pb-4"></CardHeader>
+              
               <CardContent>
                 <div className="grid grid-cols-2 gap-3">
                   {capturedVideos.map((video) => {
@@ -497,13 +501,13 @@ export default function CreatePage() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   xmlns="http://www.w3.org/2000/svg"
-                  className="text-blue-400 w-8 h-8 relative z-10"
+                  className="w-8 h-8 text-blue-400 relative z-10 opacity-90"
                 >
                   <path d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
                 </svg>
                 <span
                   className="absolute inset-0 flex items-center justify-center text-blue-400 font-bold text-sm z-20 opacity-70"
-                  style={{ marginTop: "2px" }}
+                  style={{ marginTop: "1px" }}
                 >
                   {capturedPhotos.length}
                 </span>
@@ -511,26 +515,26 @@ export default function CreatePage() {
               <h2 className="text-lg font-semibold">Captured Photos</h2>
             </div>
             <Card>
-              <CardHeader className="relative pb-4"></CardHeader>
+              
               <CardContent>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-2 gap-3">
                   {capturedPhotos.map((photo, index) => {
                     const orderNumber = getContentOrderNumber("photo", index)
                     const isSelected = isContentSelected("photo", index)
 
                     return (
-                      <div key={index} className="relative group">
-                        <div
-                          className={`aspect-square rounded-lg overflow-hidden bg-muted ${
-                            isSelected ? "ring-4 ring-blue-500" : ""
-                          }`}
-                        >
-                          <img
-                            src={photo || "/placeholder.svg"}
-                            alt={`Captured photo ${index + 1}`}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
+                      <div
+                        key={index}
+                        className={`relative group aspect-video rounded-lg overflow-hidden cursor-pointer ${
+                          isSelected ? "ring-4 ring-blue-500" : ""
+                        } ${selectedPhoto === index ? "col-span-2 row-span-2" : ""}`}
+                        onClick={() => selectPhoto(index)}
+                      >
+                        <img
+                          src={photo || "/placeholder.svg"}
+                          alt={`Photo ${index}`}
+                          className="w-full aspect-video object-cover"
+                        />
                         <button
                           onClick={(e) => {
                             e.stopPropagation()
@@ -672,32 +676,28 @@ export default function CreatePage() {
                           className="w-full h-full object-cover"
                         />
                       </div>
-                      <div className="absolute top-2 left-2 flex gap-1">
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            toggleContentSelection("photo", index)
-                          }}
-                          className={`w-10 h-10 rounded-full flex items-center justify-center transition-all font-bold ${
-                            isSelected
-                              ? "bg-blue-500 text-white border-blue-500"
-                              : "bg-transparent text-white border-white hover:bg-white/20 hover:border-white"
-                          }`}
-                        >
-                          {orderNumber || "+"}
-                        </button>
-                      </div>
-                      <div className="absolute top-2 right-2">
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            deletePhoto(index)
-                          }}
-                          className="w-8 h-8 rounded-full bg-green-700/80 text-white flex items-center justify-center hover:bg-green-700 transition-colors"
-                        >
-                          <Trash2 className="w-4 h-4 text-white" />
-                        </button>
-                      </div>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          toggleContentSelection("photo", index)
+                        }}
+                        className={`absolute top-2 left-2 w-6 h-6 rounded-full flex items-center justify-center transition-all font-bold text-xs border-2 ${
+                          isSelected
+                            ? "bg-blue-500 text-white border-blue-500"
+                            : "bg-transparent text-white border-white hover:bg-white/20 hover:border-white"
+                        }`}
+                      >
+                        {orderNumber || "+"}
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          deletePhoto(index)
+                        }}
+                        className="absolute top-2 right-2 w-6 h-6 bg-green-700/80 rounded-full flex items-center justify-center hover:bg-green-700 transition-colors"
+                      >
+                        <Trash2 className="w-4 h-4 text-white" />
+                      </button>
                     </div>
                   )
                 })}
