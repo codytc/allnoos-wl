@@ -427,63 +427,65 @@ export default function CreatePage() {
               </div>
               <h2 className="text-lg font-semibold">Captured Videos</h2>
             </div>
-            <Card>
-              
-              <CardContent>
-                <div className="grid grid-cols-2 gap-3">
-                  {capturedVideos.map((video) => {
-                    const orderNumber = getContentOrderNumber("video", 0, video.id)
-                    const isSelected = isContentSelected("video", 0, video.id)
+            <div className="overflow-x-auto overflow-y-hidden -mx-4 px-4 scrollbar-hide w-full max-w-full">
+              <div className="flex gap-3 pb-2">
+                {capturedVideos.map((video) => {
+                  const orderNumber = getContentOrderNumber("video", 0, video.id)
+                  const isSelected = isContentSelected("video", 0, video.id)
 
-                    return (
-                      <div key={video.id} className="relative group">
-                        <div
-                          className={`aspect-video rounded-lg overflow-hidden bg-muted ${
-                            isSelected ? "ring-4 ring-blue-500" : ""
-                          }`}
-                        >
-                          <img
-                            src={video.thumbnail || "/placeholder.svg"}
-                            alt={`Video ${video.id}`}
-                            className="w-full h-full object-cover"
-                          />
-                          <div className="absolute inset-0 bg-black/30 flex items-center justify-center rounded-lg">
-                            <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                              <Play className="w-6 h-6 text-white ml-1" />
+                  return (
+                    <Card
+                      key={video.id}
+                      className={`shadow-none cursor-pointer transition-all duration-200 touch-manipulation group relative overflow-hidden bg-gradient-to-br from-background via-background to-muted/20 border p-0 w-[320px] flex-shrink-0 flex flex-col ${
+                        isSelected ? "ring-4 ring-blue-500" : ""
+                      }`}
+                    >
+                      <CardContent className="p-0">
+                        <div className="relative">
+                          <div className="aspect-video rounded-t-lg overflow-hidden bg-muted">
+                            <img
+                              src={video.thumbnail || "/placeholder.svg"}
+                              alt={`Video ${video.id}`}
+                              className="w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-black/30 flex items-center justify-center rounded-t-lg">
+                              <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                                <Play className="w-6 h-6 text-white ml-1" />
+                              </div>
+                            </div>
+                            <div className="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded">
+                              {video.duration}
                             </div>
                           </div>
-                          <div className="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded">
-                            {video.duration}
-                          </div>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              toggleContentSelection("video", 0, video.id)
+                            }}
+                            className={`absolute top-2 left-2 w-6 h-6 rounded-full flex items-center justify-center transition-all font-bold text-xs border-2 ${
+                              isSelected
+                                ? "bg-blue-500 text-white border-blue-500"
+                                : "bg-transparent text-white border-white hover:bg-white/20 hover:border-white"
+                            }`}
+                          >
+                            {orderNumber || ""}
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              deleteVideo(video.id)
+                            }}
+                            className="absolute top-2 right-2 w-6 h-6 bg-green-700/80 rounded-full flex items-center justify-center transition-opacity hover:bg-green-700"
+                          >
+                            <Trash2 className="w-3 h-3 text-white" />
+                          </button>
                         </div>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            toggleContentSelection("video", 0, video.id)
-                          }}
-                          className={`absolute top-2 left-2 w-6 h-6 rounded-full flex items-center justify-center transition-all font-bold text-xs border-2 ${
-                            isSelected
-                              ? "bg-blue-500 text-white border-blue-500"
-                              : "bg-transparent text-white border-white hover:bg-white/20 hover:border-white"
-                          }`}
-                        >
-                          {orderNumber || ""}
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            deleteVideo(video.id)
-                          }}
-                          className="absolute top-2 right-2 w-6 h-6 bg-green-700/80 rounded-full flex items-center justify-center transition-opacity hover:bg-green-700"
-                        >
-                          <Trash2 className="w-3 h-3 text-white" />
-                        </button>
-                      </div>
-                    )
-                  })}
-                </div>
-              </CardContent>
-            </Card>
+                      </CardContent>
+                    </Card>
+                  )
+                })}
+              </div>
+            </div>
           </>
         )}
 
@@ -515,7 +517,6 @@ export default function CreatePage() {
               <h2 className="text-lg font-semibold">Captured Photos</h2>
             </div>
             <Card>
-              
               <CardContent>
                 <div className="grid grid-cols-2 gap-3">
                   {capturedPhotos.map((photo, index) => {
