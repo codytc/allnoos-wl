@@ -409,11 +409,11 @@ export default function CreatePage() {
           <>
             <div className="flex items-center gap-2 mb-3">
               <div className="relative w-8 h-8 flex items-center justify-center">
-                <Video className="w-8 h-8 text-red-500 relative z-10" strokeWidth={1.5} />
+                <Video className="w-8 h-8 text-white relative z-10 opacity-90" strokeWidth={1.5} />
                 <span
-                  className="absolute text-white font-bold text-sm z-20 opacity-90"
+                  className="absolute text-red-400 font-bold text-sm z-20 opacity-90"
                   style={{
-                    left: capturedVideos.length < 10 ? "50%" : "6px",
+                    left: capturedVideos.length < 10 ? "38%" : "6px",
                     top: "50%",
                     transform: capturedVideos.length < 10 ? "translate(-50%, -50%)" : "translateY(-50%)",
                   }}
