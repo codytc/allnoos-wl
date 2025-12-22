@@ -425,23 +425,7 @@ export default function CreatePage() {
             </div>
             <Card>
               <CardHeader className="relative pb-4">
-                <button
-                  onClick={openVideoGallery}
-                  className="absolute top-4 left-4 w-10 h-10 flex items-center justify-center cursor-pointer"
-                  aria-label="Open video gallery"
-                >
-                  <Video className="w-10 h-10 text-white relative z-10 opacity-90" strokeWidth={1.5} />
-                  <span
-                    className="absolute text-red-400 font-bold text-sm z-20 opacity-70"
-                    style={{
-                      left: capturedVideos.length < 10 ? "38%" : "6px",
-                      top: "50%",
-                      transform: capturedVideos.length < 10 ? "translate(-50%, -50%)" : "translateY(-50%)",
-                    }}
-                  >
-                    {capturedVideos.length}
-                  </span>
-                </button>
+                
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 gap-3">
@@ -534,35 +518,7 @@ export default function CreatePage() {
             </div>
             <Card>
               <CardHeader className="relative pb-4">
-                <button
-                  onClick={openPhotoGallery}
-                  className="absolute top-4 left-4 w-10 h-10 flex items-center justify-center cursor-pointer"
-                  aria-label="Open photo gallery"
-                >
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="w-10 h-10 text-white"
-                  >
-                    <path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2v8a2 2 0 002 2z"></path>
-                  </svg>
-                  <span
-                    className="absolute text-blue-400 font-bold text-sm z-20 opacity-70"
-                    style={{
-                      left: capturedPhotos.length < 10 ? "38%" : "6px",
-                      top: "50%",
-                      transform: capturedPhotos.length < 10 ? "translate(-50%, -50%)" : "translateY(-50%)",
-                    }}
-                  >
-                    {capturedPhotos.length}
-                  </span>
-                </button>
+                
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-3 gap-3">
