@@ -560,7 +560,9 @@ export default function CreatePage() {
                             </div>
                           </button>
 
-                          <div className="px-3 rounded-full backdrop-blur-sm bg-transparent py-2.5"></div>
+                          <div className="px-3 rounded-full backdrop-blur-sm bg-transparent py-2.5">
+                            <span className="text-white font-medium text-sm">0:00</span>
+                          </div>
 
                           <button
                             onClick={(e) => {
