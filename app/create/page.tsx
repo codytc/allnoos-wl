@@ -483,9 +483,7 @@ export default function CreatePage() {
                             <Trash2 className="w-5 h-5 text-white" />
                           </button>
                         </div>
-                        <div className="absolute inset-0 bg-black/30 flex items-center justify-center rounded-t-lg">
-                          
-                        </div>
+                        <div className="absolute inset-0 bg-black/30 flex items-center justify-center rounded-t-lg"></div>
                         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-t-lg" />
                       </div>
                     </div>
@@ -523,25 +521,25 @@ export default function CreatePage() {
               </div>
               <h2 className="text-lg font-semibold">Captured Photos</h2>
             </div>
-            <Card>
-              <CardContent>
-                <div className="grid grid-cols-2 gap-3">
-                  {capturedPhotos.map((photo, index) => {
-                    const orderNumber = getContentOrderNumber("photo", index)
-                    const isSelected = isContentSelected("photo", index)
+            <div className="grid grid-cols-2 gap-3">
+              {capturedPhotos.map((photo, index) => {
+                const orderNumber = getContentOrderNumber("photo", index)
+                const isSelected = isContentSelected("photo", index)
 
-                    return (
-                      <div
-                        key={index}
-                        className={`relative group aspect-video rounded-lg overflow-hidden cursor-pointer ${
-                          isSelected ? "ring-4 ring-blue-500" : ""
-                        } ${selectedPhoto === index ? "col-span-2 row-span-2" : ""}`}
-                        onClick={() => selectPhoto(index)}
-                      >
+                return (
+                  <div
+                    key={index}
+                    className={`shadow-none cursor-pointer transition-all duration-200 touch-manipulation group relative overflow-hidden bg-gradient-to-br from-background via-background to-muted/20 border rounded-lg p-0 flex flex-col hover:scale-95 active:scale-95 hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] ${
+                      isSelected ? "ring-4 ring-blue-500" : ""
+                    }`}
+                    onClick={() => selectPhoto(index)}
+                  >
+                    <div className="relative">
+                      <div className="aspect-[9/16] rounded-t-lg overflow-hidden bg-muted">
                         <img
                           src={photo || "/placeholder.svg"}
                           alt={`Photo ${index}`}
-                          className="w-full aspect-video object-cover"
+                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                         />
                         <div className="absolute top-3 left-1/2 -translate-x-1/2 flex items-center z-10 backdrop-blur-sm rounded-full bg-transparent gap-2.5 p-0.5 mt-[-7px]">
                           <button
@@ -575,15 +573,16 @@ export default function CreatePage() {
                             }}
                             className="rounded-full transition-all duration-300 p-2.5 hover:scale-110 active:scale-110 shadow-lg bg-transparent hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]"
                           >
-                            <Trash2 className="size-4 text-white" />
+                            <Trash2 className="size-5 text-white" />
                           </button>
                         </div>
                       </div>
-                    )
-                  })}
-                </div>
-              </CardContent>
-            </Card>
+                      <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-t-lg" />
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
           </>
         )}
 
