@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ChevronLeft, Mic, MapPin, Play, Trash2, X, Loader2 } from "lucide-react"
+import { ChevronLeft, Mic, MapPin, Play, Trash2, X, Loader2, Camera } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { AllnoosLogo } from "@/components/allnoos-logo"
@@ -407,28 +407,18 @@ export default function CreatePage() {
 
         {capturedVideos.length > 0 && (
           <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center justify-center">
-                <button
-                  onClick={openVideoGallery}
-                  className="bg-red-600 text-white px-6 py-3 rounded-lg flex items-center gap-3 min-w-[200px] justify-center hover:bg-red-700 transition-colors h-[60px]"
-                >
-                  <div className="relative">
-                    <svg className="w-11 h-11" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-                      />
-                    </svg>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-sm font-bold text-center leading-none -ml-3">{capturedVideos.length}</span>
-                    </div>
-                  </div>
-                  <span className="font-medium">Captured Videos</span>
-                </button>
-              </CardTitle>
+            <CardHeader className="relative">
+              <button
+                onClick={openVideoGallery}
+                className="absolute top-4 left-4 w-10 h-10 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center transition-colors shadow-lg"
+                aria-label="Open video gallery"
+              >
+                <Camera className="w-5 h-5" />
+                <div className="absolute -top-1 -right-1 w-5 h-5 bg-white text-red-600 rounded-full flex items-center justify-center text-xs font-bold border-2 border-red-600">
+                  {capturedVideos.length}
+                </div>
+              </button>
+              <CardTitle className="text-center pt-2">Captured Videos</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-3">
