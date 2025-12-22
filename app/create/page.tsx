@@ -467,8 +467,8 @@ export default function CreatePage() {
                             </div>
                           </button>
 
-                          <div className="bg-black/60 text-white text-sm font-semibold px-2 py-1 rounded backdrop-blur-sm">
-                            {video.duration}
+                          <div className="px-3 rounded-full backdrop-blur-sm bg-transparent py-2.5">
+                            <span className="text-white font-medium text-sm">{video.duration}</span>
                           </div>
 
                           <button
@@ -478,7 +478,7 @@ export default function CreatePage() {
                                 deleteVideo(video.id)
                               }
                             }}
-                            className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg bg-white/20 hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] p-2.5"
+                            className="rounded-full transition-all duration-300 p-2.5 hover:scale-110 active:scale-110 shadow-lg bg-transparent hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]"
                           >
                             <Trash2 className="size-4 text-white" />
                           </button>
@@ -575,9 +575,9 @@ export default function CreatePage() {
                               e.stopPropagation()
                               deletePhoto(index)
                             }}
-                            className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-transparent p-2.5"
+                            className="rounded-full transition-all duration-300 p-2.5 hover:scale-110 active:scale-110 shadow-lg bg-transparent hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]"
                           >
-                            <Trash2 className="w-5 h-5 text-white" />
+                            <Trash2 className="size-4 text-white" />
                           </button>
                         </div>
                       </div>
