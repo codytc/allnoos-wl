@@ -452,10 +452,10 @@ export default function CreatePage() {
                               e.stopPropagation()
                               toggleContentSelection("video", 0, video.id)
                             }}
-                            className={`rounded-full transition-all duration-300 p-2.5 hover:scale-110 active:scale-110 shadow-lg ${
+                            className={`rounded-full bg-transparent backdrop-blur-sm transition-all duration-300 p-2.5 hover:scale-110 active:scale-110 shadow-lg ${
                               isSelected
-                                ? "bg-transparent hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)]"
-                                : "bg-white/20 hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]"
+                                ? "hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)]"
+                                : "hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]"
                             }`}
                           >
                             <div
@@ -551,10 +551,10 @@ export default function CreatePage() {
                               e.stopPropagation()
                               toggleContentSelection("photo", index)
                             }}
-                            className={`rounded-full transition-all duration-300 p-2.5 hover:scale-110 active:scale-110 shadow-lg ${
+                            className={`rounded-full bg-transparent backdrop-blur-sm transition-all duration-300 p-2.5 hover:scale-110 active:scale-110 shadow-lg ${
                               isSelected
-                                ? "bg-transparent hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)]"
-                                : "bg-transparent backdrop-blur-sm hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]"
+                                ? "hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)]"
+                                : "hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]"
                             }`}
                           >
                             <div
