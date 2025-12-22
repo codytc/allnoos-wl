@@ -436,7 +436,7 @@ export default function CreatePage() {
                   return (
                     <Card
                       key={video.id}
-                      className={`shadow-none cursor-pointer transition-all duration-200 touch-manipulation group relative overflow-hidden bg-gradient-to-br from-background via-background to-muted/20 border p-0 w-[320px] flex-shrink-0 flex flex-col ${
+                      className={`shadow-none cursor-pointer transition-all duration-200 touch-manipulation group relative overflow-hidden bg-gradient-to-br from-background via-background to-muted/20 border p-0 w-[320px] flex-shrink-0 flex flex-col hover:scale-95 active:scale-95 hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] ${
                         isSelected ? "ring-4 ring-blue-500" : ""
                       }`}
                     >
@@ -446,7 +446,7 @@ export default function CreatePage() {
                             <img
                               src={video.thumbnail || "/placeholder.svg"}
                               alt={`Video ${video.id}`}
-                              className="w-full h-full object-cover"
+                              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                             />
                             <div className="absolute inset-0 bg-black/30 flex items-center justify-center rounded-t-lg">
                               <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
@@ -456,6 +456,7 @@ export default function CreatePage() {
                             <div className="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded">
                               {video.duration}
                             </div>
+                            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-t-lg" />
                           </div>
                           <button
                             onClick={(e) => {
@@ -475,9 +476,9 @@ export default function CreatePage() {
                               e.stopPropagation()
                               deleteVideo(video.id)
                             }}
-                            className="absolute top-2 right-2 w-6 h-6 bg-green-700/80 rounded-full flex items-center justify-center transition-opacity hover:bg-green-700"
+                            className="absolute top-2 right-2 w-8 h-8 bg-red-500/80 backdrop-blur-sm text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-all duration-200 hover:scale-110 active:scale-110"
                           >
-                            <Trash2 className="w-3 h-3 text-white" />
+                            <Trash2 className="w-4 h-4" />
                           </button>
                         </div>
                       </CardContent>
@@ -554,7 +555,7 @@ export default function CreatePage() {
                             e.stopPropagation()
                             deletePhoto(index)
                           }}
-                          className="absolute top-2 right-2 w-6 h-6 bg-green-700/80 rounded-full flex items-center justify-center transition-opacity hover:bg-green-700"
+                          className="absolute top-2 right-2 w-6 h-6 bg-green-700/80 rounded-full flex items-center justify-center hover:bg-green-700 transition-opacity"
                         >
                           <Trash2 className="w-3 h-3 text-white" />
                         </button>
@@ -738,8 +739,8 @@ export default function CreatePage() {
                         className="w-full h-full object-cover"
                       />
                       <div className="absolute inset-0 bg-black/30 flex items-center justify-center rounded-lg">
-                        <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                          <Play className="w-8 h-8 text-white ml-1" />
+                        <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                          <Play className="w-6 h-6 text-white ml-1" />
                         </div>
                       </div>
                     </div>
@@ -820,9 +821,9 @@ export default function CreatePage() {
                             e.stopPropagation()
                             deleteVideo(video.id)
                           }}
-                          className="w-8 h-8 rounded-full bg-green-700/80 text-white flex items-center justify-center hover:bg-green-700 transition-colors"
+                          className="w-8 h-8 rounded-full bg-red-500/80 backdrop-blur-sm text-white flex items-center justify-center hover:bg-red-600 transition-all duration-200 hover:scale-110 active:scale-110"
                         >
-                          <Trash2 className="w-4 h-4 text-white" />
+                          <Trash2 className="w-4 h-4" />
                         </button>
                       </div>
                     </div>
