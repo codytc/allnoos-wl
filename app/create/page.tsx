@@ -444,41 +444,43 @@ export default function CreatePage() {
                           alt={`Video ${video.id}`}
                           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                         />
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            toggleContentSelection("video", 0, video.id)
-                          }}
-                          className={`absolute top-3 left-3 z-10 rounded-full bg-transparent backdrop-blur-sm transition-all duration-300 p-2.5 hover:scale-110 active:scale-110 shadow-lg ${
-                            isSelected
-                              ? "hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)]"
-                              : "hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]"
-                          }`}
-                        >
-                          <div
-                            className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                              isSelected ? "bg-blue-500 border-blue-500" : "border-white bg-transparent"
+                        <div className="absolute top-3 left-1/2 -translate-x-1/2 flex items-center z-10 backdrop-blur-sm rounded-full bg-transparent gap-1.5 p-0.5 mt-[-7px]">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              toggleContentSelection("video", 0, video.id)
+                            }}
+                            className={`rounded-full bg-transparent backdrop-blur-sm transition-all duration-300 p-2.5 hover:scale-110 active:scale-110 shadow-lg ${
+                              isSelected
+                                ? "hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)]"
+                                : "hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]"
                             }`}
                           >
-                            {orderNumber && <span className="text-white text-xs font-bold">{orderNumber}</span>}
+                            <div
+                              className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                isSelected ? "bg-blue-500 border-blue-500" : "border-white bg-transparent"
+                              }`}
+                            >
+                              {orderNumber && <span className="text-white text-xs font-bold">{orderNumber}</span>}
+                            </div>
+                          </button>
+
+                          <div className="px-2 rounded-full backdrop-blur-sm bg-transparent py-2.5">
+                            <span className="text-white font-medium text-sm">{video.duration}</span>
                           </div>
-                        </button>
 
-                        <div className="absolute top-3 left-1/2 -translate-x-1/2 z-10 px-3 rounded-full backdrop-blur-sm bg-transparent py-2.5">
-                          <span className="text-white font-medium text-sm">{video.duration}</span>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              if (window.confirm("Delete this video?")) {
+                                deleteVideo(video.id)
+                              }
+                            }}
+                            className="rounded-full bg-transparent backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] p-2.5"
+                          >
+                            <Trash2 className="w-5 h-5 text-white" />
+                          </button>
                         </div>
-
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            if (window.confirm("Delete this video?")) {
-                              deleteVideo(video.id)
-                            }
-                          }}
-                          className="absolute top-3 right-3 z-10 rounded-full bg-transparent backdrop-blur-sm transition-all duration-300 p-2.5 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]"
-                        >
-                          <Trash2 className="w-5 h-5 text-white" />
-                        </button>
                         <div className="absolute inset-0 bg-black/30 flex items-center justify-center rounded-t-lg"></div>
                         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-t-lg" />
                       </div>
@@ -693,22 +695,24 @@ export default function CreatePage() {
                           e.stopPropagation()
                           toggleContentSelection("photo", index)
                         }}
-                        className={`absolute top-2 left-2 w-6 h-6 rounded-full flex items-center justify-center transition-all font-bold text-xs border-2 ${
+                        className={`absolute top-2 left-2 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)] p-2 ${
                           isSelected
-                            ? "bg-blue-500 text-white border-blue-500"
-                            : "bg-transparent text-white border-white hover:bg-white/20 hover:border-white"
+                            ? "bg-blue-500 text-white"
+                            : "bg-transparent text-white hover:bg-white/20 hover:border-white"
                         }`}
                       >
-                        {orderNumber || "+"}
+                        {isSelected && orderNumber && (
+                          <span className="text-white text-xs font-bold">{orderNumber}</span>
+                        )}
                       </button>
                       <button
                         onClick={(e) => {
                           e.stopPropagation()
                           deletePhoto(index)
                         }}
-                        className="absolute top-2 right-2 w-6 h-6 bg-green-700/80 rounded-full flex items-center justify-center hover:bg-green-700 transition-colors"
+                        className="absolute top-2 right-2 w-8 h-8 rounded-full bg-red-500/80 backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-transparent p-2.5"
                       >
-                        <Trash2 className="w-4 h-4 text-white drop-shadow-lg" />
+                        <Trash2 className="w-5 h-5 text-white drop-shadow-lg" />
                       </button>
                     </div>
                   )
@@ -760,10 +764,10 @@ export default function CreatePage() {
                           e.stopPropagation()
                           toggleContentSelection("video", 0, capturedVideos[selectedVideo].id)
                         }}
-                        className={`w-12 h-12 rounded-full flex items-center justify-center transition-all font-bold ${
+                        className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)] p-2 ${
                           isContentSelected("video", 0, capturedVideos[selectedVideo].id)
                             ? "bg-blue-500 text-white"
-                            : "bg-white/20 text-white hover:bg-white/30"
+                            : "bg-transparent text-white hover:bg-white/20 hover:border-white"
                         }`}
                       >
                         {getContentOrderNumber("video", 0, capturedVideos[selectedVideo].id) || "+"}
