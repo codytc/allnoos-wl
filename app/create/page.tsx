@@ -435,9 +435,7 @@ export default function CreatePage() {
                 return (
                   <div
                     key={video.id}
-                    className={`shadow-none cursor-pointer transition-all duration-200 touch-manipulation group relative overflow-hidden bg-gradient-to-br from-background via-background to-muted/20 border rounded-lg p-0 flex flex-col hover:scale-95 active:scale-95 hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] ${
-                      isSelected ? "ring-4 ring-blue-500" : ""
-                    }`}
+                    className={`shadow-none cursor-pointer transition-all duration-200 touch-manipulation group relative overflow-hidden bg-gradient-to-br from-background via-background to-muted/20 border rounded-lg p-0 flex flex-col hover:scale-95 active:scale-95 hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]`}
                   >
                     <div className="relative">
                       <div className="aspect-[9/16] rounded-t-lg overflow-hidden bg-muted">
@@ -562,9 +560,7 @@ export default function CreatePage() {
                             </div>
                           </button>
 
-                          <div className="px-3 rounded-full backdrop-blur-sm bg-transparent py-2.5">
-                            
-                          </div>
+                          <div className="px-3 rounded-full backdrop-blur-sm bg-transparent py-2.5"></div>
 
                           <button
                             onClick={(e) => {
