@@ -429,67 +429,69 @@ export default function CreatePage() {
             </div>
             <Card>
               <CardContent className="p-4">
-                <div className="overflow-x-auto overflow-y-hidden -mx-4 px-4 scrollbar-hide w-full max-w-full">
-                  <div className="flex gap-3 pb-2">
-                    {capturedVideos.map((video) => {
-                      const orderNumber = getContentOrderNumber("video", 0, video.id)
-                      const isSelected = isContentSelected("video", 0, video.id)
+                <div className="grid grid-cols-2 gap-3">
+                  {capturedVideos.map((video) => {
+                    const orderNumber = getContentOrderNumber("video", 0, video.id)
+                    const isSelected = isContentSelected("video", 0, video.id)
 
-                      return (
-                        <div
-                          key={video.id}
-                          className={`shadow-none cursor-pointer transition-all duration-200 touch-manipulation group relative overflow-hidden bg-gradient-to-br from-background via-background to-muted/20 border rounded-lg p-0 w-[240px] flex-shrink-0 flex flex-col hover:scale-95 active:scale-95 hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] ${
-                            isSelected ? "ring-4 ring-blue-500" : ""
-                          }`}
-                        >
-                          <div className="relative">
-                            <div className="aspect-[9/16] rounded-t-lg overflow-hidden bg-muted">
-                              <img
-                                src={video.thumbnail || "/placeholder.svg"}
-                                alt={`Video ${video.id}`}
-                                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                              />
-                              <div className="absolute inset-0 bg-black/30 flex items-center justify-center rounded-t-lg">
-                                <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                                  <Play className="w-6 h-6 text-white ml-1" />
-                                </div>
-                              </div>
-                              <div className="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded">
+                    return (
+                      <div
+                        key={video.id}
+                        className={`shadow-none cursor-pointer transition-all duration-200 touch-manipulation group relative overflow-hidden bg-gradient-to-br from-background via-background to-muted/20 border rounded-lg p-0 flex flex-col hover:scale-95 active:scale-95 hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] ${
+                          isSelected ? "ring-4 ring-blue-500" : ""
+                        }`}
+                      >
+                        <div className="relative">
+                          <div className="aspect-[9/16] rounded-t-lg overflow-hidden bg-muted">
+                            <img
+                              src={video.thumbnail || "/placeholder.svg"}
+                              alt={`Video ${video.id}`}
+                              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                            />
+                            <div className="absolute top-0 left-0 right-0 p-2 flex items-center justify-between z-20">
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation()
+                                  toggleContentSelection("video", 0, video.id)
+                                }}
+                                className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all shadow-lg ${
+                                  isSelected
+                                    ? "bg-blue-500 border-blue-500 text-white"
+                                    : "bg-white/60 backdrop-blur-sm border-white/80 text-white"
+                                }`}
+                              >
+                                {orderNumber && <span className="text-xs font-bold">{orderNumber}</span>}
+                              </button>
+
+                              <div className="bg-black/60 text-white text-sm font-semibold px-2 py-1 rounded backdrop-blur-sm">
                                 {video.duration}
                               </div>
-                              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-t-lg" />
+
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation()
+                                  if (window.confirm("Delete this video?")) {
+                                    deleteVideo(video.id)
+                                  }
+                                }}
+                                className="w-8 h-8 rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/60 border-2 border-white/80 p-1.5 flex items-center justify-center"
+                              >
+                                <Trash2 className="w-4 h-4 text-red-500" />
+                              </button>
                             </div>
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation()
-                                toggleContentSelection("video", 0, video.id)
-                              }}
-                              className={`absolute top-2 left-2 rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] p-2 ${
-                                isSelected
-                                  ? "bg-blue-500 text-white border-2 border-blue-500"
-                                  : "bg-white/20 text-white border-2 border-white/30"
-                              }`}
-                            >
-                              {isSelected && orderNumber ? (
-                                <span className="text-xs font-bold">{orderNumber}</span>
-                              ) : (
-                                <span className="w-2 h-2 block" />
-                              )}
-                            </button>
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation()
-                                deleteVideo(video.id)
-                              }}
-                              className="absolute top-2 right-2 rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-transparent p-2.5"
-                            >
-                              <Trash2 className="w-5 h-5 text-white" />
-                            </button>
+
+                            <div className="absolute inset-0 bg-black/20 flex items-center justify-center rounded-t-lg pointer-events-none">
+                              <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                                <Play className="w-6 h-6 text-white ml-1" />
+                              </div>
+                            </div>
+
+                            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-t-lg" />
                           </div>
                         </div>
-                      )
-                    })}
-                  </div>
+                      </div>
+                    )
+                  })}
                 </div>
               </CardContent>
             </Card>
@@ -772,7 +774,7 @@ export default function CreatePage() {
                         }}
                         className="w-10 h-10 rounded-full bg-green-700/80 text-white flex items-center justify-center hover:bg-green-700 transition-colors"
                       >
-                        <Trash2 className="w-5 h-5 text-white" />
+                        <Trash2 className="w-5 h-5 text-white drop-shadow-lg" />
                       </button>
                     </div>
                   </div>
@@ -812,16 +814,14 @@ export default function CreatePage() {
                             e.stopPropagation()
                             toggleContentSelection("video", 0, video.id)
                           }}
-                          className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] p-2 ${
+                          className={`w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] p-2 ${
                             isSelected
-                              ? "bg-blue-500 text-white border-2 border-blue-500"
-                              : "bg-white/20 text-white border-2 border-white/30"
+                              ? "bg-blue-500 text-white border-blue-500"
+                              : "bg-transparent border-white hover:border-blue-400"
                           }`}
                         >
-                          {isSelected && orderNumber ? (
-                            <span className="text-xs font-bold">{orderNumber}</span>
-                          ) : (
-                            <span className="w-2 h-2 block" />
+                          {isSelected && orderNumber && (
+                            <span className="text-white text-xs font-bold">{orderNumber}</span>
                           )}
                         </button>
                       </div>
@@ -833,7 +833,7 @@ export default function CreatePage() {
                           }}
                           className="w-8 h-8 rounded-full bg-red-500/80 backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-transparent p-2.5"
                         >
-                          <Trash2 className="w-5 h-5 text-white" />
+                          <Trash2 className="w-5 h-5 text-white drop-shadow-lg" />
                         </button>
                       </div>
                     </div>
