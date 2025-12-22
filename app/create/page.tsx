@@ -478,9 +478,9 @@ export default function CreatePage() {
                                 deleteVideo(video.id)
                               }
                             }}
-                            className="rounded-full transition-all duration-300 p-2.5 hover:scale-110 active:scale-110 shadow-lg bg-transparent hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]"
+                            className="rounded-full bg-transparent backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] p-2.5"
                           >
-                            <Trash2 className="size-4 text-white" />
+                            <Trash2 className="w-5 h-5 text-white" />
                           </button>
                         </div>
                         <div className="absolute inset-0 bg-black/30 flex items-center justify-center rounded-t-lg">
@@ -719,7 +719,7 @@ export default function CreatePage() {
                         }}
                         className="absolute top-2 right-2 w-6 h-6 bg-green-700/80 rounded-full flex items-center justify-center hover:bg-green-700 transition-colors"
                       >
-                        <Trash2 className="w-4 h-4 text-white" />
+                        <Trash2 className="w-4 h-4 text-white drop-shadow-lg" />
                       </button>
                     </div>
                   )
