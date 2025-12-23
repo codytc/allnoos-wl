@@ -570,7 +570,7 @@ export default function CreatePage() {
                             e.stopPropagation()
                             toggleContentSelection("photo", index)
                           }}
-                          className={`absolute top-3 left-3 z-10 rounded-full bg-transparent backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg p-2.5 ${
+                          className={`group/photoSelect absolute top-3 left-3 z-10 rounded-full bg-transparent backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg p-2.5 ${
                             isSelected
                               ? "hover:shadow-[inset_0_2px_12px_rgba(253,180,132,0.5)]"
                               : "hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]"
@@ -580,7 +580,7 @@ export default function CreatePage() {
                             className={`rounded-full border-2 flex items-center justify-center size-[28px] transition-colors duration-300 ${
                               isSelected
                                 ? "bg-[#FDB484] border-[#FDB484]"
-                                : "border-white bg-transparent group-hover:border-[#FDB484] group-active:border-[#FDB484]"
+                                : "border-white bg-transparent group-hover/photoSelect:border-[#FDB484] group-active/photoSelect:border-[#FDB484]"
                             }`}
                           >
                             {isSelected && orderNumber && (
