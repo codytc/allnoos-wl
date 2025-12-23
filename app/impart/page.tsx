@@ -619,10 +619,10 @@ export default function ExpositionsPage() {
                                 <stop offset="100%" stopColor={isNeutralState ? "#444444" : "#CC6633"} />
                               </linearGradient>
                               <linearGradient id={`rightGradient-${comment.id}`} x1="0%" y1="0%" x2="0%" y2="100%">
-                                <stop offset="0%" stopColor={isNeutralState ? "#888888" : "#A3D45C"} />
-                                <stop offset="15%" stopColor={isNeutralState ? "#777777" : "#7BA428"} />
-                                <stop offset="85%" stopColor={isNeutralState ? "#555555" : "#5A7A1F"} />
-                                <stop offset="100%" stopColor={isNeutralState ? "#444444" : "#4A6619"} />
+                                <stop offset="0%" stopColor={isNeutralState ? "#888888" : "#5EEAD4"} />
+                                <stop offset="15%" stopColor={isNeutralState ? "#777777" : "#2DD4BF"} />
+                                <stop offset="85%" stopColor={isNeutralState ? "#555555" : "#14B8A6"} />
+                                <stop offset="100%" stopColor={isNeutralState ? "#444444" : "#0F766E"} />
                               </linearGradient>
                               <filter id={`shadow-${comment.id}`} x="-10%" y="-10%" width="120%" height="120%">
                                 <feDropShadow dx="0" dy="3" stdDeviation="3" floodColor="rgba(0,0,0,0.4)" />
@@ -679,14 +679,14 @@ export default function ExpositionsPage() {
                                 height="16"
                                 fill={`url(#rightGradient-${comment.id})`}
                                 filter={`url(#shadow-${comment.id})`}
-                                stroke={isNeutralState ? "#333333" : "#4A6619"}
+                                stroke={isNeutralState ? "#333333" : "#0F766E"}
                                 strokeWidth="0.5"
                                 className="active:brightness-110 transition-all pointer-events-none"
                               />
                               {!isNeutralState && (
                                 <path
                                   d={`M${leftPercentage} 0 Q${leftPercentage - 2} 8 ${leftPercentage} 16`}
-                                  stroke={leftPercentage > 50 ? "#E6804D" : "#5A7A1F"}
+                                  stroke={leftPercentage > 50 ? "#E6804D" : "#0F766E"}
                                   strokeWidth="1.5"
                                   fill="none"
                                   className="transition-all duration-300 pointer-events-none"
