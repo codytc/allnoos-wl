@@ -1042,7 +1042,7 @@ export default function UserProfilePage() {
                       className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-transparent p-2.5"
                     >
                       <BarChart3
-                        className={`size-5 transition-colors duration-300 ${viewedStats.has(story.id) ? "text-blue-500" : "text-white"}`}
+                        className={`size-5 transition-colors duration-300 ${viewedStats.has(story.id) ? "text-blue-500" : "text-white hover:text-blue-500 active:text-blue-500"}`}
                       />
                     </button>
 
