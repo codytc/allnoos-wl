@@ -474,15 +474,17 @@ export default function CreatePage() {
                               e.stopPropagation()
                               toggleContentSelection("video", 0, video.id)
                             }}
-                            className={`rounded-full bg-transparent backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)] p-2 ${
+                            className={`group/videoSelect rounded-full bg-transparent backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)] p-2 ${
                               isSelected
                                 ? "hover:shadow-[inset_0_2px_12px_rgba(253,180,132,0.5)]"
                                 : "hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]"
                             }`}
                           >
                             <div
-                              className={`rounded-full border-2 flex items-center justify-center size-6 ${
-                                isSelected ? "bg-[#FDB484] border-[#FDB484]" : "border-white bg-transparent"
+                              className={`rounded-full border-2 flex items-center justify-center size-6 transition-colors duration-300 ${
+                                isSelected
+                                  ? "bg-[#FDB484] border-[#FDB484]"
+                                  : "border-white bg-transparent group-hover/videoSelect:border-[#FDB484] group-active/videoSelect:border-[#FDB484]"
                               }`}
                             >
                               {isSelected && orderNumber && (
@@ -575,8 +577,10 @@ export default function CreatePage() {
                           }`}
                         >
                           <div
-                            className={`rounded-full border-2 flex items-center justify-center size-[28px] ${
-                              isSelected ? "bg-[#FDB484] border-[#FDB484]" : "border-white bg-transparent"
+                            className={`rounded-full border-2 flex items-center justify-center size-[28px] transition-colors duration-300 ${
+                              isSelected
+                                ? "bg-[#FDB484] border-[#FDB484]"
+                                : "border-white bg-transparent group-hover:border-[#FDB484] group-active:border-[#FDB484]"
                             }`}
                           >
                             {isSelected && orderNumber && (
