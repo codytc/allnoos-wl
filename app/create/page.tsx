@@ -598,7 +598,7 @@ export default function CreatePage() {
                           }}
                           className="absolute top-3 right-3 z-10 rounded-full bg-transparent backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-transparent p-2.5"
                         >
-                          <Trash2 className="w-5 h-5 text-white" />
+                          <Trash2 className="text-white size-6" />
                         </button>
                         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-t-lg" />
                       </div>
