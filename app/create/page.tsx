@@ -474,7 +474,7 @@ export default function CreatePage() {
                               e.stopPropagation()
                               toggleContentSelection("video", 0, video.id)
                             }}
-                            className={`rounded-full bg-transparent backdrop-blur-sm transition-all duration-300 p-2.5 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)] ${
+                            className={`rounded-full bg-transparent backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)] p-0.5 ${
                               isSelected
                                 ? "hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)]"
                                 : "hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]"
