@@ -422,7 +422,7 @@ export default function CreatePage() {
                   placeholder="Detecting location..."
                 />
               </div>
-              <p className="text-xs text-muted-foreground mt-1">Location is automatically detected</p>
+              
             </div>
 
             <div className="pt-4 flex justify-center">
