@@ -42,6 +42,9 @@ export default function CreatePage() {
     const savedVideoData = localStorage.getItem("cameraVideoData")
     const savedSelectedOrder = localStorage.getItem("selectedContentOrder")
 
+    console.log("[v0] Loading saved data from localStorage")
+    console.log("[v0] savedSelectedOrder:", savedSelectedOrder)
+
     if (savedPhotos) {
       setCapturedPhotos(JSON.parse(savedPhotos))
     }
@@ -51,7 +54,9 @@ export default function CreatePage() {
     }
 
     if (savedSelectedOrder) {
-      setSelectedContentOrder(JSON.parse(savedSelectedOrder))
+      const parsedOrder = JSON.parse(savedSelectedOrder)
+      console.log("[v0] Setting selectedContentOrder:", parsedOrder)
+      setSelectedContentOrder(parsedOrder)
     }
 
     if (navigator.geolocation) {
@@ -119,17 +124,21 @@ export default function CreatePage() {
   const toggleContentSelection = (type: "photo" | "video", index: number, id?: number) => {
     const isSelected = isContentSelected(type, index, id)
 
+    console.log("[v0] toggleContentSelection called:", { type, index, id, isSelected })
+
     if (isSelected) {
       // Remove from selection and reorder
       const newOrder = selectedContentOrder.filter(
         (item) => !(item.type === type && (type === "photo" ? item.index === index : item.id === id)),
       )
+      console.log("[v0] Removing from selection, new order:", newOrder)
       setSelectedContentOrder(newOrder)
       localStorage.setItem("selectedContentOrder", JSON.stringify(newOrder))
     } else {
       // Add to selection
       const newItem = { type, index, ...(id && { id }) }
       const newOrder = [...selectedContentOrder, newItem]
+      console.log("[v0] Adding to selection, new order:", newOrder)
       setSelectedContentOrder(newOrder)
       localStorage.setItem("selectedContentOrder", JSON.stringify(newOrder))
     }
@@ -494,7 +503,7 @@ export default function CreatePage() {
                                 deleteVideo(video.id)
                               }
                             }}
-                            className="rounded-full bg-transparent backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] p-2.5"
+                            className="rounded-full bg-transparent backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-transparent p-2.5"
                           >
                             <Trash2 className="w-5 h-5 text-white" />
                           </button>
