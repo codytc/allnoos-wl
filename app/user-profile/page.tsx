@@ -87,6 +87,9 @@ export default function UserProfilePage() {
   const [followersSearchQuery, setFollowersSearchQuery] = useState("")
   const [showSortOptions, setShowSortOptions] = useState(false) // Added state for sort options dropdown
   const [showSettingsDropdown, setShowSettingsDropdown] = useState(false) // Added state for settings dropdown menu
+  const [storySearchQuery, setStorySearchQuery] = useState("")
+  const [showStorySearch, setShowStorySearch] = useState(false)
+  // </CHANGE>
   const [storySortBy, setStorySortBy] = useState<"recent" | "oldest" | "popular" | "views">("recent")
   const [followersSortBy, setFollowersSortBy] = useState<
     "alphabetical" | "recent" | "oldest" | "performance" | "engagement"
@@ -414,6 +417,10 @@ export default function UserProfilePage() {
     if (showMap) {
       setShowMap(false)
     }
+    if (showStorySearch) {
+      setShowStorySearch(false)
+      setStorySearchQuery("")
+    }
   }
 
   const handleMainActionDropdownToggle = (e: React.MouseEvent) => {
@@ -626,6 +633,8 @@ export default function UserProfilePage() {
   const actionIntervalRef = useRef<NodeJS.Timeout | null>(null)
   const initialActionTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const storySearchInputRef = useRef<HTMLInputElement>(null)
+  // </CHANGE>
 
   useEffect(() => {
     if (process.env.NODE_ENV === "development") {
@@ -877,25 +886,52 @@ export default function UserProfilePage() {
       <div className="px-6 pb-6 pr-[15px] pl-[15px]">
         <div className="flex justify-end items-center w-full max-w-md mx-auto">
           <div className="relative">
-            <button
-              onClick={(e) => {
-                e.stopPropagation()
-                setShowSortOptions(!showSortOptions)
-              }}
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg hover:bg-white/30 active:bg-white/40 transition-all duration-300"
-            >
-              <ArrowUpDown className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-stone-700">
-                Sort:{" "}
-                {storySortBy === "recent"
-                  ? "Recent"
-                  : storySortBy === "oldest"
-                    ? "Oldest"
-                    : storySortBy === "popular"
-                      ? "Popular"
-                      : "Views"}
-              </span>
-            </button>
+            {!showStorySearch ? (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setShowStorySearch(true)
+                  setTimeout(() => {
+                    storySearchInputRef.current?.focus()
+                  }, 100)
+                }}
+                className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg hover:bg-white/30 active:bg-white/40 transition-all duration-300"
+              >
+                <Search className="w-4 h-4 text-primary" />
+                <span className="text-sm font-medium text-stone-700">Search Stories</span>
+              </button>
+            ) : (
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-stone-500 z-10" />
+                <input
+                  ref={storySearchInputRef}
+                  type="text"
+                  placeholder="Search stories..."
+                  value={storySearchQuery}
+                  onChange={(e) => setStorySearchQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      // Handle search action here
+                      console.log("[v0] Search stories for:", storySearchQuery)
+                    } else if (e.key === "Escape") {
+                      setShowStorySearch(false)
+                      setStorySearchQuery("")
+                    }
+                  }}
+                  onBlur={() => {
+                    // Delay to allow clicking on search results
+                    setTimeout(() => {
+                      setShowStorySearch(false)
+                      if (!storySearchQuery.trim()) {
+                        setStorySearchQuery("")
+                      }
+                    }, 200)
+                  }}
+                  className="w-64 pl-10 pr-4 py-2 border border-white/95 rounded-full focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus:border-input focus-visible:border-input focus:shadow-[inset_0_0_16px_rgba(253,180,132,0.35)] bg-white/95 backdrop-blur-sm text-stone-900 placeholder-stone-500 transition-all duration-300"
+                />
+              </div>
+            )}
+            {/* </CHANGE> */}
 
             {showSortOptions && (
               <div className="absolute right-0 top-full mt-2 w-48 bg-white/95 backdrop-blur-md rounded-xl shadow-2xl border border-white/30 py-2 z-60 animate-in slide-in-from-top-2 duration-200">
@@ -1039,10 +1075,10 @@ export default function UserProfilePage() {
                           return newSet
                         })
                       }}
-                      className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-transparent p-2.5"
+                      className="group/stats rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-transparent p-2.5"
                     >
                       <BarChart3
-                        className={`size-5 transition-colors duration-300 ${viewedStats.has(story.id) ? "text-blue-500" : "text-white hover:text-blue-500 active:text-blue-500"}`}
+                        className={`size-5 transition-colors duration-300 ${viewedStats.has(story.id) ? "text-blue-500" : "text-white group-hover/stats:text-blue-500 group-active/stats:text-blue-500"}`}
                       />
                     </button>
 
