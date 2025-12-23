@@ -422,7 +422,6 @@ export default function CreatePage() {
                   placeholder="Detecting location..."
                 />
               </div>
-              
             </div>
 
             <div className="pt-4 flex justify-center">
@@ -482,7 +481,7 @@ export default function CreatePage() {
                             }`}
                           >
                             <div
-                              className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                              className={`w-[28px] h-[28px] rounded-full border-2 flex items-center justify-center ${
                                 isSelected ? "bg-blue-500 border-blue-500" : "border-white bg-transparent"
                               }`}
                             >
@@ -569,14 +568,14 @@ export default function CreatePage() {
                             e.stopPropagation()
                             toggleContentSelection("photo", index)
                           }}
-                          className={`absolute top-3 left-3 z-10 rounded-full bg-transparent backdrop-blur-sm transition-all duration-300 p-2.5 hover:scale-110 active:scale-110 shadow-lg ${
+                          className={`rounded-full bg-transparent backdrop-blur-sm transition-all duration-300 p-2.5 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)] ${
                             isSelected
-                              ? "hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)]"
+                              ? "bg-transparent backdrop-blur-sm"
                               : "hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]"
                           }`}
                         >
                           <div
-                            className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                            className={`rounded-full border-2 flex items-center justify-center w-[28px] h-[28px] ${
                               isSelected ? "bg-blue-500 border-blue-500" : "border-white bg-transparent"
                             }`}
                           >
@@ -723,9 +722,9 @@ export default function CreatePage() {
                           e.stopPropagation()
                           toggleContentSelection("photo", index)
                         }}
-                        className={`absolute top-2 left-2 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)] p-2 ${
+                        className={`absolute top-2 left-2 w-[28px] h-[28px] rounded-full border-2 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)] p-2 ${
                           isSelected
-                            ? "bg-blue-500 text-white"
+                            ? "bg-blue-500 text-white border-blue-500"
                             : "bg-transparent text-white hover:bg-white/20 hover:border-white"
                         }`}
                       >
@@ -850,7 +849,7 @@ export default function CreatePage() {
                             e.stopPropagation()
                             toggleContentSelection("video", 0, video.id)
                           }}
-                          className={`w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)] p-2 ${
+                          className={`w-[28px] h-[28px] rounded-full border-2 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)] p-2 ${
                             isSelected
                               ? "bg-blue-500 text-white border-blue-500"
                               : "bg-transparent border-white hover:border-blue-400"
