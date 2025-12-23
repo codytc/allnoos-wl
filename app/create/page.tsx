@@ -477,7 +477,9 @@ export default function CreatePage() {
                                 isSelected ? "bg-blue-500 border-blue-500" : "border-white bg-transparent"
                               }`}
                             >
-                              {orderNumber && <span className="text-white text-xs font-bold">{orderNumber}</span>}
+                              {isSelected && orderNumber && (
+                                <span className="text-white text-xs font-bold">{orderNumber}</span>
+                              )}
                             </div>
                           </button>
 
@@ -569,7 +571,9 @@ export default function CreatePage() {
                               isSelected ? "bg-blue-500 border-blue-500" : "border-white bg-transparent"
                             }`}
                           >
-                            {orderNumber && <span className="text-white text-xs font-bold">{orderNumber}</span>}
+                            {isSelected && orderNumber && (
+                              <span className="text-white text-xs font-bold">{orderNumber}</span>
+                            )}
                           </div>
                         </button>
 
@@ -668,7 +672,8 @@ export default function CreatePage() {
                             : "bg-white/20 text-white hover:bg-white/30"
                         }`}
                       >
-                        {getContentOrderNumber("photo", selectedPhoto) || "+"}
+                        {(isContentSelected("photo", selectedPhoto) && getContentOrderNumber("photo", selectedPhoto)) ||
+                          "+"}
                       </button>
                       <button
                         onClick={(e) => {
@@ -784,7 +789,9 @@ export default function CreatePage() {
                             : "bg-transparent text-white hover:bg-white/20 hover:border-white"
                         }`}
                       >
-                        {getContentOrderNumber("video", 0, capturedVideos[selectedVideo].id) || "+"}
+                        {(isContentSelected("video", 0, capturedVideos[selectedVideo].id) &&
+                          getContentOrderNumber("video", 0, capturedVideos[selectedVideo].id)) ||
+                          "+"}
                       </button>
                       <button
                         onClick={(e) => {
