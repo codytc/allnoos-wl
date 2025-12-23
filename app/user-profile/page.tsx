@@ -1052,9 +1052,9 @@ export default function UserProfilePage() {
                         // TODO: Add delete confirmation dialog
                         console.log("[v0] Delete story:", story.id)
                       }}
-                      className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-transparent p-2.5"
+                      className="group rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-transparent p-2.5"
                     >
-                      <Trash2 className="size-5 text-white" />
+                      <Trash2 className="size-5 text-white transition-colors duration-300 group-hover:text-green-500 group-active:text-green-500" />
                     </button>
                   </div>
 
