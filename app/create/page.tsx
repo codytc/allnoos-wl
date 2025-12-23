@@ -527,9 +527,7 @@ export default function CreatePage() {
                 return (
                   <div
                     key={index}
-                    className={`shadow-none cursor-pointer transition-all duration-200 touch-manipulation group relative overflow-hidden bg-gradient-to-br from-background via-background to-muted/20 border rounded-lg p-0 flex flex-col hover:scale-95 active:scale-95 hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] ${
-                      isSelected ? "ring-4 ring-blue-500" : ""
-                    }`}
+                    className={`shadow-none cursor-pointer transition-all duration-200 touch-manipulation group relative overflow-hidden bg-gradient-to-br from-background via-background to-muted/20 border rounded-lg p-0 flex flex-col hover:scale-95 active:scale-95 hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]`}
                     onClick={() => selectPhoto(index)}
                   >
                     <div className="relative">
