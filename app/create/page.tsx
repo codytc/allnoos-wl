@@ -568,14 +568,14 @@ export default function CreatePage() {
                             e.stopPropagation()
                             toggleContentSelection("photo", index)
                           }}
-                          className={`absolute top-3 left-3 z-10 rounded-full bg-transparent backdrop-blur-sm transition-all duration-300 p-2.5 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)] ${
+                          className={`absolute top-3 left-3 z-10 rounded-full bg-transparent backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)] p-2 ${
                             isSelected
                               ? "bg-transparent backdrop-blur-sm"
                               : "hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]"
                           }`}
                         >
                           <div
-                            className={`rounded-full border-2 flex items-center justify-center w-[28px] h-[28px] ${
+                            className={`rounded-full border-2 flex items-center justify-center size-6 ${
                               isSelected ? "bg-blue-500 border-blue-500" : "border-white bg-transparent"
                             }`}
                           >
