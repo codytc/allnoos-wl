@@ -40,10 +40,10 @@ export default function CreatePage() {
   useEffect(() => {
     const savedPhotos = localStorage.getItem("cameraPhotos")
     const savedVideoData = localStorage.getItem("cameraVideoData")
-    const savedSelectedOrder = localStorage.getItem("selectedContentOrder")
+    // const savedSelectedOrder = localStorage.getItem("selectedContentOrder")
 
-    console.log("[v0] Loading saved data from localStorage")
-    console.log("[v0] savedSelectedOrder:", savedSelectedOrder)
+    // console.log("[v0] Loading saved data from localStorage")
+    // console.log("[v0] savedSelectedOrder:", savedSelectedOrder)
 
     if (savedPhotos) {
       setCapturedPhotos(JSON.parse(savedPhotos))
@@ -53,11 +53,11 @@ export default function CreatePage() {
       setCapturedVideos(JSON.parse(savedVideoData))
     }
 
-    if (savedSelectedOrder) {
-      const parsedOrder = JSON.parse(savedSelectedOrder)
-      console.log("[v0] Setting selectedContentOrder:", parsedOrder)
-      setSelectedContentOrder(parsedOrder)
-    }
+    // if (savedSelectedOrder) {
+    //   const parsedOrder = JSON.parse(savedSelectedOrder)
+    //   console.log("[v0] Setting selectedContentOrder:", parsedOrder)
+    //   setSelectedContentOrder(parsedOrder)
+    // }
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -475,7 +475,7 @@ export default function CreatePage() {
                               e.stopPropagation()
                               toggleContentSelection("video", 0, video.id)
                             }}
-                            className={`rounded-full bg-transparent backdrop-blur-sm transition-all duration-300 p-2.5 hover:scale-110 active:scale-110 shadow-lg ${
+                            className={`rounded-full bg-transparent backdrop-blur-sm transition-all duration-300 p-2.5 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)] ${
                               isSelected
                                 ? "hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)]"
                                 : "hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]"
