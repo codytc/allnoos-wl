@@ -83,6 +83,22 @@ export default function CreatePage() {
     }
   }, [])
 
+  useEffect(() => {
+    const cleanedOrder = selectedContentOrder.filter((item) => {
+      if (item.type === "photo") {
+        return item.index < capturedPhotos.length
+      } else if (item.type === "video") {
+        return capturedVideos.some((video) => video.id === item.id)
+      }
+      return false
+    })
+
+    if (cleanedOrder.length !== selectedContentOrder.length) {
+      setSelectedContentOrder(cleanedOrder)
+      localStorage.setItem("selectedContentOrder", JSON.stringify(cleanedOrder))
+    }
+  }, [capturedPhotos, capturedVideos])
+
   const handleInputChange = (field: string, value: string) => {
     setStoryData((prev) => ({ ...prev, [field]: value }))
   }
