@@ -962,36 +962,37 @@ export default function UserProfilePage() {
                     </div>
                     <button
                       onClick={() => handleStorySortOptionSelect("recent")}
-                      className={`w-full text-left px-4 py-2 hover:bg-white/50 transition-colors ${
-                        storySortBy === "recent" ? "text-[#FDB484] font-bold" : "text-stone-700 hover:text-[#FDB484]"
+                      className={`w-full text-left px-4 py-2 hover:bg-white/50 transition-colors text-stone-700 hover:text-[#FDB484] ${
+                        storySortBy === "recent" ? "font-bold" : ""
                       }`}
                     >
                       Most Recent
                     </button>
                     <button
                       onClick={() => handleStorySortOptionSelect("oldest")}
-                      className={`w-full text-left px-4 py-2 hover:bg-white/50 transition-colors ${
-                        storySortBy === "oldest" ? "text-[#FDB484] font-bold" : "text-stone-700 hover:text-[#FDB484]"
+                      className={`w-full text-left px-4 py-2 hover:bg-white/50 transition-colors text-stone-700 hover:text-[#FDB484] ${
+                        storySortBy === "oldest" ? "font-bold" : ""
                       }`}
                     >
                       Oldest First
                     </button>
                     <button
                       onClick={() => handleStorySortOptionSelect("popular")}
-                      className={`w-full text-left px-4 py-2 hover:bg-white/50 transition-colors ${
-                        storySortBy === "popular" ? "text-[#FDB484] font-bold" : "text-stone-700 hover:text-[#FDB484]"
+                      className={`w-full text-left px-4 py-2 hover:bg-white/50 transition-colors text-stone-700 hover:text-[#FDB484] ${
+                        storySortBy === "popular" ? "font-bold" : ""
                       }`}
                     >
                       Most Popular
                     </button>
                     <button
                       onClick={() => handleStorySortOptionSelect("views")}
-                      className={`w-full text-left px-4 py-2 hover:bg-white/50 transition-colors ${
-                        storySortBy === "views" ? "text-[#FDB484] font-bold" : "text-stone-700 hover:text-[#FDB484]"
+                      className={`w-full text-left px-4 py-2 hover:bg-white/50 transition-colors text-stone-700 hover:text-[#FDB484] ${
+                        storySortBy === "views" ? "font-bold" : ""
                       }`}
                     >
                       Most Viewed
                     </button>
+                    {/* </CHANGE> */}
                   </div>
                 )}
               </div>
