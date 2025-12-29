@@ -820,9 +820,10 @@ export default function ProfilePage() {
               </div>
             </div>
           ) : (
-            <div className="w-full max-w-md mx-auto relative">
+            <div className="w-full max-w-md mx-auto">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-5 text-stone-400 pointer-events-none z-10" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                {/* </CHANGE> */}
                 <Input
                   ref={storySearchInputRef}
                   type="text"
@@ -835,18 +836,20 @@ export default function ProfilePage() {
                       setStorySearchQuery("")
                     }
                   }}
-                  className="w-full pl-10 pr-10 py-2 bg-white/95 backdrop-blur-md border border-white/30 rounded-full shadow-lg focus:shadow-[inset_0_0_16px_rgba(253,180,132,0.35)] focus:outline-none focus:ring-0 transition-all duration-300"
+                  className="pl-10 pr-10 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus:border-input focus-visible:border-input focus:shadow-[inset_0_0_16px_rgba(253,180,132,0.35)] rounded-lg"
                 />
+                {/* </CHANGE> */}
                 <button
                   onClick={(e) => {
                     e.stopPropagation()
                     setShowStorySearch(false)
                     setStorySearchQuery("")
                   }}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-stone-100 rounded-full transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-stone-600 transition-colors"
                 >
-                  <X className="size-4 text-stone-400" />
+                  <X className="w-4 h-4" />
                 </button>
+                {/* </CHANGE> */}
               </div>
             </div>
           )}

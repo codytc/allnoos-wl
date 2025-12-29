@@ -1096,7 +1096,7 @@ export default function UserProfilePage() {
                     )}
 
                     {/* Buttons remain on top */}
-                    <div className="absolute top-3 left-1/2 -translate-x-1/2 flex items-center z-10 backdrop-blur-sm rounded-full bg-transparent gap-5 mt-[-7px] p-0.5">
+                    <div className="absolute top-3 left-1/2 -translate-x-1/2 flex items-center z-10 backdrop-blur-sm rounded-full bg-transparent mt-[-7px] p-0.5 gap-2.5">
                       <button
                         onClick={(e) => togglePinStory(story.id, e)}
                         className={`rounded-full transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg p-2 ${
