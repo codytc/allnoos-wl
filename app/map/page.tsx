@@ -120,9 +120,9 @@ export default function MapPage() {
         <div className="absolute top-4 left-4 z-30">
           <button
             onClick={() => router.back()}
-            className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2.5"
+            className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2"
           >
-            <ChevronLeft className="size-5 text-stone-600" />
+            <ChevronLeft className="size-6 text-stone-600" />
           </button>
         </div>
 

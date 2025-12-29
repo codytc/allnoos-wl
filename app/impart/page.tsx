@@ -429,9 +429,9 @@ export default function ExpositionsPage() {
             </button> */}
             <button
               onClick={() => router.back()}
-              className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2.5"
+              className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2"
             >
-              <ChevronLeftIcon className="size-5 text-stone-600" />
+              <ChevronLeftIcon className="size-6 text-stone-600" />
             </button>
 
             <div className="relative flex items-center justify-center h-12 px-8">
