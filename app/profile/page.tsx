@@ -764,7 +764,6 @@ export default function ProfilePage() {
                 >
                   <Search className="size-5 text-stone-600" />
                 </button>
-                {/* </CHANGE> */}
 
                 <button
                   onClick={(e) => {
@@ -775,7 +774,6 @@ export default function ProfilePage() {
                 >
                   <ArrowUpDown className="size-5 text-stone-600" />
                 </button>
-                {/* </CHANGE> */}
 
                 {showSortOptions && (
                   <div className="absolute right-0 top-full mt-2 w-48 bg-white/95 backdrop-blur-md rounded-xl shadow-2xl border border-white/30 py-2 z-60 animate-in slide-in-from-top-2 duration-200">
@@ -814,7 +812,6 @@ export default function ProfilePage() {
                     >
                       Most Viewed
                     </button>
-                    {/* </CHANGE> */}
                   </div>
                 )}
               </div>
@@ -823,7 +820,6 @@ export default function ProfilePage() {
             <div className="w-full max-w-md mx-auto">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                {/* </CHANGE> */}
                 <Input
                   ref={storySearchInputRef}
                   type="text"
@@ -838,7 +834,6 @@ export default function ProfilePage() {
                   }}
                   className="pl-10 pr-10 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus:border-input focus-visible:border-input focus:shadow-[inset_0_0_16px_rgba(253,180,132,0.35)] rounded-lg"
                 />
-                {/* </CHANGE> */}
                 <button
                   onClick={(e) => {
                     e.stopPropagation()
@@ -849,7 +844,6 @@ export default function ProfilePage() {
                 >
                   <X className="w-4 h-4" />
                 </button>
-                {/* </CHANGE> */}
               </div>
             </div>
           )}
@@ -874,14 +868,18 @@ export default function ProfilePage() {
                   <div className="absolute top-3 left-1/2 -translate-x-1/2 flex items-center z-10 backdrop-blur-sm rounded-full bg-transparent gap-2.5 p-0.5 mt-[-7px]">
                     <button
                       onClick={(e) => toggleLikeStory(story.id, e)}
-                      className={`rounded-full transition-all duration-300 p-2.5 hover:scale-110 active:scale-110 shadow-lg ${
+                      className={`group/like rounded-full transition-all duration-300 p-2.5 hover:scale-110 active:scale-110 shadow-lg ${
                         likedStories.has(story.id)
                           ? "bg-transparent hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)]"
                           : "bg-transparent backdrop-blur-sm hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]"
                       }`}
                     >
                       <Flame
-                        className={`size-5 transition-colors duration-300 ${likedStories.has(story.id) ? "text-red-500" : "text-white"}`}
+                        className={`size-5 transition-colors duration-300 ${
+                          likedStories.has(story.id)
+                            ? "text-red-500"
+                            : "text-white group-hover/like:text-red-500 group-active/like:text-red-500"
+                        }`}
                       />
                     </button>
 
