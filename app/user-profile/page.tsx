@@ -1004,7 +1004,7 @@ export default function UserProfilePage() {
               <Input
                 ref={storySearchInputRef}
                 type="text"
-                placeholder="Search your stories..."
+                placeholder="Explore my work"
                 value={storySearchQuery}
                 onChange={(e) => setStorySearchQuery(e.target.value)}
                 onKeyDown={(e) => {
@@ -1064,7 +1064,7 @@ export default function UserProfilePage() {
                               <path d="M7 17L17 7" strokeLinecap="round" strokeLinejoin="round" />
                               <path d="M11 7L17 7" strokeLinecap="round" strokeLinejoin="round" />
                               <path d="M17 7L17 13" strokeLinecap="round" strokeLinejoin="round" />
-                              <path d="M7 17L17 17" strokeLinecap="round" strokeLinejoin="round" />
+                              <path d="M17 7L17 17" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                             <div className="text-2xl font-bold text-white">{Math.floor(story.likes * 0.3)}</div>
                           </div>
