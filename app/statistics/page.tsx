@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ChevronLeft, Users, Clock, Flame, MessageSquareIcon, X, TrendingUp, Target, Lightbulb } from "lucide-react"
+import { ChevronLeft, Users, Clock, Flame, MessageSquareIcon, X } from "lucide-react"
 import Link from "next/link"
 import AllnoosLogo from "@/components/allnoos-logo"
 
@@ -1092,33 +1092,23 @@ export default function StatisticsPage() {
               <div className="space-y-6">
                 {/* Calculation */}
                 <div>
-                  <div className="flex items-center gap-2 mb-3">
-                    <TrendingUp className="w-5 h-5 text-blue-500" />
-                    <h3 className="text-lg font-semibold text-gray-900">How it's calculated</h3>
-                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">How it's calculated</h3>
                   <p className="text-gray-700 leading-relaxed">{statisticDetails[selectedStatistic]?.calculation}</p>
                 </div>
 
                 {/* Significance */}
                 <div>
-                  <div className="flex items-center gap-2 mb-3">
-                    <Target className="w-5 h-5 text-green-500" />
-                    <h3 className="text-lg font-semibold text-gray-900">Why it matters</h3>
-                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Why it matters</h3>
                   <p className="text-gray-700 leading-relaxed">{statisticDetails[selectedStatistic]?.significance}</p>
                 </div>
 
                 {/* Strategies */}
                 <div>
-                  <div className="flex items-center gap-2 mb-3">
-                    <Lightbulb className="w-5 h-5 text-orange-500" />
-                    <h3 className="text-lg font-semibold text-gray-900">Improvement strategies</h3>
-                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Improvement strategies</h3>
                   <ul className="space-y-3">
                     {statisticDetails[selectedStatistic]?.strategies.map((strategy, index) => (
-                      <li key={index} className="flex items-start gap-3">
-                        <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
-                        <p className="text-gray-700 leading-relaxed">{strategy}</p>
+                      <li key={index} className="text-gray-700 leading-relaxed">
+                        {strategy}
                       </li>
                     ))}
                   </ul>
