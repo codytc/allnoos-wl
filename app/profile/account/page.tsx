@@ -1767,13 +1767,12 @@ export default function AccountPage() {
         <div className="p-4 pb-2">
           <div className="flex justify-between items-center">
             <div className="flex-1">
-              {/* Updated back button styling to match user-profile page */}
-              <button
-                onClick={() => router.back()}
-                className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2.5"
-              >
-                <ChevronLeftIcon className="size-5 text-stone-600" />
-              </button>
+              <Link href="/user-profile">
+                <button className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2.5">
+                  <ChevronLeftIcon className="size-5 text-stone-600" />
+                </button>
+              </Link>
+              {/* </CHANGE> */}
             </div>
             <div className="flex justify-center">
               <Link href="/feed">
