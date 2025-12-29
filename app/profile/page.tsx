@@ -1,7 +1,7 @@
 "use client"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import type React from "react"
-import { useRef } from "react"
+import { useRef, useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import {
   ChevronLeft,
@@ -19,12 +19,14 @@ import {
   Flag,
   ShirtIcon,
   CoinsIcon,
+  Search,
+  ArrowUpDown,
 } from "lucide-react"
 import Link from "next/link"
-import { useState, useEffect } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { AllnoosLogo } from "@/components/allnoos-logo"
 import { userProfiles } from "@/lib/mock-data"
+import { Input } from "@/components/ui/input"
 
 const allUsers = [
   {
@@ -114,7 +116,15 @@ export default function ProfilePage() {
   const [likedStories, setLikedStories] = useState<Set<number>>(new Set())
   const [forwardedStories, setForwardedStories] = useState<Set<number>>(new Set())
   const [showMenuDropdown, setShowMenuDropdown] = useState(false)
+  const [storySearchQuery, setStorySearchQuery] = useState("")
+  const [showStorySearch, setShowStorySearch] = useState(false)
+  const [storySortBy, setStorySortBy] = useState<"recent" | "oldest" | "popular" | "views">("recent")
+  const [showSortOptions, setShowSortOptions] = useState(false)
+
   const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const storySearchInputRef = useRef<HTMLInputElement>(null)
+  const sortDropdownRef = useRef<HTMLDivElement>(null)
+
   const router = useRouter()
   const searchParams = useSearchParams()
   const from = searchParams.get("from")
@@ -338,6 +348,13 @@ export default function ProfilePage() {
     if (showMenuDropdown) {
       setShowMenuDropdown(false)
     }
+    if (showStorySearch) {
+      setShowStorySearch(false)
+      setStorySearchQuery("")
+    }
+    if (showSortOptions) {
+      setShowSortOptions(false)
+    }
   }
 
   const toggleLikeStory = (storyId: number, e: React.MouseEvent) => {
@@ -372,6 +389,38 @@ export default function ProfilePage() {
     setShowEmojiPicker(false)
   }
 
+  const handleStorySortOptionSelect = (sortOption: "recent" | "oldest" | "popular" | "views") => {
+    setStorySortBy(sortOption)
+    setShowSortOptions(false)
+  }
+
+  const getFilteredAndSortedStories = () => {
+    let filtered = userStories
+
+    // Filter by search query
+    if (storySearchQuery.trim()) {
+      filtered = filtered.filter((story) => story.title.toLowerCase().includes(storySearchQuery.toLowerCase()))
+    }
+
+    // Sort stories
+    const sorted = [...filtered].sort((a, b) => {
+      switch (storySortBy) {
+        case "recent":
+          return b.timestamp.getTime() - a.timestamp.getTime()
+        case "oldest":
+          return a.timestamp.getTime() - b.timestamp.getTime()
+        case "popular":
+          return b.likes - a.likes
+        case "views":
+          return b.views - a.views
+        default:
+          return 0
+      }
+    })
+
+    return sorted
+  }
+
   const commonEmojis = ["😊", "😂", "❤️", "👍", "🙏", "😍", "🔥", "💯", "😢", "😮", "🤔", "👏", "🎉", "💪", "🌟", "✨"]
 
   const handleBack = () => {
@@ -404,6 +453,28 @@ export default function ProfilePage() {
     router.push(`/profile/about?userId=${user.id}&from=${encodeURIComponent(targetFrom)}`)
     setShowMenuDropdown(false)
   }
+
+  useEffect(() => {
+    if (showStorySearch && storySearchInputRef.current) {
+      storySearchInputRef.current.focus()
+    }
+  }, [showStorySearch])
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sortDropdownRef.current && !sortDropdownRef.current.contains(event.target as Node)) {
+        setShowSortOptions(false)
+      }
+    }
+
+    if (showSortOptions) {
+      document.addEventListener("mousedown", handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [showSortOptions])
 
   useEffect(() => {
     if (!from && typeof window !== "undefined") {
@@ -680,72 +751,172 @@ export default function ProfilePage() {
 
       {/* Stories Grid - Full Width, 2x2 Layout */}
       <div className="w-full">
-        <div className="grid grid-cols-2 gap-0.5">
-          {userStories.slice(0, visibleStories).map((story) => (
-            <div
-              key={story.id}
-              className="overflow-hidden cursor-pointer group transition-all duration-300 hover:scale-95 active:scale-95 hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] active:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]"
-              onClick={() => handleStoryClick(story.id)}
-            >
-              <div className="relative aspect-[9/16] bg-gray-900 rounded-lg overflow-hidden">
-                <div
-                  className="absolute inset-0 bg-cover bg-center rounded-lg transition-transform duration-300 group-hover:scale-105"
-                  style={{ backgroundImage: `url(${story.thumbnail})` }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-lg" />
+        <div className="px-6 pb-6 pr-[15px] pl-[15px]">
+          {!showStorySearch ? (
+            <div className="flex justify-end items-center w-full max-w-md mx-auto">
+              <div className="relative flex items-center gap-2" ref={sortDropdownRef}>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setShowStorySearch(true)
+                  }}
+                  className="rounded-full backdrop-blur-md bg-white/20 border border-white/30 shadow-lg hover:bg-white/30 active:scale-110 transition-all duration-300 p-2.5"
+                >
+                  <Search className="size-5 text-slate-600" />
+                </button>
 
-                <div className="absolute top-3 left-1/2 -translate-x-1/2 flex items-center z-10 backdrop-blur-sm rounded-full bg-transparent gap-2.5 p-0.5 mt-[-7px]">
-                  <button
-                    onClick={(e) => toggleLikeStory(story.id, e)}
-                    className={`rounded-full transition-all duration-300 p-2.5 hover:scale-110 active:scale-110 shadow-lg ${
-                      likedStories.has(story.id)
-                        ? "bg-transparent hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)]"
-                        : "bg-transparent backdrop-blur-sm hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]"
-                    }`}
-                  >
-                    <Flame
-                      className={`size-5 transition-colors duration-300 ${likedStories.has(story.id) ? "text-red-500" : "text-white"}`}
-                    />
-                  </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setShowSortOptions(!showSortOptions)
+                  }}
+                  className="rounded-full backdrop-blur-md bg-white/20 border border-white/30 shadow-lg hover:bg-white/30 active:scale-110 transition-all duration-300 p-2.5"
+                >
+                  <ArrowUpDown className="size-5 text-slate-600" />
+                </button>
 
-                  <div className="px-3 rounded-full backdrop-blur-sm bg-transparent py-2.5">
-                    <span className="text-white font-medium text-lg">{story.duration}</span>
-                  </div>
-
-                  <button
-                    onClick={(e) => handleForwardStory(story.id, e)}
-                    className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-transparent p-[7px]"
-                  >
-                    <svg
-                      className={`text-white size-6 transition-colors duration-300 ${
-                        forwardedStories.has(story.id) ? "text-yellow-400" : "text-white"
+                {showSortOptions && (
+                  <div className="absolute right-0 top-full mt-2 w-48 bg-white/95 backdrop-blur-md rounded-xl shadow-2xl border border-white/30 py-2 z-60 animate-in slide-in-from-top-2 duration-200">
+                    <div className="px-4 py-2 text-xs text-stone-500 border-b border-stone-100 mb-2">
+                      Sort stories by:
+                    </div>
+                    <button
+                      onClick={() => handleStorySortOptionSelect("recent")}
+                      className={`w-full text-left px-4 py-2 hover:text-[#FDB484] transition-colors ${
+                        storySortBy === "recent" ? "text-[#FDB484] font-bold" : "text-stone-700"
                       }`}
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      style={{ transform: "rotate(80deg)" }}
                     >
-                      <path d="M7 17L17 7" strokeLinecap="round" strokeLinejoin="round" />
-                      <path d="M11 7L17 7" strokeLinecap="round" strokeLinejoin="round" />
-                      <path d="M17 7L17 13" strokeLinecap="round" strokeLinejoin="round" />
-                      <path d="M7 17L17 17" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </button>
-                </div>
-
-                {/* Story info */}
-                <div className="absolute bottom-0 left-0 right-0 p-3">
-                  <h3 className="text-white font-semibold text-sm mb-1 line-clamp-2">{story.title}</h3>
-                  <div className="flex items-center text-white/80 text-xs">
-                    <span>{formatTimestamp(story.timestamp)}</span>
+                      Most Recent
+                    </button>
+                    <button
+                      onClick={() => handleStorySortOptionSelect("oldest")}
+                      className={`w-full text-left px-4 py-2 hover:text-[#FDB484] transition-colors ${
+                        storySortBy === "oldest" ? "text-[#FDB484] font-bold" : "text-stone-700"
+                      }`}
+                    >
+                      Oldest First
+                    </button>
+                    <button
+                      onClick={() => handleStorySortOptionSelect("popular")}
+                      className={`w-full text-left px-4 py-2 hover:text-[#FDB484] transition-colors ${
+                        storySortBy === "popular" ? "text-[#FDB484] font-bold" : "text-stone-700"
+                      }`}
+                    >
+                      Most Popular
+                    </button>
+                    <button
+                      onClick={() => handleStorySortOptionSelect("views")}
+                      className={`w-full text-left px-4 py-2 hover:text-[#FDB484] transition-colors ${
+                        storySortBy === "views" ? "text-[#FDB484] font-bold" : "text-stone-700"
+                      }`}
+                    >
+                      Most Viewed
+                    </button>
                   </div>
-                </div>
-
-                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                )}
               </div>
             </div>
-          ))}
+          ) : (
+            <div className="w-full max-w-md mx-auto relative">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-5 text-stone-400 pointer-events-none z-10" />
+                <Input
+                  ref={storySearchInputRef}
+                  type="text"
+                  placeholder="Explore my work"
+                  value={storySearchQuery}
+                  onChange={(e) => setStorySearchQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Escape") {
+                      setShowStorySearch(false)
+                      setStorySearchQuery("")
+                    }
+                  }}
+                  className="w-full pl-10 pr-10 py-2 bg-white/95 backdrop-blur-md border border-white/30 rounded-full shadow-lg focus:shadow-[inset_0_0_16px_rgba(253,180,132,0.35)] focus:outline-none focus:ring-0 transition-all duration-300"
+                />
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setShowStorySearch(false)
+                    setStorySearchQuery("")
+                  }}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-stone-100 rounded-full transition-colors"
+                >
+                  <X className="size-4 text-stone-400" />
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="grid grid-cols-2 gap-0.5">
+          {getFilteredAndSortedStories()
+            .slice(0, visibleStories)
+            .map((story) => (
+              <div
+                key={story.id}
+                className="overflow-hidden cursor-pointer group transition-all duration-300 hover:scale-95 active:scale-95 hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] active:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]"
+                onClick={() => handleStoryClick(story.id)}
+              >
+                <div className="relative aspect-[9/16] bg-gray-900 rounded-lg overflow-hidden">
+                  <div
+                    className="absolute inset-0 bg-cover bg-center rounded-lg transition-transform duration-300 group-hover:scale-105"
+                    style={{ backgroundImage: `url(${story.thumbnail})` }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-lg" />
+
+                  <div className="absolute top-3 left-1/2 -translate-x-1/2 flex items-center z-10 backdrop-blur-sm rounded-full bg-transparent gap-2.5 p-0.5 mt-[-7px]">
+                    <button
+                      onClick={(e) => toggleLikeStory(story.id, e)}
+                      className={`rounded-full transition-all duration-300 p-2.5 hover:scale-110 active:scale-110 shadow-lg ${
+                        likedStories.has(story.id)
+                          ? "bg-transparent hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)]"
+                          : "bg-transparent backdrop-blur-sm hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]"
+                      }`}
+                    >
+                      <Flame
+                        className={`size-5 transition-colors duration-300 ${likedStories.has(story.id) ? "text-red-500" : "text-white"}`}
+                      />
+                    </button>
+
+                    <div className="px-3 rounded-full backdrop-blur-sm bg-transparent py-2.5">
+                      <span className="text-white font-medium text-lg">{story.duration}</span>
+                    </div>
+
+                    <button
+                      onClick={(e) => handleForwardStory(story.id, e)}
+                      className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-transparent p-[7px]"
+                    >
+                      <svg
+                        className={`text-white size-6 transition-colors duration-300 ${
+                          forwardedStories.has(story.id) ? "text-yellow-400" : "text-white"
+                        }`}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        style={{ transform: "rotate(80deg)" }}
+                      >
+                        <path d="M7 17L17 7" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M11 7L17 7" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M17 7L17 13" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M7 17L17 17" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </button>
+                  </div>
+
+                  {/* Story info */}
+                  <div className="absolute bottom-0 left-0 right-0 p-3">
+                    <h3 className="text-white font-semibold text-sm mb-1 line-clamp-2">{story.title}</h3>
+                    <div className="flex items-center text-white/80 text-xs">
+                      <span>{formatTimestamp(story.timestamp)}</span>
+                    </div>
+                  </div>
+
+                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                </div>
+              </div>
+            ))}
         </div>
 
         {visibleStories < userStories.length && (
