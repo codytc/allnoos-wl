@@ -885,7 +885,7 @@ export default function UserProfilePage() {
       {/* Action Buttons - User's Own Profile */}
       <div className="px-6 pb-6 pr-[15px] pl-[15px]">
         <div className="flex justify-end items-center w-full max-w-md mx-auto">
-          <div className="relative">
+          <div className="relative flex items-center gap-2">
             {!showStorySearch ? (
               <button
                 onClick={(e) => {
@@ -895,10 +895,9 @@ export default function UserProfilePage() {
                     storySearchInputRef.current?.focus()
                   }, 100)
                 }}
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg hover:bg-white/30 active:bg-white/40 transition-all duration-300"
+                className="p-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg hover:bg-white/30 active:bg-white/40 transition-all duration-300"
               >
-                <Search className="w-4 h-4 text-primary" />
-                <span className="text-sm font-medium text-stone-700">Search Stories</span>
+                <Search className="w-5 h-5 text-primary" />
               </button>
             ) : (
               <div className="relative">
@@ -911,7 +910,6 @@ export default function UserProfilePage() {
                   onChange={(e) => setStorySearchQuery(e.target.value)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
-                      // Handle search action here
                       console.log("[v0] Search stories for:", storySearchQuery)
                     } else if (e.key === "Escape") {
                       setShowStorySearch(false)
@@ -919,7 +917,6 @@ export default function UserProfilePage() {
                     }
                   }}
                   onBlur={() => {
-                    // Delay to allow clicking on search results
                     setTimeout(() => {
                       setShowStorySearch(false)
                       if (!storySearchQuery.trim()) {
@@ -931,6 +928,16 @@ export default function UserProfilePage() {
                 />
               </div>
             )}
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                setShowSortOptions(!showSortOptions)
+              }}
+              className="p-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg hover:bg-white/30 active:bg-white/40 transition-all duration-300"
+            >
+              <ArrowUpDown className="w-5 h-5 text-primary" />
+            </button>
             {/* </CHANGE> */}
 
             {showSortOptions && (
