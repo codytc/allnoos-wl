@@ -763,11 +763,12 @@ export default function UserProfilePage() {
           <div className="flex-1 flex justify-center">
             <Link href="/feed">
               <div className="relative flex items-center justify-center h-12 px-8">
-                <div className="absolute top-[-18px] left-[50%] transform translate-x-[25px] z-10 text-xs tracking-tighter my-[22px] mb-0 mt-0 mr-0 ml-[-8px] italic">
+                <div className="absolute top-[-18px] left-[50%] transform translate-x-[-10px] z-10 text-xs tracking-tighter my-[22px] mb-0 mt-0 mr-0 ml-[-8px] italic">
                   <span className="ml-[-1px] mb-0 mt-0 font-medium tracking-tighter text-xs uppercase whitespace-nowrap text-slate-600">
                     {user.name.toUpperCase()}
                   </span>
                 </div>
+                {/* </CHANGE> */}
                 <div style={{ minWidth: "120px", minHeight: "32px" }}>
                   <AllnoosLogo variant="default" size="md" />
                 </div>
@@ -1013,7 +1014,7 @@ export default function UserProfilePage() {
                     setStorySearchQuery("")
                   }
                 }}
-                className="pl-10 pr-10 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus:border-input focus-visible:border-input focus:shadow-[inset_0_0_16px_rgba(253,180,132,0.35)] rounded-lg"
+                className="pl-10 pr-10 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus:border-input focus:shadow-[inset_0_0_16px_rgba(253,180,132,0.35)] rounded-lg"
               />
               <button
                 onClick={() => {
