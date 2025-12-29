@@ -389,10 +389,10 @@ export default function CameraPage() {
         <div className="flex-1 flex justify-start">
           <button
             onClick={resetCameraState}
-            className="relative rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/5 border border-white/10 p-2"
+            className="relative rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/5 border border-white/10 p-2.5"
           >
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
-            <ChevronLeftIcon className="size-6 relative z-10 text-white opacity-90" />
+            <ChevronLeftIcon className="relative z-10 text-white opacity-90 size-5" />
           </button>
         </div>
 
