@@ -526,11 +526,11 @@ export default function ProfilePage() {
             <div className="flex-1">
               <button
                 onClick={handleBack}
-                className="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg hover:bg-white/30 active:bg-white/40 active:scale-110 transition-all duration-300 group relative overflow-hidden"
+                className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent rounded-full opacity-60"></div>
-                <ChevronLeft className="text-slate-600 group-active:text-slate-600/80 relative z-10 size-5" />
+                <ChevronLeft className="size-6 text-stone-600" />
               </button>
+              {/* </CHANGE> */}
             </div>
             <div className="flex justify-center">
               <Link href="/feed">
