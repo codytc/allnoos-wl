@@ -25,6 +25,7 @@ import {
   Eye,
   MessageSquare,
   Map,
+  X,
 } from "lucide-react"
 import Link from "next/link"
 import { useState, useEffect, useRef } from "react"
@@ -32,6 +33,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import AllnoosLogo from "@/components/allnoos-logo"
 import { userProfiles, allPosts } from "@/lib/mock-data"
 import { getUserStories, validateStoryOwnership, getValidationSummary } from "@/lib/story-validation"
+import { Input } from "@/components/ui/input"
 
 export default function UserProfilePage() {
   const searchParams = useSearchParams()
@@ -730,6 +732,12 @@ export default function UserProfilePage() {
       document.removeEventListener("mousedown", handleClickOutside)
     }
   }, [showSortOptions])
+
+  useEffect(() => {
+    if (showStorySearch && storySearchInputRef.current) {
+      storySearchInputRef.current.focus()
+    }
+  }, [showStorySearch])
   // </CHANGE>
 
   return (
@@ -923,259 +931,260 @@ export default function UserProfilePage() {
 
       {/* Action Buttons - User's Own Profile */}
       <div className="px-6 pb-6 pr-[15px] pl-[15px]">
-        <div className="flex justify-end items-center w-full max-w-md mx-auto">
-          <div className="relative flex items-center gap-2">
-            {!showStorySearch ? (
+        {!showStorySearch ? (
+          <div className="flex justify-end items-center w-full max-w-md mx-auto">
+            <div className="relative flex items-center gap-2">
               <button
                 onClick={(e) => {
                   e.stopPropagation()
                   setShowStorySearch(true)
                 }}
-                className="p-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg hover:bg-white/30 active:bg-white/40 transition-all duration-300"
+                className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2.5"
               >
-                <Search className="w-5 h-5 text-primary" />
+                <Search className="size-5 text-stone-600" />
               </button>
-            ) : (
-              <input
+
+              <div ref={sortDropdownRef} className="relative">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setShowSortOptions(!showSortOptions)
+                  }}
+                  className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2.5"
+                >
+                  <ArrowUpDown className="size-5 text-stone-600" />
+                </button>
+
+                {showSortOptions && (
+                  <div className="absolute right-0 top-full mt-2 w-48 bg-white/95 backdrop-blur-md rounded-xl shadow-2xl border border-white/30 py-2 z-60 animate-in slide-in-from-top-2 duration-200">
+                    <div className="px-4 py-2 text-xs text-stone-500 border-b border-stone-100 mb-2">
+                      Sort stories by:
+                    </div>
+                    <button
+                      onClick={() => handleStorySortOptionSelect("recent")}
+                      className={`w-full text-left px-4 py-2 hover:bg-white/50 transition-colors ${
+                        storySortBy === "recent" ? "text-[#FDB484] font-bold" : "text-stone-700 hover:text-[#FDB484]"
+                      }`}
+                    >
+                      Most Recent
+                    </button>
+                    <button
+                      onClick={() => handleStorySortOptionSelect("oldest")}
+                      className={`w-full text-left px-4 py-2 hover:bg-white/50 transition-colors ${
+                        storySortBy === "oldest" ? "text-[#FDB484] font-bold" : "text-stone-700 hover:text-[#FDB484]"
+                      }`}
+                    >
+                      Oldest First
+                    </button>
+                    <button
+                      onClick={() => handleStorySortOptionSelect("popular")}
+                      className={`w-full text-left px-4 py-2 hover:bg-white/50 transition-colors ${
+                        storySortBy === "popular" ? "text-[#FDB484] font-bold" : "text-stone-700 hover:text-[#FDB484]"
+                      }`}
+                    >
+                      Most Popular
+                    </button>
+                    <button
+                      onClick={() => handleStorySortOptionSelect("views")}
+                      className={`w-full text-left px-4 py-2 hover:bg-white/50 transition-colors ${
+                        storySortBy === "views" ? "text-[#FDB484] font-bold" : "text-stone-700 hover:text-[#FDB484]"
+                      }`}
+                    >
+                      Most Viewed
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="w-full max-w-md mx-auto">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input
                 ref={storySearchInputRef}
                 type="text"
+                placeholder="Search your stories..."
                 value={storySearchQuery}
                 onChange={(e) => setStorySearchQuery(e.target.value)}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    console.log("[v0] Searching stories for:", storySearchQuery)
-                  } else if (e.key === "Escape") {
+                  if (e.key === "Escape") {
                     setShowStorySearch(false)
                     setStorySearchQuery("")
                   }
                 }}
-                onBlur={() => {
-                  if (!storySearchQuery) {
-                    setShowStorySearch(false)
-                  }
-                }}
-                placeholder="Search stories..."
-                className="px-4 py-2 rounded-full bg-white/90 backdrop-blur-md border border-white/30 shadow-lg focus:outline-none focus:ring-2 focus:ring-[#FDB484]/50 transition-all duration-300 w-48"
+                className="pl-10 pr-10 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus:border-input focus-visible:border-input focus:shadow-[inset_0_0_16px_rgba(253,180,132,0.35)] rounded-lg"
               />
-            )}
-          </div>
-
-          <div className="relative" ref={sortDropdownRef}>
-            <button
-              onClick={(e) => {
-                e.stopPropagation()
-                setShowSortOptions(!showSortOptions)
-              }}
-              className="p-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg hover:bg-white/30 active:bg-white/40 transition-all duration-300"
-            >
-              <ArrowUpDown className="w-5 h-5 text-primary" />
-            </button>
-            {/* </CHANGE> */}
-
-            {showSortOptions && (
-              <div className="absolute right-0 top-full mt-2 w-48 bg-white/95 backdrop-blur-md rounded-xl shadow-2xl border border-white/30 py-2 z-60 animate-in slide-in-from-top-2 duration-200">
-                <div className="px-4 py-2 text-xs text-stone-500 border-b border-stone-100 mb-2">Sort stories by:</div>
-                <button
-                  onClick={() => handleStorySortOptionSelect("recent")}
-                  className={`w-full text-left px-4 py-2 transition-colors ${
-                    storySortBy === "recent"
-                      ? "text-[#FDB484] font-medium"
-                      : "text-stone-700 hover:text-[#FDB484] active:text-[#FDB484]"
-                  }`}
-                >
-                  Most Recent
-                </button>
-                <button
-                  onClick={() => handleStorySortOptionSelect("oldest")}
-                  className={`w-full text-left px-4 py-2 transition-colors ${
-                    storySortBy === "oldest"
-                      ? "text-[#FDB484] font-medium"
-                      : "text-stone-700 hover:text-[#FDB484] active:text-[#FDB484]"
-                  }`}
-                >
-                  Oldest First
-                </button>
-                <button
-                  onClick={() => handleStorySortOptionSelect("popular")}
-                  className={`w-full text-left px-4 py-2 transition-colors ${
-                    storySortBy === "popular"
-                      ? "text-[#FDB484] font-medium"
-                      : "text-stone-700 hover:text-[#FDB484] active:text-[#FDB484]"
-                  }`}
-                >
-                  Most Popular
-                </button>
-                <button
-                  onClick={() => handleStorySortOptionSelect("views")}
-                  className={`w-full text-left px-4 py-2 transition-colors ${
-                    storySortBy === "views"
-                      ? "text-[#FDB484] font-medium"
-                      : "text-stone-700 hover:text-[#FDB484] active:text-[#FDB484]"
-                  }`}
-                >
-                  Most Views
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* Stories Grid - Enhanced Post Format */}
-      <div className="w-full">
-        <div className="grid grid-cols-2 gap-0.5">
-          {organizedStories()
-            .slice(0, visibleStories)
-            .map((story) => (
-              <div
-                key={story.id}
-                className="overflow-hidden cursor-pointer group transition-all duration-300 hover:scale-95 active:scale-95 hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]"
-                onClick={() => handleStoryClick(story.id)}
+              <button
+                onClick={() => {
+                  setShowStorySearch(false)
+                  setStorySearchQuery("")
+                }}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-stone-600 transition-colors"
               >
-                <div className="relative aspect-[9/16] bg-gray-900 rounded-lg overflow-hidden">
-                  {showStatsOnCard.has(story.id) ? (
-                    // Show statistics instead of photo
-                    <div className="absolute inset-0 flex items-center justify-start max-w-[200px] gap-4 w-full px-4 bg-gradient-to-br from-stone-900 via-stone-800 to-stone-900">
-                      <div className="flex flex-col gap-4 w-full max-w-[200px] mb-[26px]">
-                        {/* Likes */}
-                        <div className="flex items-center justify-start gap-3">
-                          <Flame className="w-8 h-8 text-red-500" />
-                          <div className="text-2xl font-bold text-white">{story.likes}</div>
-                        </div>
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        )}
+        {/* </CHANGE> */}
 
-                        {/* Shares (Forwards) */}
-                        <div className="flex items-center justify-start gap-3 mr-0 ml-[-2px]">
-                          <svg
-                            className="text-yellow-500 size-9"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            style={{ transform: "rotate(80deg)" }}
-                          >
-                            <path d="M7 17L17 7" strokeLinecap="round" strokeLinejoin="round" />
-                            <path d="M11 7L17 7" strokeLinecap="round" strokeLinejoin="round" />
-                            <path d="M17 7L17 13" strokeLinecap="round" strokeLinejoin="round" />
-                            <path d="M7 17L17 17" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                          <div className="text-2xl font-bold text-white">{Math.floor(story.likes * 0.3)}</div>
-                        </div>
+        {/* My Stories Section */}
+        <div className="mt-6">
+          <div className="grid grid-cols-2 gap-0.5">
+            {organizedStories()
+              .slice(0, visibleStories)
+              .map((story) => (
+                <div
+                  key={story.id}
+                  className="overflow-hidden cursor-pointer group transition-all duration-300 hover:scale-95 active:scale-95 hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]"
+                  onClick={() => handleStoryClick(story.id)}
+                >
+                  <div className="relative aspect-[9/16] bg-gray-900 rounded-lg overflow-hidden">
+                    {showStatsOnCard.has(story.id) ? (
+                      // Show statistics instead of photo
+                      <div className="absolute inset-0 flex items-center justify-start max-w-[200px] gap-4 w-full px-4 bg-gradient-to-br from-stone-900 via-stone-800 to-stone-900">
+                        <div className="flex flex-col gap-4 w-full max-w-[200px] mb-[26px]">
+                          {/* Likes */}
+                          <div className="flex items-center justify-start gap-3">
+                            <Flame className="w-8 h-8 text-red-500" />
+                            <div className="text-2xl font-bold text-white">{story.likes}</div>
+                          </div>
 
-                        {/* Comments */}
-                        <div className="flex items-center justify-start gap-3">
-                          <MessageSquare className="w-8 h-8 text-blue-500" />
-                          <div className="text-2xl font-bold text-white">{Math.floor(story.likes * 0.5)}</div>
-                        </div>
+                          {/* Shares (Forwards) */}
+                          <div className="flex items-center justify-start gap-3 mr-0 ml-[-2px]">
+                            <svg
+                              className="text-yellow-500 size-9"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              style={{ transform: "rotate(80deg)" }}
+                            >
+                              <path d="M7 17L17 7" strokeLinecap="round" strokeLinejoin="round" />
+                              <path d="M11 7L17 7" strokeLinecap="round" strokeLinejoin="round" />
+                              <path d="M17 7L17 13" strokeLinecap="round" strokeLinejoin="round" />
+                              <path d="M7 17L17 17" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                            <div className="text-2xl font-bold text-white">{Math.floor(story.likes * 0.3)}</div>
+                          </div>
 
-                        {/* Views */}
-                        <div className="flex items-center justify-start gap-3">
-                          <Eye className="w-8 h-8 text-secondary" />
-                          <div className="text-2xl font-bold text-white">
-                            {story.views >= 1000 ? `${(story.views / 1000).toFixed(1)}K` : story.views}
+                          {/* Comments */}
+                          <div className="flex items-center justify-start gap-3">
+                            <MessageSquare className="w-8 h-8 text-blue-500" />
+                            <div className="text-2xl font-bold text-white">{Math.floor(story.likes * 0.5)}</div>
+                          </div>
+
+                          {/* Views */}
+                          <div className="flex items-center justify-start gap-3">
+                            <Eye className="w-8 h-8 text-secondary" />
+                            <div className="text-2xl font-bold text-white">
+                              {story.views >= 1000 ? `${(story.views / 1000).toFixed(1)}K` : story.views}
+                            </div>
                           </div>
                         </div>
                       </div>
+                    ) : (
+                      // Show thumbnail photo
+                      <>
+                        <div
+                          className="absolute inset-0 bg-cover bg-center transition-transform duration-300 rounded-lg group-hover:scale-105"
+                          style={{ backgroundImage: `url(${story.thumbnail})` }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-lg" />
+                      </>
+                    )}
+
+                    {/* Buttons remain on top */}
+                    <div className="absolute top-3 left-1/2 -translate-x-1/2 flex items-center z-10 backdrop-blur-sm rounded-full bg-transparent gap-5 mt-[-7px] p-0.5">
+                      <button
+                        onClick={(e) => togglePinStory(story.id, e)}
+                        className={`rounded-full transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg p-2 ${
+                          pinnedStories.has(story.id)
+                            ? "bg-[#FDB484] hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)]"
+                            : "bg-transparent backdrop-blur-sm hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]"
+                        }`}
+                      >
+                        <Pin
+                          className={`size-5 text-white ${pinnedStories.has(story.id) ? "text-white" : "text-[#FDB484]"}`}
+                        />
+                      </button>
+
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setShowStatsOnCard((prev) => {
+                            const newSet = new Set(prev)
+                            if (newSet.has(story.id)) {
+                              newSet.delete(story.id)
+                            } else {
+                              newSet.add(story.id)
+                            }
+                            return newSet
+                          })
+                          setViewedStats((prev) => {
+                            const newSet = new Set(prev)
+                            if (!newSet.has(story.id)) {
+                              newSet.add(story.id)
+                            }
+                            return newSet
+                          })
+                        }}
+                        className="group/stats rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-transparent p-2.5"
+                      >
+                        <BarChart3
+                          className={`size-5 transition-colors duration-300 ${viewedStats.has(story.id) ? "text-blue-500" : "text-white group-hover/stats:text-blue-500 group-active/stats:text-blue-500"}`}
+                        />
+                      </button>
+
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          // TODO: Add delete confirmation dialog
+                          console.log("[v0] Delete story:", story.id)
+                        }}
+                        className="group/trash rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-transparent p-2.5"
+                      >
+                        <Trash2 className="size-5 text-white transition-colors duration-300 group-hover/trash:text-green-500 group-active/trash:text-green-500" />
+                      </button>
                     </div>
-                  ) : (
-                    // Show thumbnail photo
-                    <>
-                      <div
-                        className="absolute inset-0 bg-cover bg-center transition-transform duration-300 rounded-lg group-hover:scale-105"
-                        style={{ backgroundImage: `url(${story.thumbnail})` }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-lg" />
-                    </>
-                  )}
 
-                  {/* Buttons remain on top */}
-                  <div className="absolute top-3 left-1/2 -translate-x-1/2 flex items-center z-10 backdrop-blur-sm rounded-full bg-transparent gap-5 mt-[-7px] p-0.5">
-                    <button
-                      onClick={(e) => togglePinStory(story.id, e)}
-                      className={`rounded-full transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg p-2 ${
-                        pinnedStories.has(story.id)
-                          ? "bg-[#FDB484] hover:shadow-[inset_0_2px_12px_rgba(255,255,255,0.4)]"
-                          : "bg-transparent backdrop-blur-sm hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)]"
-                      }`}
-                    >
-                      <Pin
-                        className={`size-5 text-white ${pinnedStories.has(story.id) ? "text-white" : "text-[#FDB484]"}`}
-                      />
-                    </button>
-
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        setShowStatsOnCard((prev) => {
-                          const newSet = new Set(prev)
-                          if (newSet.has(story.id)) {
-                            newSet.delete(story.id)
-                          } else {
-                            newSet.add(story.id)
-                          }
-                          return newSet
-                        })
-                        setViewedStats((prev) => {
-                          const newSet = new Set(prev)
-                          if (!newSet.has(story.id)) {
-                            newSet.add(story.id)
-                          }
-                          return newSet
-                        })
-                      }}
-                      className="group/stats rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-transparent p-2.5"
-                    >
-                      <BarChart3
-                        className={`size-5 transition-colors duration-300 ${viewedStats.has(story.id) ? "text-blue-500" : "text-white group-hover/stats:text-blue-500 group-active/stats:text-blue-500"}`}
-                      />
-                    </button>
-
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        // TODO: Add delete confirmation dialog
-                        console.log("[v0] Delete story:", story.id)
-                      }}
-                      className="group/trash rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-transparent p-2.5"
-                    >
-                      <Trash2 className="size-5 text-white transition-colors duration-300 group-hover/trash:text-green-500 group-active/trash:text-green-500" />
-                    </button>
-                  </div>
-
-                  {/* Title and date remain at bottom */}
-                  <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/95 via-black/70 to-transparent">
-                    <div className="space-y-2">
-                      <h3 className="text-white font-bold text-sm leading-tight line-clamp-2 drop-shadow-lg">
-                        {story.title}
-                      </h3>
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="text-gray-400 font-medium">
-                          {story.timestamp.toLocaleDateString("en-US", {
-                            month: "short",
-                            day: "numeric",
-                            year: "numeric",
-                          })}{" "}
-                          {story.timestamp.toLocaleTimeString("en-US", {
-                            hour: "numeric",
-                            minute: "2-digit",
-                            hour12: true,
-                          })}
-                        </span>
-                        <div className="flex items-center gap-3 text-gray-400"></div>
+                    {/* Title and date remain at bottom */}
+                    <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/95 via-black/70 to-transparent">
+                      <div className="space-y-2">
+                        <h3 className="text-white font-bold text-sm leading-tight line-clamp-2 drop-shadow-lg">
+                          {story.title}
+                        </h3>
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-400 font-medium">
+                            {story.timestamp.toLocaleDateString("en-US", {
+                              month: "short",
+                              day: "numeric",
+                              year: "numeric",
+                            })}{" "}
+                            {story.timestamp.toLocaleTimeString("en-US", {
+                              hour: "numeric",
+                              minute: "2-digit",
+                              hour12: true,
+                            })}
+                          </span>
+                          <div className="flex items-center gap-3 text-gray-400"></div>
+                        </div>
                       </div>
                     </div>
+
+                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                   </div>
-
-                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                 </div>
-              </div>
-            ))}
-        </div>
-
-        {visibleStories < userStories.length && (
-          <div className="flex justify-center py-8">
-            <div className="text-muted-foreground text-sm animate-pulse">Scroll to load more stories...</div>
+              ))}
           </div>
-        )}
+
+          {visibleStories < userStories.length && (
+            <div className="flex justify-center py-8">
+              <div className="text-muted-foreground text-sm animate-pulse">Scroll to load more stories...</div>
+            </div>
+          )}
+        </div>
       </div>
 
       {showFollowers && (
