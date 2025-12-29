@@ -5,7 +5,7 @@ import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import {
   Search,
-  ArrowLeft,
+  ChevronLeft, // Changed from ArrowLeft to ChevronLeft
   MessageSquare,
   Award,
   TrendingUp,
@@ -543,9 +543,8 @@ export default function WanderPage() {
             <div className="flex-1">
               <Link href="/feed">
                 <button className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2.5">
-                  <ArrowLeft className="size-5 text-stone-600" />
+                  <ChevronLeft className="size-5 text-stone-600" />
                 </button>
-                {/* </CHANGE> */}
               </Link>
             </div>
             <div className="flex justify-center">
