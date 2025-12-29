@@ -389,25 +389,21 @@ export default function CameraPage() {
         <div className="flex-1 flex justify-start">
           <button
             onClick={resetCameraState}
-            className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2.5"
+            className="relative rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/5 border border-white/10 p-2.5"
           >
-            <ChevronLeftIcon className="size-5 text-stone-600" />
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent pointer-events-none opacity-60"></div>
+            <ChevronLeftIcon className="size-5 text-stone-600 relative z-10" />
           </button>
         </div>
 
         <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center h-12 max-w-[120px] px-2">
-          <div className="absolute inset-0 bg-white/5 backdrop-blur-sm rounded-full border border-white/10 shadow-lg">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/30 via-transparent to-transparent pointer-events-none opacity-50"></div>
-          </div>
-
           <div className="absolute top-[-18px] left-[50%] transform translate-x-[-10px] z-10 italic text-xs tracking-tighter my-[22px] mb-0 mt-[22px] mr-0 ml-[-8px]">
             <span className="text-white ml-[-1px] mb-0 mt-0 font-medium tracking-tighter text-xs">CAMERA</span>
           </div>
-          <div style={{ minWidth: "120px", minHeight: "32px" }} className="relative z-10">
+          <div style={{ minWidth: "120px", minHeight: "32px" }}>
             <AllnoosLogo variant="white" size="md" animated={false} />
           </div>
         </div>
-        {/* </CHANGE> */}
 
         <div className="flex-1 flex justify-end gap-1 h-12 items-end min-w-[80px]">
           {capturedPhotos.length > 0 && (
