@@ -304,8 +304,8 @@ export default function CreatePage() {
           <div className="flex justify-between items-center">
             <div className="flex-1">
               <Link href="/camera">
-                <button className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2.5">
-                  <ChevronLeftIcon className="size-5 text-stone-600" />
+                <button className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2">
+                  <ChevronLeftIcon className="size-6 text-stone-600" />
                 </button>
               </Link>
             </div>
