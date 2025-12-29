@@ -1,7 +1,7 @@
 "use client"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { ArrowLeft, PlusIcon, PiggyBankIcon, Eraser, ChevronDown } from "lucide-react"
+import { ChevronLeftIcon, PlusIcon, PiggyBankIcon, Eraser, ChevronDown } from "lucide-react"
 import Link from "next/link"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
@@ -1772,7 +1772,7 @@ export default function AccountPage() {
                 onClick={() => router.back()}
                 className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2.5"
               >
-                <ArrowLeft className="size-5 text-stone-600" />
+                <ChevronLeftIcon className="size-5 text-stone-600" />
               </button>
             </div>
             <div className="flex justify-center">
