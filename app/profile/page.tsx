@@ -887,12 +887,13 @@ export default function ProfilePage() {
                       <span className="text-white font-medium text-lg">{story.duration}</span>
                     </div>
 
+                    {/* CHANGE: Added group/forward and hover/active yellow states to forward button icon */}
                     <button
                       onClick={(e) => handleForwardStory(story.id, e)}
-                      className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-transparent p-[7px]"
+                      className="group/forward rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-transparent p-[7px]"
                     >
                       <svg
-                        className={`text-white size-6 transition-colors duration-300 ${
+                        className={`size-6 transition-colors duration-300 group-hover/forward:text-yellow-400 group-active/forward:text-yellow-400 ${
                           forwardedStories.has(story.id) ? "text-yellow-400" : "text-white"
                         }`}
                         viewBox="0 0 24 24"
@@ -907,6 +908,7 @@ export default function ProfilePage() {
                         <path d="M7 17L17 17" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </button>
+                    {/* END CHANGE */}
                   </div>
 
                   {/* Story info */}
