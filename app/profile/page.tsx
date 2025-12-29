@@ -760,20 +760,22 @@ export default function ProfilePage() {
                     e.stopPropagation()
                     setShowStorySearch(true)
                   }}
-                  className="rounded-full backdrop-blur-md bg-white/20 border border-white/30 shadow-lg hover:bg-white/30 active:scale-110 transition-all duration-300 p-2.5"
+                  className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2.5"
                 >
-                  <Search className="size-5 text-slate-600" />
+                  <Search className="size-5 text-stone-600" />
                 </button>
+                {/* </CHANGE> */}
 
                 <button
                   onClick={(e) => {
                     e.stopPropagation()
                     setShowSortOptions(!showSortOptions)
                   }}
-                  className="rounded-full backdrop-blur-md bg-white/20 border border-white/30 shadow-lg hover:bg-white/30 active:scale-110 transition-all duration-300 p-2.5"
+                  className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2.5"
                 >
-                  <ArrowUpDown className="size-5 text-slate-600" />
+                  <ArrowUpDown className="size-5 text-stone-600" />
                 </button>
+                {/* </CHANGE> */}
 
                 {showSortOptions && (
                   <div className="absolute right-0 top-full mt-2 w-48 bg-white/95 backdrop-blur-md rounded-xl shadow-2xl border border-white/30 py-2 z-60 animate-in slide-in-from-top-2 duration-200">
@@ -782,36 +784,37 @@ export default function ProfilePage() {
                     </div>
                     <button
                       onClick={() => handleStorySortOptionSelect("recent")}
-                      className={`w-full text-left px-4 py-2 hover:text-[#FDB484] transition-colors ${
-                        storySortBy === "recent" ? "text-[#FDB484] font-bold" : "text-stone-700"
+                      className={`w-full text-left px-4 py-2 hover:bg-white/50 transition-colors ${
+                        storySortBy === "recent" ? "text-[#FDB484] font-bold" : "text-stone-700 hover:text-[#FDB484]"
                       }`}
                     >
                       Most Recent
                     </button>
                     <button
                       onClick={() => handleStorySortOptionSelect("oldest")}
-                      className={`w-full text-left px-4 py-2 hover:text-[#FDB484] transition-colors ${
-                        storySortBy === "oldest" ? "text-[#FDB484] font-bold" : "text-stone-700"
+                      className={`w-full text-left px-4 py-2 hover:bg-white/50 transition-colors ${
+                        storySortBy === "oldest" ? "text-[#FDB484] font-bold" : "text-stone-700 hover:text-[#FDB484]"
                       }`}
                     >
                       Oldest First
                     </button>
                     <button
                       onClick={() => handleStorySortOptionSelect("popular")}
-                      className={`w-full text-left px-4 py-2 hover:text-[#FDB484] transition-colors ${
-                        storySortBy === "popular" ? "text-[#FDB484] font-bold" : "text-stone-700"
+                      className={`w-full text-left px-4 py-2 hover:bg-white/50 transition-colors ${
+                        storySortBy === "popular" ? "text-[#FDB484] font-bold" : "text-stone-700 hover:text-[#FDB484]"
                       }`}
                     >
                       Most Popular
                     </button>
                     <button
                       onClick={() => handleStorySortOptionSelect("views")}
-                      className={`w-full text-left px-4 py-2 hover:text-[#FDB484] transition-colors ${
-                        storySortBy === "views" ? "text-[#FDB484] font-bold" : "text-stone-700"
+                      className={`w-full text-left px-4 py-2 hover:bg-white/50 transition-colors ${
+                        storySortBy === "views" ? "text-[#FDB484] font-bold" : "text-stone-700 hover:text-[#FDB484]"
                       }`}
                     >
                       Most Viewed
                     </button>
+                    {/* </CHANGE> */}
                   </div>
                 )}
               </div>
@@ -931,7 +934,7 @@ export default function ProfilePage() {
         <div className="fixed inset-0 z-50 flex items-center justify-start">
           <div className="absolute inset-0" onClick={handleCloseShare} />
           <div
-            className="relative bg-background/95 backdrop-blur-sm border border-border shadow-2xl w-20 flex flex-col rounded-r-2xl"
+            className="relative bg-background/95 backdrop-blur-md border border-border shadow-2xl w-20 flex flex-col rounded-r-2xl"
             style={{
               borderTopLeftRadius: "0",
               borderBottomLeftRadius: "0",
