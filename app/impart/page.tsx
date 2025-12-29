@@ -420,12 +420,18 @@ export default function ExpositionsPage() {
       <div className="sticky top-0 z-50 bg-background pb-8" style={{ clipPath: "url(#headerCurveClipImpart)" }}>
         <div className="p-4">
           <div className="flex items-center justify-between mb-1.5">
-            <button
+            {/* <button
               onClick={() => router.back()}
               className="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg hover:bg-white/30 active:bg-white/40 active:scale-110 transition-all duration-300 group relative overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent rounded-full opacity-60"></div>
               <ChevronLeftIcon className="w-5 h-5 group-active:text-primary/80 relative z-10 text-slate-600" />
+            </button> */}
+            <button
+              onClick={() => router.back()}
+              className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2.5"
+            >
+              <ChevronLeftIcon className="size-5 text-stone-600" />
             </button>
 
             <div className="relative flex items-center justify-center h-12 px-8">

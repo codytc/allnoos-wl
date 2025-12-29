@@ -1767,12 +1767,12 @@ export default function AccountPage() {
         <div className="p-4 pb-2">
           <div className="flex justify-between items-center">
             <div className="flex-1">
+              {/* Updated back button styling to match user-profile page */}
               <button
                 onClick={() => router.back()}
-                className="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg hover:bg-white/30 active:bg-white/40 active:scale-110 transition-all duration-300 group relative overflow-hidden"
+                className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2.5"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent rounded-full opacity-60"></div>
-                <ArrowLeft className="w-5 h-5 group-active:text-primary/80 relative z-10 text-slate-600" />
+                <ArrowLeft className="size-5 text-stone-600" />
               </button>
             </div>
             <div className="flex justify-center">

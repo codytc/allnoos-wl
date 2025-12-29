@@ -1,7 +1,7 @@
 "use client"
 
-import { ArrowLeft } from 'lucide-react'
-import { useRouter } from 'next/navigation'
+import { ArrowLeft } from "lucide-react"
+import { useRouter } from "next/navigation"
 import { useEffect, useMemo, useState } from "react"
 import AllnoosLogo from "@/components/allnoos-logo"
 import InteractiveWorldMap from "@/components/interactive-world-map"
@@ -9,49 +9,52 @@ import { allPosts } from "@/lib/mock-data"
 
 function calculateCountryEngagement() {
   const countryData: Record<string, { posts: number; engagement: number }> = {}
-  
+
   allPosts.forEach((post) => {
     if (!post.location) return
-    
+
     // Extract country from location (e.g., "New York, NY" -> "United States", "Oslo, Norway" -> "Norway")
-    const country = post.location.includes(',') 
-      ? post.location.split(',').pop()?.trim() || ''
-      : post.location.trim()
-    
+    const country = post.location.includes(",") ? post.location.split(",").pop()?.trim() || "" : post.location.trim()
+
     // Map abbreviated country names to full names
     const countryMap: Record<string, string> = {
-      'NY': 'United States',
-      'CA': 'United States',
-      'MA': 'United States',
-      'DC': 'United States',
-      'IL': 'United States',
-      'FL': 'United States',
-      'WA': 'United States',
-      'MI': 'United States',
-      'TX': 'United States',
+      NY: "United States",
+      CA: "United States",
+      MA: "United States",
+      DC: "United States",
+      IL: "United States",
+      FL: "United States",
+      WA: "United States",
+      MI: "United States",
+      TX: "United States",
     }
-    
+
     const fullCountry = countryMap[country] || country
-    
+
     if (!countryData[fullCountry]) {
       countryData[fullCountry] = { posts: 0, engagement: 0 }
     }
-    
+
     countryData[fullCountry].posts += 1
     // Calculate engagement as weighted sum: likes + comments*2 + shares*3
-    countryData[fullCountry].engagement += post.likes + (post.comments * 2) + (post.shares * 3)
+    countryData[fullCountry].engagement += post.likes + post.comments * 2 + post.shares * 3
   })
-  
+
   return countryData
 }
 
 function getColorForRank(rank: number): string {
-  switch(rank) {
-    case 1: return '#991B1B' // Red-800 (darker red) - highest posts
-    case 2: return '#EF4444' // Red-500 (red) - second highest
-    case 3: return '#FDB484' // Logo orange - third
-    case 4: return '#F5E17C' // Lighter mustard yellow (was #E8C547) - fourth
-    default: return '#D6D3D1' // Stone-300 (matches /map page) - countries with no posts
+  switch (rank) {
+    case 1:
+      return "#991B1B" // Red-800 (darker red) - highest posts
+    case 2:
+      return "#EF4444" // Red-500 (red) - second highest
+    case 3:
+      return "#FDB484" // Logo orange - third
+    case 4:
+      return "#F5E17C" // Lighter mustard yellow (was #E8C547) - fourth
+    default:
+      return "#D6D3D1" // Stone-300 (matches /map page) - countries with no posts
   }
 }
 
@@ -61,32 +64,32 @@ export default function HeatMapPage() {
 
   const countryHeatData = useMemo(() => {
     const data = calculateCountryEngagement()
-    
+
     const rankedCountries = Object.entries(data)
       .filter(([, stats]) => stats.posts > 0) // Only countries with at least one post
       .sort(([, a], [, b]) => b.engagement - a.engagement)
       .map(([country], index) => ({ country, rank: index + 1 }))
-    
+
     const heatMap: Record<string, string> = {}
-    
+
     // Assign colors based on rank (only for countries with posts)
     rankedCountries.forEach(({ country, rank }) => {
       heatMap[country] = getColorForRank(rank)
     })
-    
+
     // Set default gray color for countries without data
-    heatMap['__default__'] = '#D6D3D1' // Stone-300 gray for zero-post countries (matches /map page)
-    
+    heatMap["__default__"] = "#D6D3D1" // Stone-300 gray for zero-post countries (matches /map page)
+
     return heatMap
   }, [])
 
   useEffect(() => {
     document.documentElement.classList.add("map-page-active")
-    document.body.style.overflow = 'hidden'
+    document.body.style.overflow = "hidden"
 
     return () => {
       document.documentElement.classList.remove("map-page-active")
-      document.body.style.overflow = ''
+      document.body.style.overflow = ""
     }
   }, [])
 
@@ -134,43 +137,39 @@ export default function HeatMapPage() {
 
   return (
     <>
-      <div 
+      <div
         className="bg-stone-100"
         style={{
-          position: 'fixed',
-          top: '50%',
-          left: '50%',
-          width: '100vh',
-          height: '100vw',
-          transformOrigin: 'center center',
-          transform: 'translate(-50%, -50%) rotate(90deg)',
-          overflow: 'hidden',
-          imageRendering: 'crisp-edges',
-          WebkitFontSmoothing: 'antialiased',
-          MozOsxFontSmoothing: 'grayscale',
-          backfaceVisibility: 'hidden',
-          willChange: 'transform',
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          width: "100vh",
+          height: "100vw",
+          transformOrigin: "center center",
+          transform: "translate(-50%, -50%) rotate(90deg)",
+          overflow: "hidden",
+          imageRendering: "crisp-edges",
+          WebkitFontSmoothing: "antialiased",
+          MozOsxFontSmoothing: "grayscale",
+          backfaceVisibility: "hidden",
+          willChange: "transform",
         }}
       >
         {/* Close button */}
         <div className="absolute top-4 left-4 z-30">
           <button
             onClick={() => router.push("/wander")}
-            className="text-stone-900 hover:text-stone-600 rounded-full hover:bg-white/50 transition-colors bg-white/80 backdrop-blur-sm shadow-lg p-2 m-2.5"
+            className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2.5"
           >
-            <ArrowLeft className="w-5 h-5 text-slate-600" />
+            <ArrowLeft className="size-5 text-stone-600" />
           </button>
         </div>
 
         {/* Forward button */}
-        <div className="absolute top-4 right-4 z-30">
-          
-        </div>
+        <div className="absolute top-4 right-4 z-30"></div>
 
         {/* Floating button at bottom right */}
-        <div className="absolute bottom-4 right-4 z-30">
-          
-        </div>
+        <div className="absolute bottom-4 right-4 z-30"></div>
 
         {/* Heat map key legend in bottom right corner */}
         {/* Heat map key legend removed - now integrated above logo */}
@@ -182,25 +181,26 @@ export default function HeatMapPage() {
         </div>
 
         {/* Logo overlay */}
-        <div 
+        <div
           className="absolute left-8 z-20 pointer-events-none"
           style={{
-            top: '65%',
-            imageRendering: 'crisp-edges',
-            WebkitFontSmoothing: 'antialiased',
-            transform: 'translateY(-50%) translateZ(0)',
-            backfaceVisibility: 'hidden',
-            willChange: 'transform',
+            top: "65%",
+            imageRendering: "crisp-edges",
+            WebkitFontSmoothing: "antialiased",
+            transform: "translateY(-50%) translateZ(0)",
+            backfaceVisibility: "hidden",
+            willChange: "transform",
           }}
         >
           <div className="relative flex items-center justify-center ml-[-8px] h-12 px-8">
             <div className="absolute top-[2px] left-[50%] transform translate-x-[-8px] z-10 text-xs tracking-tighter my-[22px] mb-0 mt-0 mr-0 ml-[-8px]">
-              <div className="flex flex-row items-center gap-0.5" style={{ willChange: 'transform' }}>
-                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#D6D3D1' }}></div>
-                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#F5E17C' }}></div> {/* Lighter mustard yellow */}
-                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#FDB484' }}></div>
-                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#EF4444' }}></div>
-                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#991B1B' }}></div>
+              <div className="flex flex-row items-center gap-0.5" style={{ willChange: "transform" }}>
+                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "#D6D3D1" }}></div>
+                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "#F5E17C" }}></div>{" "}
+                {/* Lighter mustard yellow */}
+                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "#FDB484" }}></div>
+                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "#EF4444" }}></div>
+                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "#991B1B" }}></div>
               </div>
             </div>
             <div style={{ minWidth: "120px", minHeight: "32px" }}>

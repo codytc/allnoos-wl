@@ -389,9 +389,9 @@ export default function CameraPage() {
         <div className="flex-1 flex justify-start">
           <button
             onClick={resetCameraState}
-            className="w-14 h-12 flex items-center justify-center text-white active:bg-white/10 rounded-full transition-all duration-200"
+            className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2.5"
           >
-            <ChevronLeftIcon className="w-8 h-8 opacity-90" />
+            <ChevronLeftIcon className="size-5 text-stone-600" />
           </button>
         </div>
 
@@ -914,8 +914,6 @@ export default function CameraPage() {
                                 <Trash2 className="size-7" />
                               </button>
                             </div>
-
-                            
                           </div>
                         </div>
                       ))}
