@@ -528,7 +528,7 @@ export default function ProfilePage() {
                 onClick={handleBack}
                 className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2"
               >
-                <ChevronLeft className="size-6 text-stone-600" />
+                <ChevronLeft className="text-stone-600 size-5" />
               </button>
               {/* </CHANGE> */}
             </div>
