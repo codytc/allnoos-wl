@@ -634,23 +634,8 @@ export default function UserProfilePage() {
   const initialActionTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const storySearchInputRef = useRef<HTMLInputElement>(null)
+  const sortDropdownRef = useRef<HTMLDivElement>(null)
   // </CHANGE>
-
-  useEffect(() => {
-    if (process.env.NODE_ENV === "development") {
-      console.log(`[v0] Validating stories for user ${user.id} (${user.name})`)
-      getValidationSummary()
-    }
-    return () => {
-      if (actionIntervalRef.current) {
-        clearInterval(actionIntervalRef.current)
-      }
-      if (initialActionTimeoutRef.current) {
-        clearTimeout(initialActionTimeoutRef.current)
-      }
-    }
-  }, [user.id, user.name])
-
   const router = useRouter()
 
   const [editForm, setEditForm] = useState({
@@ -692,6 +677,60 @@ export default function UserProfilePage() {
     { id: "peace", label: "Peace Sign", emoji: "✌️" },
     { id: "heart", label: "Heart Hands", emoji: "💖" },
   ]
+
+  useEffect(() => {
+    if (process.env.NODE_ENV === "development") {
+      console.log(`[v0] Validating stories for user ${user.id} (${user.name})`)
+      getValidationSummary()
+    }
+    return () => {
+      if (actionIntervalRef.current) {
+        clearInterval(actionIntervalRef.current)
+      }
+      if (initialActionTimeoutRef.current) {
+        clearTimeout(initialActionTimeoutRef.current)
+      }
+    }
+  }, [user.id, user.name])
+
+  // Added click outside handler for story search input
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        showStorySearch &&
+        storySearchInputRef.current &&
+        !storySearchInputRef.current.contains(event.target as Node)
+      ) {
+        setShowStorySearch(false)
+        setStorySearchQuery("")
+      }
+    }
+
+    if (showStorySearch) {
+      document.addEventListener("mousedown", handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [showStorySearch])
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sortDropdownRef.current && !sortDropdownRef.current.contains(event.target as Node)) {
+        setShowSortOptions(false)
+      }
+    }
+
+    if (showSortOptions) {
+      document.addEventListener("mousedown", handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [showSortOptions])
+  // </CHANGE>
 
   return (
     <div
@@ -891,44 +930,37 @@ export default function UserProfilePage() {
                 onClick={(e) => {
                   e.stopPropagation()
                   setShowStorySearch(true)
-                  setTimeout(() => {
-                    storySearchInputRef.current?.focus()
-                  }, 100)
                 }}
                 className="p-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg hover:bg-white/30 active:bg-white/40 transition-all duration-300"
               >
                 <Search className="w-5 h-5 text-primary" />
               </button>
             ) : (
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-stone-500 z-10" />
-                <input
-                  ref={storySearchInputRef}
-                  type="text"
-                  placeholder="Search stories..."
-                  value={storySearchQuery}
-                  onChange={(e) => setStorySearchQuery(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      console.log("[v0] Search stories for:", storySearchQuery)
-                    } else if (e.key === "Escape") {
-                      setShowStorySearch(false)
-                      setStorySearchQuery("")
-                    }
-                  }}
-                  onBlur={() => {
-                    setTimeout(() => {
-                      setShowStorySearch(false)
-                      if (!storySearchQuery.trim()) {
-                        setStorySearchQuery("")
-                      }
-                    }, 200)
-                  }}
-                  className="w-64 pl-10 pr-4 py-2 border border-white/95 rounded-full focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus:border-input focus-visible:border-input focus:shadow-[inset_0_0_16px_rgba(253,180,132,0.35)] bg-white/95 backdrop-blur-sm text-stone-900 placeholder-stone-500 transition-all duration-300"
-                />
-              </div>
+              <input
+                ref={storySearchInputRef}
+                type="text"
+                value={storySearchQuery}
+                onChange={(e) => setStorySearchQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    console.log("[v0] Searching stories for:", storySearchQuery)
+                  } else if (e.key === "Escape") {
+                    setShowStorySearch(false)
+                    setStorySearchQuery("")
+                  }
+                }}
+                onBlur={() => {
+                  if (!storySearchQuery) {
+                    setShowStorySearch(false)
+                  }
+                }}
+                placeholder="Search stories..."
+                className="px-4 py-2 rounded-full bg-white/90 backdrop-blur-md border border-white/30 shadow-lg focus:outline-none focus:ring-2 focus:ring-[#FDB484]/50 transition-all duration-300 w-48"
+              />
             )}
+          </div>
 
+          <div className="relative" ref={sortDropdownRef}>
             <button
               onClick={(e) => {
                 e.stopPropagation()
@@ -945,32 +977,40 @@ export default function UserProfilePage() {
                 <div className="px-4 py-2 text-xs text-stone-500 border-b border-stone-100 mb-2">Sort stories by:</div>
                 <button
                   onClick={() => handleStorySortOptionSelect("recent")}
-                  className={`w-full text-left px-4 py-2 hover:bg-white/50 transition-colors ${
-                    storySortBy === "recent" ? "bg-blue-50 text-blue-600 font-medium" : "text-stone-700"
+                  className={`w-full text-left px-4 py-2 transition-colors ${
+                    storySortBy === "recent"
+                      ? "text-[#FDB484] font-medium"
+                      : "text-stone-700 hover:text-[#FDB484] active:text-[#FDB484]"
                   }`}
                 >
                   Most Recent
                 </button>
                 <button
                   onClick={() => handleStorySortOptionSelect("oldest")}
-                  className={`w-full text-left px-4 py-2 hover:bg-white/50 transition-colors ${
-                    storySortBy === "oldest" ? "bg-blue-50 text-blue-600 font-medium" : "text-stone-700"
+                  className={`w-full text-left px-4 py-2 transition-colors ${
+                    storySortBy === "oldest"
+                      ? "text-[#FDB484] font-medium"
+                      : "text-stone-700 hover:text-[#FDB484] active:text-[#FDB484]"
                   }`}
                 >
                   Oldest First
                 </button>
                 <button
                   onClick={() => handleStorySortOptionSelect("popular")}
-                  className={`w-full text-left px-4 py-2 hover:bg-white/50 transition-colors ${
-                    storySortBy === "popular" ? "bg-blue-50 text-blue-600 font-medium" : "text-stone-700"
+                  className={`w-full text-left px-4 py-2 transition-colors ${
+                    storySortBy === "popular"
+                      ? "text-[#FDB484] font-medium"
+                      : "text-stone-700 hover:text-[#FDB484] active:text-[#FDB484]"
                   }`}
                 >
                   Most Popular
                 </button>
                 <button
                   onClick={() => handleStorySortOptionSelect("views")}
-                  className={`w-full text-left px-4 py-2 hover:bg-white/50 transition-colors ${
-                    storySortBy === "views" ? "bg-blue-50 text-blue-600 font-medium" : "text-stone-700"
+                  className={`w-full text-left px-4 py-2 transition-colors ${
+                    storySortBy === "views"
+                      ? "text-[#FDB484] font-medium"
+                      : "text-stone-700 hover:text-[#FDB484] active:text-[#FDB484]"
                   }`}
                 >
                   Most Views
