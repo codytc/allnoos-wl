@@ -775,9 +775,6 @@ export default function ProfilePage() {
 
                 {showSortOptions && (
                   <div className="absolute right-0 top-full mt-2 w-48 bg-white/95 backdrop-blur-md rounded-xl shadow-2xl border border-white/30 py-2 z-60 animate-in slide-in-from-top-2 duration-200">
-                    <div className="px-4 py-2 text-xs text-stone-500 border-b border-stone-100 mb-2">
-                      Sort stories by:
-                    </div>
                     <button
                       onClick={() => handleStorySortOptionSelect("recent")}
                       className={`w-full text-left px-4 py-2 hover:bg-white/50 transition-colors text-stone-700 hover:text-[#FDB484] ${
