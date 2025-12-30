@@ -518,7 +518,8 @@ export default function VoyagerPage() {
           </div>
         </div>
 
-        <div className="w-full h-8 relative -mb-8 flex items-end z-30">
+        {/* Curved line after header */}
+        <div className="relative -mt-4">
           <svg
             viewBox="0 0 1440 50"
             fill="none"
