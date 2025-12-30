@@ -454,7 +454,7 @@ export default function VoyagerPage() {
       <svg width="0" height="0" className="absolute">
         <defs>
           <clipPath id="headerCurveClipVoyager" clipPathUnits="objectBoundingBox">
-            <path d="M 0,0 L 1,0 L 1,0.43 C 0.861,0.73 0.639,0.73 0.5,0.43 C 0.361,0.13 0.139,0.13 0,0.43 Z" />
+            <path d="M 0,0 L 1,0 L 1,0.898 C 0.861,0.960 0.639,0.960 0.5,0.898 C 0.361,0.831 0.139,0.831 0,0.898 Z" />
           </clipPath>
         </defs>
       </svg>
@@ -536,7 +536,7 @@ export default function VoyagerPage() {
               </linearGradient>
             </defs>
             <path
-              d="M 0,43 C 200,13 520,13 720,43 C 920,73 1240,73 1440,43"
+              d="M 0,50 C 200,20 520,20 720,50 C 920,80 1240,80 1440,50"
               stroke="url(#curvedLineGradientVoyager)"
               strokeWidth="2.5"
               fill="none"
