@@ -130,13 +130,13 @@ export default function MapPage() {
         <div className="absolute top-4 right-4 z-30">
           <button
             onClick={handleForward}
-            className="text-stone-900 hover:text-stone-600 p-2 rounded-full hover:bg-white/50 transition-colors bg-white/80 backdrop-blur-sm shadow-lg group m-2.5"
+            className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2 group"
           >
             <svg
-              className={`group-active:scale-110 transition-all duration-300 text-slate-600 size-5 ${
+              className={`transition-all duration-300 size-5 ${
                 forwarded
                   ? "text-yellow-400"
-                  : "text-slate-600 group-hover:text-yellow-400 group-active:text-yellow-400"
+                  : "text-stone-600 group-hover:text-yellow-400 group-active:text-yellow-400"
               }`}
               viewBox="0 0 24 24"
               fill="none"
