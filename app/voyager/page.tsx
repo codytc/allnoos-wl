@@ -461,7 +461,7 @@ export default function VoyagerPage() {
 
       {/* Header */}
       <div className="sticky top-0 z-50 bg-background" style={{ clipPath: "url(#headerCurveClipVoyager)" }}>
-        <div className="p-4">
+        <div className="p-4 pb-px">
           <div className="flex justify-between items-center">
             <div className="flex-1">
               <button
@@ -536,7 +536,7 @@ export default function VoyagerPage() {
               </linearGradient>
             </defs>
             <path
-              d="M 0,48 C 200,18 520,18 720,48 C 920,78 1240,78 1440,48"
+              d="M 0,43 C 200,13 520,13 720,43 C 920,73 1240,73 1440,43"
               stroke="url(#curvedLineGradientVoyager)"
               strokeWidth="2.5"
               fill="none"
