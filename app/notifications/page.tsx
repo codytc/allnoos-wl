@@ -24,6 +24,7 @@ export default function NotificationsPage() {
   const [selectedFilter, setSelectedFilter] = useState("all")
   const [searchQuery, setSearchQuery] = useState("")
   const [touchedNotification, setTouchedNotification] = useState<number | null>(null)
+  const [showSearch, setShowSearch] = useState(false)
   const [notifications, setNotifications] = useState([
     {
       id: 1,
@@ -220,12 +221,15 @@ export default function NotificationsPage() {
         </defs>
       </svg>
 
-      <div className="sticky top-0 z-50 bg-background pb-8" style={{ clipPath: "url(#headerCurveClipNotifications)" }}>
+      <div
+        className={`sticky top-0 z-50 bg-background pb-8 transition-all duration-300 ${showSearch ? "pb-16" : "pb-8"}`}
+        style={{ clipPath: "url(#headerCurveClipNotifications)" }}
+      >
         <div className="p-4">
           <div className="flex items-center justify-between mb-2.5">
             <Link href="/user-profile">
-              <button className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2.5">
-                <ChevronLeftIcon className="text-slate-600 size-5" />
+              <button className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2">
+                <ChevronLeftIcon className="text-stone-600 size-6" />
               </button>
             </Link>
 
@@ -240,20 +244,30 @@ export default function NotificationsPage() {
               </div>
             </div>
 
-            <div className="w-10"></div>
+            <button
+              onClick={() => setShowSearch(!showSearch)}
+              className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2"
+            >
+              <Search className="text-stone-600 size-6" />
+            </button>
           </div>
 
-          <div className="relative mb-4">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <div
+            className={`relative mb-4 transition-all duration-300 overflow-hidden ${showSearch ? "max-h-20 opacity-100 mt-4" : "max-h-0 opacity-0 mt-0"}`}
+          >
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
               placeholder="Stay active..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 text-slate-400 placeholder:text-slate-400 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus:border-input focus-visible:border-input focus:shadow-[inset_0_0_16px_rgba(253,180,132,0.35)] rounded-lg"
+              className="pl-10 pr-10 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus:border-input focus-visible:border-input focus:shadow-[inset_0_0_16px_rgba(253,180,132,0.35)] rounded-lg ring-0"
             />
           </div>
         </div>
-        <div className="w-full h-8 relative -mb-8 flex items-end z-30" style={{ transform: "translateY(-30px)" }}>
+        <div
+          className={`w-full h-8 relative -mb-8 flex items-end z-30 transition-transform duration-300`}
+          style={{ transform: showSearch ? "translateY(-10px)" : "translateY(-30px)" }}
+        >
           <svg
             viewBox="0 0 1440 50"
             fill="none"
@@ -280,7 +294,9 @@ export default function NotificationsPage() {
         </div>
       </div>
 
-      <div className="p-4" style={{ transform: "translateY(-30px)" }}>
+      <div
+        className={`p-4 transition-transform duration-300 ${showSearch ? "translate-y-[-10px]" : "translate-y-[-30px]"}`}
+      >
         {filteredNotifications.length === 0 ? (
           <div className="text-center py-12">
             <Bell className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
