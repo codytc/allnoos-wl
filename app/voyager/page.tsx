@@ -489,7 +489,7 @@ export default function VoyagerPage() {
               <Link href="/heat-map"></Link>
             </div>
           </div>
-          <div className="flex justify-center mt-2 mb-2">
+          <div className="flex justify-center mb-2 mt-0.5">
             <div className="flex items-center gap-3 font-medium text-base whitespace-nowrap px-4 text-slate-600">
               <button
                 onClick={() => setGeographicFilter("local")}
