@@ -459,7 +459,7 @@ export default function VoyagerPage() {
       <svg width="0" height="0" className="absolute">
         <defs>
           <clipPath id="headerCurveClipVoyager" clipPathUnits="objectBoundingBox">
-            <path d="M 0,0 L 1,0 L 1,0.90 C 0.861,0.96 0.639,0.96 0.5,0.90 C 0.361,0.84 0.139,0.84 0,0.90 Z" />
+            <path d="M 0,0 L 1,0 L 1,0.80 C 0.861,0.86 0.639,0.86 0.5,0.80 C 0.361,0.74 0.139,0.74 0,0.80 Z" />
           </clipPath>
         </defs>
       </svg>
@@ -494,33 +494,27 @@ export default function VoyagerPage() {
               <Link href="/heat-map"></Link>
             </div>
           </div>
-          <div className="flex justify-center mt-3 mb-4">
-            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 shadow-lg">
+          <div className="flex justify-center mt-2 mb-2">
+            <div className="flex items-center gap-3 text-white font-medium text-base whitespace-nowrap px-4">
               <button
                 onClick={() => setGeographicFilter("local")}
-                className={`text-sm font-medium transition-colors ${
-                  geographicFilter === "local" ? "text-white" : "text-stone-400 hover:text-stone-200"
-                }`}
+                className={`transition-opacity ${geographicFilter === "local" ? "opacity-100" : "opacity-60"}`}
               >
-                Local
+                <span>Local</span>
               </button>
-              <div className="w-px h-4 bg-white/30"></div>
+              <div className="w-px h-5 bg-white/70"></div>
               <button
                 onClick={() => setGeographicFilter("national")}
-                className={`text-sm font-medium transition-colors ${
-                  geographicFilter === "national" ? "text-white" : "text-stone-400 hover:text-stone-200"
-                }`}
+                className={`transition-opacity ${geographicFilter === "national" ? "opacity-100" : "opacity-60"}`}
               >
-                National
+                <span>National</span>
               </button>
-              <div className="w-px h-4 bg-white/30"></div>
+              <div className="w-px h-5 bg-white/70"></div>
               <button
                 onClick={() => setGeographicFilter("world")}
-                className={`text-sm font-medium transition-colors ${
-                  geographicFilter === "world" ? "text-white" : "text-stone-400 hover:text-stone-200"
-                }`}
+                className={`transition-opacity ${geographicFilter === "world" ? "opacity-100" : "opacity-60"}`}
               >
-                World
+                <span>World</span>
               </button>
             </div>
           </div>
