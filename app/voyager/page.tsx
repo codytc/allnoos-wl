@@ -502,14 +502,14 @@ export default function VoyagerPage() {
               >
                 <span>Local</span>
               </button>
-              <div className="w-px h-5 bg-white/70"></div>
+              <div className="w-px h-5 text-white bg-slate-600"></div>
               <button
                 onClick={() => setGeographicFilter("national")}
                 className={`transition-opacity ${geographicFilter === "national" ? "opacity-100" : "opacity-60"}`}
               >
                 <span>National</span>
               </button>
-              <div className="w-px h-5 bg-white/70"></div>
+              <div className="w-px h-5 bg-slate-600"></div>
               <button
                 onClick={() => setGeographicFilter("world")}
                 className={`transition-opacity ${geographicFilter === "world" ? "opacity-100" : "opacity-60"}`}
