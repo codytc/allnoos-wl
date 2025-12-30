@@ -12,6 +12,7 @@ export default function MapPage() {
   const searchParams = useSearchParams()
   const [showShare, setShowShare] = useState(false)
   const [forwarded, setForwarded] = useState(false)
+  const [voyagerClicked, setVoyagerClicked] = useState(false)
 
   const currentUserId = Number(searchParams.get("userId")) || 1
 
@@ -157,11 +158,16 @@ export default function MapPage() {
           <button
             onClick={() => {
               console.log("[v0] Floating button clicked - navigating to Voyager")
+              setVoyagerClicked(true)
               router.push("/voyager")
             }}
-            className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2"
+            className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2 group"
           >
-            <Wave className="text-stone-600 size-5" />
+            <Wave
+              className={`transition-all duration-300 size-5 ${
+                voyagerClicked ? "text-teal-400" : "text-stone-600 group-hover:text-teal-400 group-active:text-teal-400"
+              }`}
+            />
           </button>
         </div>
 
