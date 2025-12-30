@@ -266,7 +266,7 @@ export default function NotificationsPage() {
         </div>
         <div
           className={`w-full h-8 relative -mb-8 flex items-end z-30 transition-transform duration-300`}
-          style={{ transform: showSearch ? "translateY(-10px)" : "translateY(-30px)" }}
+          style={{ transform: showSearch ? "translateY(-20px)" : "translateY(-40px)" }}
         >
           <svg
             viewBox="0 0 1440 50"
