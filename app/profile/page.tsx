@@ -1,7 +1,7 @@
 "use client"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import type React from "react"
-import { useRef, useState, useEffect } from "react"
+import { useRef, useState, useEffect, useMemo } from "react"
 import { Button } from "@/components/ui/button"
 import {
   ChevronLeft,
@@ -106,43 +106,113 @@ const allUsers = [
   },
 ]
 
-export default function ProfilePage() {
-  const [isFollowing, setIsFollowing] = useState(false)
-  const [visibleStories, setVisibleStories] = useState(4)
-  const [showShare, setShowShare] = useState(false)
-  const [showMessagePanel, setShowMessagePanel] = useState(false)
-  const [messageText, setMessageText] = useState("")
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false)
-  const [likedStories, setLikedStories] = useState<Set<number>>(new Set())
-  const [forwardedStories, setForwardedStories] = useState<Set<number>>(new Set())
-  const [showMenuDropdown, setShowMenuDropdown] = useState(false)
-  const [storySearchQuery, setStorySearchQuery] = useState("")
-  const [showStorySearch, setShowStorySearch] = useState(false)
-  const [storySortBy, setStorySortBy] = useState<"recent" | "oldest" | "popular" | "views">("recent")
-  const [showSortOptions, setShowSortOptions] = useState(false)
+// Mock data for allPosts and getUserStories - replace with actual imports if available
+const allPosts = [
+  {
+    id: 1,
+    userId: 1,
+    title: "Iceland Volcano Eruption",
+    location: "Reykjavik, Iceland",
+    views: 45600,
+    likes: 4445,
+    timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
+    thumbnail: "/volcanic-sunset.png",
+  },
+  {
+    id: 2,
+    userId: 1,
+    title: "Arctic Ice Melt",
+    location: "Greenland, Denmark",
+    views: 32100,
+    likes: 2890,
+    timestamp: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
+    thumbnail: "/northern-lights-nature.png",
+  },
+  {
+    id: 3,
+    userId: 2,
+    title: "AI Breakthrough",
+    location: "San Francisco, CA",
+    views: 28900,
+    likes: 2156,
+    timestamp: new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString(),
+    thumbnail: "/climate-summit-meeting.png",
+  },
+  {
+    id: 4,
+    userId: 8,
+    title: "Political Debate",
+    location: "Washington, DC",
+    views: 67800,
+    likes: 5234,
+    timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
+    thumbnail: "/climate-summit-meeting.png",
+  },
+  {
+    id: 5,
+    userId: 12,
+    title: "Market Analysis",
+    location: "New York, NY",
+    views: 41200,
+    likes: 3567,
+    timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+    thumbnail: "/blue-concert-stage.png",
+  },
+  {
+    id: 6,
+    userId: 6,
+    title: "Cancer Research",
+    location: "Boston, MA",
+    views: 38900,
+    likes: 3124,
+    timestamp: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+    thumbnail: "/professional-woman-headshot.png",
+  },
+  {
+    id: 7,
+    userId: 6,
+    title: "New Discoveries",
+    location: "Cambridge, MA",
+    views: 52300,
+    likes: 4789,
+    timestamp: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(),
+    thumbnail: "/male-journalist.png",
+  },
+  {
+    id: 8,
+    userId: 1,
+    title: "Ecosystem Health",
+    location: "Iceland",
+    views: 29800,
+    likes: 2456,
+    timestamp: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
+    thumbnail: "/volcanic-sunset.png",
+  },
+  {
+    id: 9,
+    userId: 2,
+    title: "Future of Tech",
+    location: "San Francisco, CA",
+    views: 35600,
+    likes: 2987,
+    timestamp: new Date(Date.now() - 45 * 60 * 1000).toISOString(),
+    thumbnail: "/northern-lights-nature.png",
+  },
+  {
+    id: 10,
+    userId: 8,
+    title: "World News",
+    location: "Washington, DC",
+    views: 48700,
+    likes: 4123,
+    timestamp: new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString(),
+    thumbnail: "/modern-building-news.png",
+  },
+]
 
-  const menuButtonRef = useRef<HTMLButtonElement>(null)
-  const storySearchInputRef = useRef<HTMLInputElement>(null)
-  const sortDropdownRef = useRef<HTMLDivElement>(null)
-
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const from = searchParams.get("from")
-
-  const userId = searchParams.get("userId")
-  const defaultUserId = 5 // Marcus Thompson
-  const user =
-    userProfiles.find((u) => u.id === Number(userId)) ||
-    userProfiles.find((u) => u.id === defaultUserId) ||
-    userProfiles[0]
-
-  console.log("[v0] Profile page loaded for user:", {
-    userId: userId || defaultUserId,
-    userName: user.name,
-    actualUserId: user.id,
-  })
-
-  const userStories = [
+const getUserStories = (userId: number | null) => {
+  if (userId === null) return []
+  const baseStories = [
     {
       id: 1,
       title: "Iceland Volcano Emits Smoke",
@@ -234,6 +304,73 @@ export default function ProfilePage() {
       timestamp: new Date(Date.now() - 90 * 24 * 60 * 60 * 1000), // 3 months ago
     },
   ]
+  return baseStories.filter((story) => story.id <= 10) // Limit to 10 for mock purposes
+}
+
+export default function ProfilePage() {
+  const searchParams = useSearchParams()
+  const router = useRouter()
+
+  const userId = searchParams.get("userId") ? Number(searchParams.get("userId")) : null
+  const from = searchParams.get("from")
+
+  const currentUser = { id: "user-123", name: "Sarah Chen" }
+  const user = userId ? userProfiles.find((u) => u.id === userId) || userProfiles[0] : userProfiles[0]
+
+  const userPosts = useMemo(() => allPosts.filter((p) => p.userId === user.id), [user.id])
+
+  const countryCount = useMemo(() => {
+    const uniqueCountries = new Set(
+      userPosts
+        .filter((post) => post.location)
+        .map((post) => {
+          const parts = post.location.split(",")
+          return parts[parts.length - 1].trim()
+        }),
+    )
+    return uniqueCountries.size
+  }, [userPosts])
+
+  const userStories = useMemo(
+    () =>
+      getUserStories(user.id)
+        .slice(0, 10)
+        .map((post) => ({
+          id: post.id,
+          title: post.title,
+          thumbnail: post.thumbnail,
+          views: post.views,
+          likes: post.likes,
+          duration: "2:34", // This should ideally come from post data or be dynamically calculated
+          timestamp: new Date(post.timestamp),
+        })),
+    [user.id],
+  )
+  // </CHANGE>
+
+  const [isFollowing, setIsFollowing] = useState(false)
+  const [visibleStories, setVisibleStories] = useState(4)
+  const [showShare, setShowShare] = useState(false)
+  const [showMessagePanel, setShowMessagePanel] = useState(false)
+  const [messageText, setMessageText] = useState("")
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false)
+  const [likedStories, setLikedStories] = useState<Set<number>>(new Set())
+  const [forwardedStories, setForwardedStories] = useState<Set<number>>(new Set())
+  const [showMenuDropdown, setShowMenuDropdown] = useState(false)
+  const [storySearchQuery, setStorySearchQuery] = useState("")
+  const [showStorySearch, setShowStorySearch] = useState(false)
+  const [storySortBy, setStorySortBy] = useState<"recent" | "oldest" | "popular" | "views">("recent")
+  const [showSortOptions, setShowSortOptions] = useState(false)
+
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const storySearchInputRef = useRef<HTMLInputElement>(null)
+  const sortDropdownRef = useRef<HTMLDivElement>(null)
+
+  console.log("[v0] Profile page loaded for user:", {
+    userId: userId || user.id, // Use memoized user.id for consistency
+    userName: user.name,
+    actualUserId: user.id,
+  })
 
   const getTimeAgo = (timestamp: Date) => {
     const now = new Date()
@@ -693,6 +830,15 @@ export default function ProfilePage() {
               <Calendar className="w-4 h-4" />
               <span>Joined {user.joinDate}</span>
             </div>
+            {/* Display country count if available */}
+            {countryCount > 0 && (
+              <div className="flex items-center gap-1">
+                <MapIcon className="w-4 h-4" />
+                <span>
+                  {countryCount} {countryCount === 1 ? "Country" : "Countries"}
+                </span>
+              </div>
+            )}
           </div>
         </div>
 

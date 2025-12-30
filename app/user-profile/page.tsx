@@ -27,7 +27,7 @@ import {
   Map,
 } from "lucide-react"
 import Link from "next/link"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useMemo } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import AllnoosLogo from "@/components/allnoos-logo"
 import { userProfiles, allPosts } from "@/lib/mock-data"
@@ -40,28 +40,36 @@ export default function UserProfilePage() {
 
   const user = userProfiles.find((u) => u.id === Number(userId)) || userProfiles[0]
 
-  const userPosts = allPosts.filter((p) => p.userId === user.id)
-  const uniqueCountries = new Set(
-    userPosts
-      .filter((post) => post.location)
-      .map((post) => {
-        const parts = post.location.split(",")
-        return parts[parts.length - 1].trim()
-      }),
-  )
-  const countryCount = uniqueCountries.size
+  const userPosts = useMemo(() => allPosts.filter((p) => p.userId === user.id), [user.id])
 
-  const userStories = getUserStories(user.id)
-    .slice(0, 10)
-    .map((post) => ({
-      id: post.id,
-      title: post.title,
-      thumbnail: post.thumbnail,
-      views: post.views,
-      likes: post.likes,
-      duration: "2:34", // Default duration
-      timestamp: new Date(post.timestamp),
-    }))
+  const countryCount = useMemo(() => {
+    const uniqueCountries = new Set(
+      userPosts
+        .filter((post) => post.location)
+        .map((post) => {
+          const parts = post.location.split(",")
+          return parts[parts.length - 1].trim()
+        }),
+    )
+    return uniqueCountries.size
+  }, [userPosts])
+
+  const userStories = useMemo(
+    () =>
+      getUserStories(user.id)
+        .slice(0, 10)
+        .map((post) => ({
+          id: post.id,
+          title: post.title,
+          thumbnail: post.thumbnail,
+          views: post.views,
+          likes: post.likes,
+          duration: "2:34",
+          timestamp: new Date(post.timestamp),
+        })),
+    [user.id],
+  )
+  // </CHANGE>
 
   const [visibleStories, setVisibleStories] = useState(4)
   const [showEditProfile, setShowEditProfile] = useState(false)
