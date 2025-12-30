@@ -1014,7 +1014,7 @@ export default function UserProfilePage() {
                     setStorySearchQuery("")
                   }
                 }}
-                className="pl-10 pr-10 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus:border-input focus:shadow-[inset_0_0_16px_rgba(253,180,132,0.35)] rounded-lg"
+                className="pl-10 pr-10 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus:border-input focus-visible:border-input focus:shadow-[inset_0_0_16px_rgba(253,180,132,0.35)] rounded-lg ring-0"
               />
               <button
                 onClick={() => {
@@ -1268,7 +1268,7 @@ export default function UserProfilePage() {
                   placeholder="Search followers..."
                   value={followersSearchQuery}
                   onChange={(e) => setFollowersSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-white/95 rounded-lg focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus:border-input focus-visible:border-input focus:shadow-[inset_0_0_16px_rgba(253,180,132,0.35)] bg-white/95 backdrop-blur-sm text-stone-900 placeholder-stone-500"
+                  className="w-full pl-10 pr-4 py-3 border border-white/95 rounded-lg focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus:border-input focus-visible:border-input focus:shadow-[inset_0_0_16px_rgba(253,180,132,0.35)] bg-white/95 backdrop-blur-sm text-stone-900 placeholder-stone-500 ring-0"
                 />
               </div>
 
