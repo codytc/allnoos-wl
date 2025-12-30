@@ -536,7 +536,7 @@ export default function VoyagerPage() {
               </linearGradient>
             </defs>
             <path
-              d="M 0,50 C 200,20 520,20 720,50 C 920,80 1240,80 1440,50"
+              d="M 0,48 C 200,18 520,18 720,48 C 920,78 1240,78 1440,48"
               stroke="url(#curvedLineGradientVoyager)"
               strokeWidth="2.5"
               fill="none"
