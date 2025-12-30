@@ -454,14 +454,14 @@ export default function VoyagerPage() {
       <svg width="0" height="0" className="absolute">
         <defs>
           <clipPath id="headerCurveClipVoyager" clipPathUnits="objectBoundingBox">
-            <path d="M 0,0 L 1,0 L 1,0.87 C 0.861,0.92 0.639,0.92 0.5,0.83 C 0.361,0.84 0.139,0.84 0,0.83 Z" />
+            <path d="M 0,0 L 1,0 L 1,0.85 C 0.92,0.90 0.78,0.90 0.5,0.85 C 0.36,0.80 0.14,0.80 0,0.85 Z" />
           </clipPath>
         </defs>
       </svg>
 
       {/* Header */}
       <div className="sticky top-0 z-50 bg-background" style={{ clipPath: "url(#headerCurveClipVoyager)" }}>
-        <div className="p-4 pb-2">
+        <div className="p-4 pb-0.5">
           <div className="flex justify-between items-center">
             <div className="flex-1">
               <button
