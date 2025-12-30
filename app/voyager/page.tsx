@@ -454,7 +454,7 @@ export default function VoyagerPage() {
       <svg width="0" height="0" className="absolute">
         <defs>
           <clipPath id="headerCurveClipVoyager" clipPathUnits="objectBoundingBox">
-            <path d="M 0,0 L 1,0 L 1,0.78 C 0.861,0.84 0.639,0.84 0.5,0.78 C 0.361,0.72 0.139,0.72 0,0.78 Z" />
+            <path d="M 0,0 L 1,0 L 1,0.82 C 0.861,0.88 0.639,0.88 0.5,0.82 C 0.361,0.76 0.139,0.76 0,0.82 Z" />
           </clipPath>
         </defs>
       </svg>
@@ -518,8 +518,7 @@ export default function VoyagerPage() {
           </div>
         </div>
 
-        {/* Curved line after header */}
-        <div className="relative -mt-4">
+        <div className="w-full h-8 relative -mb-8 flex items-end z-30">
           <svg
             viewBox="0 0 1440 50"
             fill="none"
