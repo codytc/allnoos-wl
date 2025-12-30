@@ -253,7 +253,7 @@ export default function NotificationsPage() {
           </div>
 
           <div
-            className={`relative mb-4 transition-all duration-300 overflow-hidden ${showSearch ? "max-h-20 opacity-100 mt-4" : "max-h-0 opacity-0 mt-0"}`}
+            className={`relative mb-4 transition-all duration-300 overflow-hidden ${showSearch ? "max-h-20 opacity-100 mt-2" : "max-h-0 opacity-0 mt-0"}`}
           >
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
