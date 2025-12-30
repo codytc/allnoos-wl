@@ -225,7 +225,7 @@ export default function NotificationsPage() {
         className={`sticky top-0 z-50 bg-background pb-8 transition-all duration-300 ${showSearch ? "pb-16" : "pb-8"}`}
         style={{ clipPath: "url(#headerCurveClipNotifications)" }}
       >
-        <div className="p-4">
+        <div className="p-4 pb-0">
           <div className="flex items-center justify-between mb-2.5">
             <Link href="/user-profile">
               <button className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2">
