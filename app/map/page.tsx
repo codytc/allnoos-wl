@@ -13,7 +13,6 @@ export default function MapPage() {
   const [showShare, setShowShare] = useState(false)
   const [forwarded, setForwarded] = useState(false)
   const [voyagerClicked, setVoyagerClicked] = useState(false)
-  const [selectedFilter, setSelectedFilter] = useState<"local" | "national" | "world">("local")
 
   const currentUserId = Number(searchParams.get("userId")) || 1
 
@@ -182,7 +181,7 @@ export default function MapPage() {
         <div
           className="absolute left-8 z-20 pointer-events-none"
           style={{
-            top: "58%",
+            top: "65%",
             imageRendering: "crisp-edges",
             WebkitFontSmoothing: "antialiased",
             transform: "translateY(-50%) translateZ(0)",
@@ -198,37 +197,6 @@ export default function MapPage() {
             </div>
             <div style={{ minWidth: "120px", minHeight: "32px" }}>
               <AllnoosLogo variant="default" size="md" />
-            </div>
-          </div>
-
-          <div className="pointer-events-auto mt-4 flex items-center justify-center">
-            <div className="flex items-center gap-3 bg-white/90 backdrop-blur-md rounded-full px-6 py-2.5 shadow-lg border border-white/50">
-              <button
-                onClick={() => setSelectedFilter("local")}
-                className={`text-sm font-medium transition-all duration-300 ${
-                  selectedFilter === "local" ? "text-stone-900 scale-105" : "text-stone-500 hover:text-stone-700"
-                }`}
-              >
-                Local
-              </button>
-              <div className="w-px h-5 bg-stone-300"></div>
-              <button
-                onClick={() => setSelectedFilter("national")}
-                className={`text-sm font-medium transition-all duration-300 ${
-                  selectedFilter === "national" ? "text-stone-900 scale-105" : "text-stone-500 hover:text-stone-700"
-                }`}
-              >
-                National
-              </button>
-              <div className="w-px h-5 bg-stone-300"></div>
-              <button
-                onClick={() => setSelectedFilter("world")}
-                className={`text-sm font-medium transition-all duration-300 ${
-                  selectedFilter === "world" ? "text-stone-900 scale-105" : "text-stone-500 hover:text-stone-700"
-                }`}
-              >
-                World
-              </button>
             </div>
           </div>
         </div>

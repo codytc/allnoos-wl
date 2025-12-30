@@ -13,6 +13,7 @@ import { Search, MessageSquare, Award, TrendingUp, Sparkles } from "@/components
 export default function VoyagerPage() {
   const router = useRouter()
   const [searchQuery, setSearchQuery] = useState("")
+  const [geographicFilter, setGeographicFilter] = useState<"local" | "national" | "world">("local")
   const [touchedCategory, setTouchedCategory] = useState<string | null>(null)
   const [touchedFocus, setTouchedFocus] = useState<string | null>(null)
   const [selectedFocus, setSelectedFocus] = useState<string[]>([])
@@ -491,6 +492,36 @@ export default function VoyagerPage() {
             </div>
             <div className="flex-1 flex justify-end">
               <Link href="/heat-map"></Link>
+            </div>
+          </div>
+          <div className="flex justify-center mt-2 mb-2">
+            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 shadow-lg">
+              <button
+                onClick={() => setGeographicFilter("local")}
+                className={`text-sm font-medium transition-colors ${
+                  geographicFilter === "local" ? "text-white" : "text-stone-400 hover:text-stone-200"
+                }`}
+              >
+                Local
+              </button>
+              <div className="w-px h-4 bg-white/30"></div>
+              <button
+                onClick={() => setGeographicFilter("national")}
+                className={`text-sm font-medium transition-colors ${
+                  geographicFilter === "national" ? "text-white" : "text-stone-400 hover:text-stone-200"
+                }`}
+              >
+                National
+              </button>
+              <div className="w-px h-4 bg-white/30"></div>
+              <button
+                onClick={() => setGeographicFilter("world")}
+                className={`text-sm font-medium transition-colors ${
+                  geographicFilter === "world" ? "text-white" : "text-stone-400 hover:text-stone-200"
+                }`}
+              >
+                World
+              </button>
             </div>
           </div>
           <div className="relative">
