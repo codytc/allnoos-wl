@@ -159,9 +159,9 @@ export default function MapPage() {
               console.log("[v0] Floating button clicked - navigating to Voyager")
               router.push("/voyager")
             }}
-            className="text-stone-900 hover:text-stone-600 p-2 rounded-full hover:bg-white/50 transition-colors bg-white/80 backdrop-blur-sm shadow-lg group m-2.5 active:scale-95"
+            className="rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 active:scale-110 shadow-lg hover:shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] bg-white/20 border border-white/30 p-2"
           >
-            <Wave className="w-5 h-5 group-hover:scale-110 group-active:scale-90 transition-all duration-300 text-slate-600" />
+            <Wave className="text-stone-600 size-5" />
           </button>
         </div>
 
