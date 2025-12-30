@@ -461,7 +461,7 @@ export default function VoyagerPage() {
 
       {/* Header */}
       <div className="sticky top-0 z-50 bg-background" style={{ clipPath: "url(#headerCurveClipVoyager)" }}>
-        <div className="p-4 pb-px">
+        <div className="p-4 pb-2">
           <div className="flex justify-between items-center">
             <div className="flex-1">
               <button
