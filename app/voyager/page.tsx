@@ -518,12 +518,12 @@ export default function VoyagerPage() {
           </div>
         </div>
 
-        <div className="w-full h-8 relative -mb-8 flex items-end z-30">
+        <div className="w-full h-8 relative -mb-6">
           <svg
             viewBox="0 0 1440 100"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-6"
+            className="w-full h-full"
             preserveAspectRatio="none"
           >
             <defs>
