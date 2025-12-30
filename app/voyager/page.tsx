@@ -495,7 +495,7 @@ export default function VoyagerPage() {
             </div>
           </div>
           <div className="flex justify-center mt-2 mb-2">
-            <div className="flex items-center gap-3 text-white font-medium text-base whitespace-nowrap px-4">
+            <div className="flex items-center gap-3 font-medium text-base whitespace-nowrap px-4 text-slate-600">
               <button
                 onClick={() => setGeographicFilter("local")}
                 className={`transition-opacity ${geographicFilter === "local" ? "opacity-100" : "opacity-60"}`}
