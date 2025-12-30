@@ -454,7 +454,7 @@ export default function VoyagerPage() {
       <svg width="0" height="0" className="absolute">
         <defs>
           <clipPath id="headerCurveClipVoyager" clipPathUnits="objectBoundingBox">
-            <path d="M 0,0 L 1,0 L 1,0.82 C 0.861,0.88 0.639,0.88 0.5,0.82 C 0.361,0.76 0.139,0.76 0,0.82 Z" />
+            <path d="M 0,0 L 1,0 L 1,0.898 C 0.861,0.960 0.639,0.960 0.5,0.898 C 0.361,0.831 0.139,0.831 0,0.898 Z" />
           </clipPath>
         </defs>
       </svg>
@@ -520,7 +520,7 @@ export default function VoyagerPage() {
 
         <div className="w-full h-8 relative -mb-8 flex items-end z-30">
           <svg
-            viewBox="0 0 1440 50"
+            viewBox="0 0 1440 100"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             className="w-full h-6"
@@ -528,17 +528,17 @@ export default function VoyagerPage() {
           >
             <defs>
               <linearGradient id="curvedLineGradientVoyager" x1="0%" y1="100%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#475569" />
-                <stop offset="15%" stopColor="#475569" />
-                <stop offset="50%" stopColor="#475569" />
-                <stop offset="85%" stopColor="#475569" />
-                <stop offset="100%" stopColor="#475569" />
+                <stop offset="0%" stopColor="#94a3b8" />
+                <stop offset="15%" stopColor="#94a3b8" />
+                <stop offset="50%" stopColor="#94a3b8" />
+                <stop offset="85%" stopColor="#94a3b8" />
+                <stop offset="100%" stopColor="#94a3b8" />
               </linearGradient>
             </defs>
             <path
-              d="M 0,25 C 200,5 520,5 720,25 C 920,45 1240,45 1440,25"
+              d="M 0,50 C 200,20 520,20 720,50 C 920,80 1240,80 1440,50"
               stroke="url(#curvedLineGradientVoyager)"
-              strokeWidth="1.5"
+              strokeWidth="2.5"
               fill="none"
             />
           </svg>
