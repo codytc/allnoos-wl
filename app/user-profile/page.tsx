@@ -25,7 +25,6 @@ import {
   Eye,
   MessageSquare,
   Map,
-  X,
 } from "lucide-react"
 import Link from "next/link"
 import { useState, useEffect, useRef } from "react"
@@ -1011,17 +1010,8 @@ export default function UserProfilePage() {
                     setStorySearchQuery("")
                   }
                 }}
-                className="pl-10 pr-10 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus:border-input focus-visible:border-input focus:shadow-[inset_0_0_16px_rgba(253,180,132,0.35)] rounded-lg ring-0"
+                className="pl-10 pr-4 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus:border-input focus-visible:border-input focus:shadow-[inset_0_0_16px_rgba(253,180,132,0.35)] rounded-lg ring-0"
               />
-              <button
-                onClick={() => {
-                  setShowStorySearch(false)
-                  setStorySearchQuery("")
-                }}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-stone-600 transition-colors"
-              >
-                <X className="w-4 h-4" />
-              </button>
             </div>
           </div>
         )}
