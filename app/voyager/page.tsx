@@ -435,11 +435,6 @@ export default function VoyagerPage() {
       .filter((entry) => entry.locationCount > 0) // Only include journalists with posts
       .sort((a, b) => b.locationCount - a.locationCount) // Sort by location count descending
 
-    console.log(
-      "[v0] Journalist leaderboard:",
-      leaderboard.map((j) => ({ name: j.name, id: j.id })),
-    )
-
     return leaderboard
   }, [])
 
@@ -559,12 +554,6 @@ export default function VoyagerPage() {
               const isTouched = touchedJournalist === journalist.id
               const rankColors = ["text-yellow-600", "text-gray-400", "text-amber-700"]
               const rankColor = index < 3 ? rankColors[index] : "text-stone-500"
-
-              console.log("[v0] Rendering journalist card:", {
-                name: journalist.name,
-                id: journalist.id,
-                href: `/profile?userId=${journalist.id}`,
-              })
 
               return (
                 <Link key={journalist.id} href={`/profile?userId=${journalist.id}`}>
