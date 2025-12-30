@@ -459,7 +459,7 @@ export default function VoyagerPage() {
       <svg width="0" height="0" className="absolute">
         <defs>
           <clipPath id="headerCurveClipVoyager" clipPathUnits="objectBoundingBox">
-            <path d="M 0,0 L 1,0 L 1,0.85 C 0.861,0.92 0.639,0.92 0.5,0.85 C 0.361,0.78 0.139,0.78 0,0.85 Z" />
+            <path d="M 0,0 L 1,0 L 1,0.90 C 0.861,0.96 0.639,0.96 0.5,0.90 C 0.361,0.84 0.139,0.84 0,0.90 Z" />
           </clipPath>
         </defs>
       </svg>
@@ -494,7 +494,7 @@ export default function VoyagerPage() {
               <Link href="/heat-map"></Link>
             </div>
           </div>
-          <div className="flex justify-center mt-2 mb-2">
+          <div className="flex justify-center mt-3 mb-4">
             <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 shadow-lg">
               <button
                 onClick={() => setGeographicFilter("local")}
@@ -529,7 +529,7 @@ export default function VoyagerPage() {
           </div>
         </div>
 
-        <div className="w-full h-8 relative -mb-8 flex items-end z-30" style={{ transform: "translateY(-18px)" }}>
+        <div className="w-full h-8 relative -mb-8 flex items-end z-30">
           <svg
             viewBox="0 0 1440 50"
             fill="none"
