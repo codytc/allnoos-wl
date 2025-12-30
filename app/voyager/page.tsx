@@ -454,7 +454,7 @@ export default function VoyagerPage() {
       <svg width="0" height="0" className="absolute">
         <defs>
           <clipPath id="headerCurveClipVoyager" clipPathUnits="objectBoundingBox">
-            <path d="M 0,0 L 1,0 L 1,0.845 C 0.861,0.925 0.639,0.925 0.5,0.845 C 0.361,0.765 0.139,0.765 0,0.845 Z" />
+            <path d="M 0,0 L 1,0 L 1,0.846 C 0.861,0.926 0.639,0.926 0.5,0.8465 C 0.361,0.767 0.139,0.767 0,0.847 Z" />
           </clipPath>
         </defs>
       </svg>
