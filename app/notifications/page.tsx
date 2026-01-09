@@ -7,25 +7,14 @@ import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import AllnoosLogo from "@/components/allnoos-logo"
-import {
-  Flame,
-  MessageSquareIcon,
-  UserPlus,
-  Bell,
-  AlertTriangle,
-  Newspaper,
-  Settings,
-  ChevronLeftIcon,
-  Search,
-} from "lucide-react"
+import { Flame, UserPlus, Bell, AlertTriangle, Newspaper, ChevronLeftIcon, Search } from "lucide-react"
 
 export default function NotificationsPage() {
   const router = useRouter()
-  const [selectedFilter, setSelectedFilter] = useState("all")
   const [searchQuery, setSearchQuery] = useState("")
   const [touchedNotification, setTouchedNotification] = useState<number | null>(null)
   const [showSearch, setShowSearch] = useState(false)
-  const [notifications, setNotifications] = useState([
+  const [notifications] = useState([
     {
       id: 1,
       type: "like",
@@ -33,13 +22,11 @@ export default function NotificationsPage() {
       user: {
         name: "Alex Johnson",
         avatar: "/male-journalist.png",
-        verified: false,
       },
       content: "liked your story",
       storyTitle: "Iceland Volcano Emits Smoke",
       timestamp: "2m ago",
       read: false,
-      priority: "normal",
     },
     {
       id: 2,
@@ -48,14 +35,12 @@ export default function NotificationsPage() {
       user: {
         name: "Maria Garcia",
         avatar: "/female-journalist.png",
-        verified: true,
       },
       content: "commented on your story",
       comment: "Great reporting! This really opened my eyes to the situation.",
       storyTitle: "Climate Summit Reaches Agreement",
       timestamp: "15m ago",
       read: false,
-      priority: "high",
     },
     {
       id: 3,
@@ -64,12 +49,10 @@ export default function NotificationsPage() {
       user: {
         name: "David Kim",
         avatar: "/asian-economist-dr-kim-portrait.jpg",
-        verified: false,
       },
       content: "started following you",
       timestamp: "1h ago",
       read: true,
-      priority: "normal",
     },
     {
       id: 4,
@@ -78,13 +61,11 @@ export default function NotificationsPage() {
       user: {
         name: "Emma Wilson",
         avatar: "/professional-woman-headshot.png",
-        verified: true,
       },
       content: "and 23 others liked your story",
       storyTitle: "Tech Innovation Breakthrough",
       timestamp: "3h ago",
       read: true,
-      priority: "normal",
     },
     {
       id: 5,
@@ -95,7 +76,6 @@ export default function NotificationsPage() {
       storyPhoto: "/arctic-ice-melting.jpg",
       timestamp: "5h ago",
       read: false,
-      priority: "normal",
     },
     {
       id: 6,
@@ -106,109 +86,39 @@ export default function NotificationsPage() {
       storyPhoto: "/breaking-news-live-broadcast.jpg",
       timestamp: "6h ago",
       read: true,
-      priority: "urgent",
     },
   ])
 
-  const filteredNotifications = notifications
-    .filter((notification) => {
-      const matchesFilter =
-        selectedFilter === "all" ||
-        notification.category === selectedFilter ||
-        (selectedFilter === "updates" && (notification.category === "social" || notification.category === "updates"))
-
-      const matchesSearch =
-        searchQuery === "" ||
-        notification.user?.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        notification.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        notification.storyTitle?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        notification.comment?.toLowerCase().includes(searchQuery.toLowerCase())
-
-      return matchesFilter && matchesSearch
-    })
-    .sort((a, b) => {
-      if (a.read !== b.read) {
-        return a.read ? 1 : -1
-      }
-      const priorityOrder = { urgent: 3, high: 2, normal: 1 }
-      const aPriority = priorityOrder[a.priority as keyof typeof priorityOrder] || 1
-      const bPriority = priorityOrder[b.priority as keyof typeof priorityOrder] || 1
-      return bPriority - aPriority
-    })
-
-  const unreadCount = notifications.filter((n) => !n.read).length
-
-  const getNotificationIcon = (type: string, priority?: string) => {
-    const iconClass = priority === "urgent" ? "text-red-500" : priority === "high" ? "text-orange-500" : "text-current"
-
-    switch (type) {
-      case "like":
-        return <Flame className={`w-4 h-4 text-red-500`} />
-      case "comment":
-        return <MessageSquareIcon className={`w-4 h-4 text-blue-500`} /> // Updated from MessageCircle to MessageSquareIcon
-      case "follow":
-        return <UserPlus className={`w-4 h-4 text-yellow-500`} />
-      case "system":
-        return <Settings className={`w-4 h-4 ${iconClass}`} />
-      case "alert":
-        return <AlertTriangle className={`w-4 h-4 text-yellow-500`} />
-      default:
-        return <Bell className={`w-4 h-4 ${iconClass}`} />
-    }
-  }
+  const filteredNotifications = notifications.filter((notification) => {
+    if (!searchQuery) return true
+    const query = searchQuery.toLowerCase()
+    return (
+      notification.user?.name.toLowerCase().includes(query) ||
+      notification.content.toLowerCase().includes(query) ||
+      notification.storyTitle?.toLowerCase().includes(query) ||
+      notification.comment?.toLowerCase().includes(query)
+    )
+  })
 
   const getCategoryIcon = (category: string, notificationType?: string) => {
-    switch (category) {
-      case "engagement":
-        if (notificationType === "comment") {
-          return (
-            <svg
-              className="w-6 h-6 text-blue-500"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-              <path d="M11 7L17 7" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          )
-        } else {
-          return <Flame className="w-6 h-6 text-red-500" />
-        }
-      case "social":
-        return <UserPlus className="w-6 h-6 text-slate-600" />
-      case "updates":
-        return <Newspaper className="w-6 h-6 text-slate-600" />
-      case "alerts":
-        return <AlertTriangle className="w-6 h-6 text-yellow-600" />
-      default:
-        return <Bell className="w-6 h-6 text-gray-500" />
+    if (category === "engagement") {
+      return notificationType === "comment" ? (
+        <svg className="w-6 h-6 text-blue-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          <path d="M11 7L17 7" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      ) : (
+        <Flame className="w-6 h-6 text-red-500" />
+      )
     }
+    if (category === "social") return <UserPlus className="w-6 h-6 text-slate-600" />
+    if (category === "updates") return <Newspaper className="w-6 h-6 text-slate-600" />
+    if (category === "alerts") return <AlertTriangle className="w-6 h-6 text-yellow-600" />
+    return <Bell className="w-6 h-6 text-gray-500" />
   }
 
-  const formatTimestamp = (timestamp: string) => {
-    return timestamp
-  }
-
-  const handleLogoClick = () => {
-    router.push("/feed")
-  }
-
-  const handleBackClick = () => {
-    router.back()
-  }
-
-  const handleNotificationTouchStart = (notificationId: number) => {
+  const handleNotificationTouch = (notificationId: number | null) => {
     setTouchedNotification(notificationId)
-  }
-
-  const handleNotificationTouchEnd = () => {
-    setTouchedNotification(null)
-  }
-
-  const handleNotificationTouchCancel = () => {
-    setTouchedNotification(null)
   }
 
   return (
@@ -222,7 +132,7 @@ export default function NotificationsPage() {
       </svg>
 
       <div
-        className={`sticky top-0 z-50 bg-background pb-8 transition-all duration-300 ${showSearch ? "pb-16" : "pb-8"}`}
+        className={`sticky top-0 z-50 bg-background transition-all duration-300 ${showSearch ? "pb-16" : "pb-8"}`}
         style={{ clipPath: "url(#headerCurveClipNotifications)" }}
       >
         <div className="p-4 pb-0">
@@ -240,7 +150,7 @@ export default function NotificationsPage() {
                 </span>
               </div>
               <div style={{ minWidth: "120px", minHeight: "32px" }}>
-                <AllnoosLogo variant="default" size="md" onClick={handleLogoClick} />
+                <AllnoosLogo variant="default" size="md" onClick={() => router.push("/feed")} />
               </div>
             </div>
 
@@ -265,7 +175,7 @@ export default function NotificationsPage() {
           </div>
         </div>
         <div
-          className={`w-full h-8 relative -mb-8 flex items-end z-30 transition-transform duration-300`}
+          className="w-full h-8 relative -mb-8 flex items-end z-30 transition-transform duration-300"
           style={{ transform: showSearch ? "translateY(-20px)" : "translateY(-40px)" }}
         >
           <svg
@@ -275,18 +185,9 @@ export default function NotificationsPage() {
             className="w-full h-6"
             preserveAspectRatio="none"
           >
-            <defs>
-              <linearGradient id="curvedLineGradientNotifications" x1="0%" y1="100%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#94a3b8" />
-                <stop offset="15%" stopColor="#94a3b8" />
-                <stop offset="50%" stopColor="#94a3b8" />
-                <stop offset="85%" stopColor="#94a3b8" />
-                <stop offset="100%" stopColor="#94a3b8" />
-              </linearGradient>
-            </defs>
             <path
               d="M 0,25 C 200,5 520,5 720,25 C 920,45 1240,45 1440,25"
-              stroke="url(#curvedLineGradientNotifications)"
+              stroke="#94a3b8"
               strokeWidth="2.5"
               fill="none"
             />
@@ -307,40 +208,30 @@ export default function NotificationsPage() {
           <div className="space-y-3">
             {filteredNotifications.map((notification) => {
               const isTouched = touchedNotification === notification.id
-
-              const baseCardStyling = notification.read
-                ? "border border-primary/20"
-                : "border border-primary/30 shadow-sm"
-
-              const colorGradient = (() => {
-                if (notification.type === "comment") {
-                  return "from-blue-500/15"
-                } else if (notification.type === "like") {
-                  return "from-red-500/15"
-                } else if (notification.type === "follow") {
-                  return "from-primary/15"
-                } else if (notification.type === "alert") {
-                  return "from-yellow-600/15"
-                } else {
-                  return "from-primary/15"
-                }
-              })()
+              const colorGradient =
+                notification.type === "comment"
+                  ? "from-blue-500/15"
+                  : notification.type === "like"
+                    ? "from-red-500/15"
+                    : notification.type === "alert"
+                      ? "from-yellow-600/15"
+                      : "from-primary/15"
 
               return (
                 <Card
                   key={notification.id}
-                  className={`cursor-pointer transition-all duration-200 touch-manipulation group relative overflow-hidden bg-gradient-to-br from-background via-background to-muted/20 border p-0 ${
+                  className={`cursor-pointer transition-all duration-200 touch-manipulation group relative overflow-hidden bg-gradient-to-br from-background via-background to-muted/20 p-0 ${
                     isTouched ? "scale-[0.98] border-white/50" : "hover:scale-[0.98] hover:border-white/50"
-                  } ${baseCardStyling}`}
-                  onTouchStart={() => handleNotificationTouchStart(notification.id)}
-                  onTouchEnd={handleNotificationTouchEnd}
-                  onTouchCancel={handleNotificationTouchCancel}
+                  } ${notification.read ? "border border-primary/20" : "border border-primary/30 shadow-sm"}`}
+                  onTouchStart={() => handleNotificationTouch(notification.id)}
+                  onTouchEnd={() => handleNotificationTouch(null)}
+                  onTouchCancel={() => handleNotificationTouch(null)}
                 >
                   <div
                     className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t ${colorGradient} via-transparent to-transparent transition-opacity duration-200 z-10 rounded-b-lg ${
                       isTouched ? "opacity-100" : "opacity-70 group-hover:opacity-100"
                     }`}
-                    style={{ height: "auto", minHeight: "140px" }}
+                    style={{ minHeight: "140px" }}
                   />
 
                   <div
@@ -449,7 +340,7 @@ export default function NotificationsPage() {
                     )}
 
                     <div className="flex items-center justify-between">
-                      <p className="text-xs text-muted-foreground">{formatTimestamp(notification.timestamp)}</p>
+                      <p className="text-xs text-muted-foreground">{notification.timestamp}</p>
                       <div className="flex gap-2">
                         {notification.type === "comment" && (
                           <Button variant="ghost" size="sm" className="text-xs h-6 px-2">
