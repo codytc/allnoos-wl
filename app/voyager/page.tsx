@@ -663,6 +663,7 @@ export default function VoyagerPage() {
             })}
           </div>
         </section>
+        {/* Additional sections can be added here */}
       </div>
     </div>
   )

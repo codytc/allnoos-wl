@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState, useEffect, Suspense, useRef } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   Search,
@@ -22,6 +22,7 @@ import Image from "next/image"
 import { useSearchParams, useRouter } from "next/navigation"
 import AllnoosLogo from "@/components/allnoos-logo"
 import { allPosts, userProfiles, type Post } from "@/lib/mock-data"
+import { Suspense } from "react"
 
 // Assuming currentUserId is imported or defined elsewhere, e.g.:
 // import { currentUserId } from "@/lib/auth"; // Or however it's managed
@@ -360,13 +361,18 @@ function FeedPageContent() {
 
   const isInitialMount = useRef(true)
 
+  const handleCloseComments = () => {
+    setShowComments(false)
+  }
+
+  const handleCloseShare = () => {
+    setShowShare(false)
+  }
+
   useEffect(() => {
     const viewedStory = sessionStorage.getItem("impartViewedForStory")
-    console.log("[v0] Checking sessionStorage on mount:", viewedStory)
     if (viewedStory !== null) {
-      const storyIndex = Number.parseInt(viewedStory)
-      console.log("[v0] Setting impartViewedStory to:", storyIndex)
-      setImpartViewedStory(storyIndex)
+      setImpartViewedStory(Number.parseInt(viewedStory))
       sessionStorage.removeItem("impartViewedForStory")
     }
     isInitialMount.current = false
@@ -374,7 +380,6 @@ function FeedPageContent() {
 
   useEffect(() => {
     if (impartViewedStory !== null && impartViewedStory !== currentStory) {
-      console.log("[v0] Resetting impartViewedStory because story changed from", impartViewedStory, "to", currentStory)
       setImpartViewedStory(null)
     }
   }, [currentStory, impartViewedStory])
@@ -388,8 +393,6 @@ function FeedPageContent() {
   const filteredPosts = countryParam
     ? allPosts.filter((post) => {
         if (!post.location) return false
-
-        // Map US states to "United States"
         const stateMap: Record<string, string> = {
           NY: "United States",
           CA: "United States",
@@ -401,11 +404,8 @@ function FeedPageContent() {
           MI: "United States",
           TX: "United States",
         }
-
         const locationParts = post.location.split(",").map((p) => p.trim())
-        const lastPart = locationParts[locationParts.length - 1]
-        const country = stateMap[lastPart] || lastPart
-
+        const country = stateMap[locationParts[locationParts.length - 1]] || locationParts[locationParts.length - 1]
         return country.toLowerCase() === countryParam.toLowerCase()
       })
     : allPosts
@@ -415,102 +415,62 @@ function FeedPageContent() {
   useEffect(() => {
     const storyParam = searchParams.get("story")
     if (storyParam) {
-      const storyId = Number.parseInt(storyParam)
-      const storyIndex = stories.findIndex((story) => story.id === storyId)
-      if (storyIndex !== -1) {
-        setCurrentStory(storyIndex)
-      }
+      const storyIndex = stories.findIndex((story) => story.id === Number.parseInt(storyParam))
+      if (storyIndex !== -1) setCurrentStory(storyIndex)
     }
   }, [searchParams])
 
   useEffect(() => {
     setCurrentSlide(0)
-  }, [currentStory])
-
-  useEffect(() => {
     setImageLoaded(false)
-  }, [currentStory, currentSlide])
+  }, [currentStory])
 
   const story = stories[currentStory]
   const currentSlideData = story.slides[currentSlide]
-
   const storyAuthorId = allPosts[currentStory]?.userId
-  const isOwner = storyAuthorId === currentUserId // Fixed: Use imported/defined currentUserId
-
-  console.log("[v0] Current story index:", currentStory)
-  console.log("[v0] Current story author:", story.author.name)
-  console.log("[v0] Current story userId:", allPosts[currentStory]?.userId)
-  console.log("[v0] Current user (logged in):", currentUserId) // Fixed: Use imported/defined currentUserId
-  console.log("[v0] Is owner?:", isOwner)
-  console.log(
-    "[v0] Link will go to:",
-    isOwner ? `/user-profile?userId=${currentUserId}` : `/profile?userId=${allPosts[currentStory]?.userId}`, // Fixed: Use imported/defined currentUserId
-  )
+  const isOwner = storyAuthorId === "user-123"
 
   const minSwipeDistance = 50
 
-  const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null)
-    setTouchStart({
-      x: e.targetTouches[0].clientX,
-      y: e.targetTouches[0].clientY,
-    })
-  }
+  const handleTouch = {
+    start: (e: React.TouchEvent) => {
+      setTouchEnd(null)
+      setTouchStart({ x: e.targetTouches[0].clientX, y: e.targetTouches[0].clientY })
+    },
+    move: (e: React.TouchEvent) => {
+      setTouchEnd({ x: e.targetTouches[0].clientX, y: e.targetTouches[0].clientY })
+    },
+    end: () => {
+      if (!touchStart || !touchEnd || showComments) return
 
-  const onTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd({
-      x: e.targetTouches[0].clientX,
-      y: e.targetTouches[0].clientY,
-    })
-  }
+      const deltaX = touchStart.x - touchEnd.x
+      const deltaY = touchStart.y - touchEnd.y
+      const isHorizontalSwipe = Math.abs(deltaX) > Math.abs(deltaY)
 
-  const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return
-
-    if (showComments) return
-
-    const deltaX = touchStart.x - touchEnd.x
-    const deltaY = touchStart.y - touchEnd.y
-
-    const isHorizontalSwipe = Math.abs(deltaX) > Math.abs(deltaY)
-
-    if (isHorizontalSwipe) {
-      const isLeftSwipe = deltaX > minSwipeDistance
-      const isRightSwipe = deltaX < -minSwipeDistance
-
-      if (isLeftSwipe) {
-        if (currentSlide < story.slides.length - 1) {
-          setCurrentSlide(currentSlide + 1)
-        } else {
-          setCurrentSlide(0) // Loop back to first slide
+      if (isHorizontalSwipe) {
+        if (deltaX > minSwipeDistance) {
+          setCurrentSlide(currentSlide < story.slides.length - 1 ? currentSlide + 1 : 0)
+        } else if (deltaX < -minSwipeDistance && currentSlide > 0) {
+          setCurrentSlide(currentSlide - 1)
+        }
+      } else if (currentSlide !== 1) {
+        if (deltaY > minSwipeDistance) {
+          if (!logoAnimated) {
+            setLogoAnimated(true)
+          } else if (currentStory < stories.length - 1) {
+            setCurrentStory(currentStory + 1)
+            setCurrentSlide(0)
+          }
+        } else if (deltaY < -minSwipeDistance) {
+          if (logoAnimated) {
+            setLogoAnimated(false)
+          } else if (currentStory > 0) {
+            setCurrentStory(currentStory - 1)
+            setCurrentSlide(0)
+          }
         }
       }
-      if (isRightSwipe && currentSlide > 0) {
-        setCurrentSlide(currentSlide - 1)
-      }
-    } else {
-      if (currentSlide === 1) return
-
-      const isUpSwipe = deltaY > minSwipeDistance
-      const isDownSwipe = deltaY < -minSwipeDistance
-
-      if (isUpSwipe) {
-        if (!logoAnimated) {
-          setLogoAnimated(true)
-        } else if (currentStory < stories.length - 1) {
-          setCurrentStory(currentStory + 1)
-          setCurrentSlide(0)
-        }
-      }
-      if (isDownSwipe) {
-        if (logoAnimated) {
-          setLogoAnimated(false)
-        } else if (currentStory > 0) {
-          setCurrentStory(currentStory - 1)
-          setCurrentSlide(0)
-        }
-      }
-    }
+    },
   }
 
   useEffect(() => {
@@ -518,32 +478,18 @@ function FeedPageContent() {
       if (e.key === "ArrowUp" && currentStory > 0) {
         setCurrentStory(currentStory - 1)
         setCurrentSlide(0)
-      }
-      if (e.key === "ArrowDown" && currentStory < stories.length - 1) {
+      } else if (e.key === "ArrowDown" && currentStory < stories.length - 1) {
         setCurrentStory(currentStory + 1)
         setCurrentSlide(0)
-      }
-      if (e.key === "ArrowLeft" && currentSlide > 0) {
+      } else if (e.key === "ArrowLeft" && currentSlide > 0) {
         setCurrentSlide(currentSlide - 1)
-      }
-      if (e.key === "ArrowRight") {
-        if (currentSlide < story.slides.length - 1) {
-          setCurrentSlide(currentSlide + 1)
-        } else {
-          setCurrentSlide(0)
-        }
+      } else if (e.key === "ArrowRight") {
+        setCurrentSlide(currentSlide < story.slides.length - 1 ? currentSlide + 1 : 0)
       }
     }
-
     window.addEventListener("keydown", handleKeyPress)
     return () => window.removeEventListener("keydown", handleKeyPress)
   }, [currentStory, currentSlide, stories.length, story.slides.length])
-
-  // Removed useEffect that reset expandedStory on currentStory change
-
-  useEffect(() => {
-    setImageLoaded(false)
-  }, [currentStory, currentSlide])
 
   const handleStoryMeterVote = (side: "left" | "right") => {
     setStoryVotes((prev) => ({
@@ -560,72 +506,35 @@ function FeedPageContent() {
     setForwarded((prev) => ({ ...prev, [story.id]: true }))
   }
 
-  const handleTitleClick = () => {
-    router.push(`/story?id=${story.id}`)
-  }
-
-  const handleImageLoad = () => {
-    setImageLoaded(true)
-  }
-
   const handleCommentsClick = () => {
-    console.log("[v0] handleCommentsClick called for story:", currentStory)
     sessionStorage.setItem("impartViewedForStory", currentStory.toString())
     setShowComments(true)
     setCommented((prev) => ({ ...prev, [currentStory]: true }))
   }
 
-  const handleCloseComments = () => {
-    setShowComments(false)
-  }
-
-  const handleCloseShare = () => {
-    setShowShare(false)
-  }
-
   const handleSocialShare = (platform: string) => {
     const url = encodeURIComponent(window.location.href)
     const text = encodeURIComponent(`${story.title} - ${story.description}`)
-
-    let shareUrl = ""
-
-    switch (platform) {
-      case "twitter":
-        shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`
-        break
-      case "facebook":
-        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`
-        break
-      case "linkedin":
-        shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`
-        break
-      case "whatsapp":
-        shareUrl = `https://wa.me/?text=${text}%20${url}`
-        break
-      case "telegram":
-        shareUrl = `https://t.me/share/url?url=${url}&text=${text}`
-        break
-      case "reddit":
-        shareUrl = `https://reddit.com/submit?url=${url}&title=${text}`
-        break
+    const shareUrls = {
+      twitter: `https://twitter.com/intent/tweet?text=${text}&url=${url}`,
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
+      whatsapp: `https://wa.me/?text=${text}%20${url}`,
     }
-
-    if (shareUrl) {
-      window.open(shareUrl, "_blank", "width=600,height=400")
+    if (shareUrls[platform as keyof typeof shareUrls]) {
+      window.open(shareUrls[platform as keyof typeof shareUrls], "_blank")
     }
     setShowShare(false)
   }
 
   const handleRemoveComment = (commentId: number) => {
     if (confirm("Are you sure you want to remove this comment?")) {
-      console.log("[v0] Removing comment:", commentId)
       // In production, this would call an API to remove the comment
     }
   }
 
   // Handler for unpinning a comment
   const handleUnpinComment = (commentId: number) => {
-    console.log("[v0] Unpinning comment:", commentId)
     // In production, this would call an API to unpin the comment
   }
 
@@ -649,10 +558,10 @@ function FeedPageContent() {
 
   return (
     <div
-      className="relative h-screen w-full overflow-hidden bg-black pb-16"
-      onTouchStart={onTouchStart}
-      onTouchMove={onTouchMove}
-      onTouchEnd={onTouchEnd}
+      className="relative min-h-screen flex flex-col overflow-hidden"
+      onTouchStart={handleTouch.start}
+      onTouchMove={handleTouch.move}
+      onTouchEnd={handleTouch.end}
     >
       <div className="absolute inset-0">
         <Image
@@ -661,7 +570,7 @@ function FeedPageContent() {
           fill
           className="object-cover transition-opacity duration-500"
           style={{ opacity: imageLoaded ? 1 : 0 }}
-          onLoad={handleImageLoad}
+          onLoad={() => setImageLoaded(true)}
           priority
         />
         {!imageLoaded && <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-black" />}
@@ -800,7 +709,7 @@ function FeedPageContent() {
         <div className="mb-4 mr-20">
           <h2
             className="text-white text-xl font-bold cursor-pointer active:text-white/80 transition-colors opacity-90 text-left mb-7"
-            onClick={handleTitleClick}
+            onClick={() => router.push(`/story?id=${story.id}`)}
           >
             {story.title}
           </h2>

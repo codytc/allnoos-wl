@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useRef } from "react"
 import {
   Search,
   ChevronLeft, // Changed from ArrowLeft to ChevronLeft
@@ -21,11 +21,6 @@ import { Input } from "@/components/ui/input"
 import { allPosts, userProfiles } from "@/lib/mock-data"
 
 export default function WanderPage() {
-  useEffect(() => {
-    console.log("[v0] Discover page mounted successfully")
-    console.log("[v0] All sections should now have consistent widths")
-  }, [])
-
   const [searchQuery, setSearchQuery] = useState("")
   const [touchedCategory, setTouchedCategory] = useState<string | null>(null)
   const [touchedFocus, setTouchedFocus] = useState<string | null>(null)
@@ -38,106 +33,10 @@ export default function WanderPage() {
   const mostWatchedScrollRef = useRef<HTMLDivElement>(null)
   const featuredScrollRef = useRef<HTMLDivElement>(null)
   const recentStoriesScrollRef = useRef<HTMLDivElement>(null)
-  const isScrollingProgrammatically = useRef(false)
-  const activeScrollContainer = useRef<string | null>(null)
-  const scrollLockTimeout = useRef<NodeJS.Timeout | null>(null)
-  const userInteracting = useRef(false)
 
   const mostCommentedPosts = [...allPosts].sort((a, b) => b.comments - a.comments).slice(0, 4)
   const mostLikedPosts = [...allPosts].sort((a, b) => b.likes - a.likes).slice(0, 4)
   const mostSharedPosts = [...allPosts].sort((a, b) => b.shares - a.shares).slice(0, 4)
-
-  useEffect(() => {
-    const containers = [
-      { ref: channelsScrollRef, name: "channels" },
-      { ref: mostWatchedScrollRef, name: "mostWatched" },
-      { ref: featuredScrollRef, name: "featured" },
-      { ref: recentStoriesScrollRef, name: "recentStories" },
-    ]
-
-    const handleScroll = (scrollingContainer: string) => {
-      // Prevent handling if already scrolling programmatically or if another container is active
-      if (isScrollingProgrammatically.current) return
-      if (activeScrollContainer.current && activeScrollContainer.current !== scrollingContainer) return
-
-      const scrollingRef = containers.find((c) => c.name === scrollingContainer)?.ref
-      if (!scrollingRef?.current) return
-
-      // Set this container as the active one
-      activeScrollContainer.current = scrollingContainer
-
-      // Clear any existing timeout
-      if (scrollLockTimeout.current) {
-        clearTimeout(scrollLockTimeout.current)
-      }
-
-      // Release the lock after scrolling stops (300ms of no scroll events)
-      scrollLockTimeout.current = setTimeout(() => {
-        if (!userInteracting.current) {
-          activeScrollContainer.current = null
-        }
-      }, 300)
-    }
-
-    // Add touch/mouse event listeners to detect user interaction
-    const handleInteractionStart = () => {
-      userInteracting.current = true
-    }
-
-    const handleInteractionEnd = () => {
-      userInteracting.current = false
-      // Release lock after a short delay
-      setTimeout(() => {
-        if (!userInteracting.current) {
-          activeScrollContainer.current = null
-        }
-      }, 300)
-    }
-
-    // Add scroll listeners to all containers
-    const listeners: Array<{ element: HTMLDivElement; handler: () => void }> = []
-    const interactionListeners: Array<{
-      element: HTMLDivElement
-      startHandler: () => void
-      endHandler: () => void
-    }> = []
-
-    containers.forEach((container) => {
-      if (container.ref.current) {
-        const scrollHandler = () => handleScroll(container.name)
-        container.ref.current.addEventListener("scroll", scrollHandler, { passive: true })
-        listeners.push({ element: container.ref.current, handler: scrollHandler })
-
-        // Add touch and mouse event listeners
-        container.ref.current.addEventListener("touchstart", handleInteractionStart, { passive: true })
-        container.ref.current.addEventListener("touchend", handleInteractionEnd, { passive: true })
-        container.ref.current.addEventListener("mousedown", handleInteractionStart, { passive: true })
-        container.ref.current.addEventListener("mouseup", handleInteractionEnd, { passive: true })
-
-        interactionListeners.push({
-          element: container.ref.current,
-          startHandler: handleInteractionStart,
-          endHandler: handleInteractionEnd,
-        })
-      }
-    })
-
-    // Cleanup
-    return () => {
-      listeners.forEach(({ element, handler }) => {
-        element.removeEventListener("scroll", handler)
-      })
-      interactionListeners.forEach(({ element, startHandler, endHandler }) => {
-        element.removeEventListener("touchstart", startHandler)
-        element.removeEventListener("touchend", endHandler)
-        element.removeEventListener("mousedown", startHandler)
-        element.removeEventListener("mouseup", endHandler)
-      })
-      if (scrollLockTimeout.current) {
-        clearTimeout(scrollLockTimeout.current)
-      }
-    }
-  }, [])
 
   const allCategories = [
     // Row 1 - Diverse content themes
@@ -408,13 +307,6 @@ export default function WanderPage() {
     userProfiles.find((u) => u.id === 6)!, // Dr. Emily Watson
   ].filter(Boolean)
 
-  useEffect(() => {
-    console.log(
-      "[v0] Featured Journalists:",
-      featuredJournalists.map((j) => ({ name: j.name, id: j.id })),
-    )
-  }, [])
-
   const getRelativeTime = (date: Date): string => {
     const now = new Date()
     const diffInMs = now.getTime() - date.getTime()
@@ -459,28 +351,27 @@ export default function WanderPage() {
       description: post.description,
     }))
 
-  const handleTouchStart = (categoryName: string) => {
-    setTouchedCategory(categoryName)
-  }
-
-  const handleTouchEnd = () => {
-    setTouchedCategory(null)
-  }
-
-  const handleTouchCancel = () => {
-    setTouchedCategory(null)
-  }
-
-  const handleFocusTouchStart = (focusName: string) => {
-    setTouchedFocus(focusName)
-  }
-
-  const handleFocusTouchEnd = () => {
-    setTouchedFocus(null)
-  }
-
-  const handleFocusTouchCancel = () => {
-    setTouchedFocus(null)
+  const handleTouch = {
+    category: {
+      start: (name: string) => setTouchedCategory(name),
+      end: () => setTouchedCategory(null),
+    },
+    focus: {
+      start: (name: string) => setTouchedFocus(name),
+      end: () => setTouchedFocus(null),
+    },
+    article: {
+      start: (id: number) => setTouchedArticle(id),
+      end: () => setTouchedArticle(null),
+    },
+    journalist: {
+      start: (id: number) => setTouchedJournalist(id),
+      end: () => setTouchedJournalist(null),
+    },
+    story: {
+      start: (id: number) => setTouchedStory(id),
+      end: () => setTouchedStory(null),
+    },
   }
 
   const handleFocusClick = (focusName: string, e: React.MouseEvent) => {
@@ -488,42 +379,6 @@ export default function WanderPage() {
     setSelectedFocus((prev) =>
       prev.includes(focusName) ? prev.filter((name) => name !== focusName) : [...prev, focusName],
     )
-  }
-
-  const handleArticleTouchStart = (articleId: number) => {
-    setTouchedArticle(articleId)
-  }
-
-  const handleArticleTouchEnd = () => {
-    setTouchedArticle(null)
-  }
-
-  const handleArticleTouchCancel = () => {
-    setTouchedArticle(null)
-  }
-
-  const handleJournalistTouchStart = (journalistId: number) => {
-    setTouchedJournalist(journalistId)
-  }
-
-  const handleJournalistTouchEnd = () => {
-    setTouchedJournalist(null)
-  }
-
-  const handleJournalistTouchCancel = () => {
-    setTouchedJournalist(null)
-  }
-
-  const handleStoryTouchStart = (storyId: number) => {
-    setTouchedStory(storyId)
-  }
-
-  const handleStoryTouchEnd = () => {
-    setTouchedStory(null)
-  }
-
-  const handleStoryTouchCancel = () => {
-    setTouchedStory(null)
   }
 
   return (
@@ -643,9 +498,9 @@ export default function WanderPage() {
                             ? "scale-[0.98] border-white/50"
                             : "hover:scale-[0.98] border-primary/20 hover:border-white/50"
                       }`}
-                      onTouchStart={() => handleFocusTouchStart(focusCategory.name)}
-                      onTouchEnd={handleFocusTouchEnd}
-                      onTouchCancel={handleFocusTouchCancel}
+                      onTouchStart={() => handleTouch.focus.start(focusCategory.name)}
+                      onTouchEnd={handleTouch.focus.end}
+                      onTouchCancel={handleTouch.focus.end}
                     >
                       {/* Background Image - more visible when selected */}
                       <div
@@ -727,9 +582,9 @@ export default function WanderPage() {
                               ? "scale-[0.98] border-white/50"
                               : "hover:scale-[0.98] border-primary/20 hover:border-white/50"
                         }`}
-                        onTouchStart={() => handleFocusTouchStart(focusCategory.name)}
-                        onTouchEnd={handleFocusTouchEnd}
-                        onTouchCancel={handleFocusTouchCancel}
+                        onTouchStart={() => handleTouch.focus.start(focusCategory.name)}
+                        onTouchEnd={handleTouch.focus.end}
+                        onTouchCancel={handleTouch.focus.end}
                       >
                         {/* Background Image - more visible when selected */}
                         <div
@@ -820,9 +675,9 @@ export default function WanderPage() {
                               ? "scale-[0.98] border-white/50"
                               : "hover:scale-[0.98] border-primary/20 hover:border-white/50"
                           }`}
-                          onTouchStart={() => handleTouchStart(category.name)}
-                          onTouchEnd={handleTouchEnd}
-                          onTouchCancel={handleTouchCancel}
+                          onTouchStart={() => handleTouch.category.start(category.name)}
+                          onTouchEnd={handleTouch.category.end}
+                          onTouchCancel={handleTouch.category.end}
                         >
                           {/* Background Image */}
                           <div
@@ -1024,15 +879,6 @@ export default function WanderPage() {
               {featuredJournalists.map((journalist) => {
                 const isTouched = touchedJournalist === journalist.id
 
-                console.log(
-                  "[v0] Rendering journalist card:",
-                  journalist.name,
-                  "with ID:",
-                  journalist.id,
-                  "href:",
-                  `/profile?userId=${journalist.id}`,
-                )
-
                 return (
                   <Link key={journalist.id} href={`/profile?userId=${journalist.id}`}>
                     <Card
@@ -1041,9 +887,9 @@ export default function WanderPage() {
                           ? "scale-[0.98] border-white/50"
                           : "hover:scale-[0.98] border-primary/20 hover:border-white/50"
                       }`}
-                      onTouchStart={() => handleJournalistTouchStart(journalist.id)}
-                      onTouchEnd={handleJournalistTouchEnd}
-                      onTouchCancel={handleJournalistTouchCancel}
+                      onTouchStart={() => handleTouch.journalist.start(journalist.id)}
+                      onTouchEnd={handleTouch.journalist.end}
+                      onTouchCancel={handleTouch.journalist.end}
                     >
                       <div
                         className={`absolute inset-0 bg-gradient-to-br from-primary/15 via-transparent to-transparent transition-opacity duration-200 z-10 ${
@@ -1156,9 +1002,9 @@ export default function WanderPage() {
                           ? "scale-[0.98] border-white/50"
                           : "hover:scale-[0.98] border-primary/20 hover:border-white/50"
                       }`}
-                      onTouchStart={() => handleArticleTouchStart(article.id)}
-                      onTouchEnd={handleArticleTouchEnd}
-                      onTouchCancel={handleArticleTouchCancel}
+                      onTouchStart={() => handleTouch.article.start(article.id)}
+                      onTouchEnd={handleTouch.article.end}
+                      onTouchCancel={handleTouch.article.end}
                     >
                       <div
                         className={`absolute inset-0 bg-gradient-to-br from-primary/15 via-transparent to-transparent transition-opacity duration-200 z-10 ${
@@ -1266,9 +1112,9 @@ export default function WanderPage() {
                           ? "scale-[0.98] border-white/50"
                           : "hover:scale-[0.98] border-primary/20 hover:border-white/50"
                       }`}
-                      onTouchStart={() => handleArticleTouchStart(article.id)}
-                      onTouchEnd={handleArticleTouchEnd}
-                      onTouchCancel={handleArticleTouchCancel}
+                      onTouchStart={() => handleTouch.article.start(article.id)}
+                      onTouchEnd={handleTouch.article.end}
+                      onTouchCancel={handleTouch.article.end}
                     >
                       <div
                         className={`absolute inset-0 bg-gradient-to-br from-primary/15 via-transparent to-transparent transition-opacity duration-200 z-10 ${
@@ -1376,9 +1222,9 @@ export default function WanderPage() {
                           ? "scale-[0.98] border-white/50"
                           : "hover:scale-[0.98] border-primary/20 hover:border-white/50"
                       }`}
-                      onTouchStart={() => handleArticleTouchStart(article.id)}
-                      onTouchEnd={handleArticleTouchEnd}
-                      onTouchCancel={handleArticleTouchCancel}
+                      onTouchStart={() => handleTouch.article.start(article.id)}
+                      onTouchEnd={handleTouch.article.end}
+                      onTouchCancel={handleTouch.article.end}
                     >
                       <div
                         className={`absolute inset-0 bg-gradient-to-br from-primary/15 via-transparent to-transparent transition-opacity duration-200 z-10 ${
@@ -1486,9 +1332,9 @@ export default function WanderPage() {
                           ? "scale-[0.98] border-white/50"
                           : "hover:scale-[0.98] border-primary/20 hover:border-white/50"
                       }`}
-                      onTouchStart={() => handleStoryTouchStart(story.id)}
-                      onTouchEnd={handleStoryTouchEnd}
-                      onTouchCancel={handleStoryTouchCancel}
+                      onTouchStart={() => handleTouch.story.start(story.id)}
+                      onTouchEnd={handleTouch.story.end}
+                      onTouchCancel={handleTouch.story.end}
                     >
                       <div
                         className={`absolute inset-0 bg-gradient-to-br from-primary/15 via-transparent to-transparent transition-opacity duration-200 z-10 ${

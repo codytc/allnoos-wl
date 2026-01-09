@@ -27,285 +27,9 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { AllnoosLogo } from "@/components/allnoos-logo"
 import { userProfiles } from "@/lib/mock-data"
 import { Input } from "@/components/ui/input"
+import { allPosts } from "@/lib/mock-data"
 
-const allUsers = [
-  {
-    id: 1,
-    name: "Sarah Chen",
-    username: "@sarahchen_news",
-    avatar: "/professional-asian-female-climate-journalist-with-.jpg",
-    bio: "Independent journalist covering climate change and environmental issues. Based in Iceland. 🌍",
-    location: "Reykjavik, Iceland",
-    website: "sarahchen.news",
-    joinDate: "March 2023",
-    verified: true,
-    followers: 16240,
-    following: 892,
-    stories: 47,
-    totalViews: "2.1M",
-  },
-  {
-    id: 2,
-    name: "Sarah Mitchell",
-    username: "@sarahmitchell",
-    avatar: "/female-journalist.png",
-    bio: "Technology reporter covering AI and digital transformation. Always on the cutting edge.",
-    location: "San Francisco, CA",
-    website: "sarahmitchell.tech",
-    joinDate: "January 2022",
-    verified: true,
-    followers: 24500,
-    following: 1240,
-    stories: 63,
-    totalViews: "3.2M",
-  },
-  {
-    id: 8,
-    name: "David Park",
-    username: "@davidpark",
-    avatar: "/male-journalist.png",
-    bio: "Political correspondent. Breaking news and in-depth analysis. Washington DC based.",
-    location: "Washington, DC",
-    website: "davidpark.news",
-    joinDate: "June 2021",
-    verified: true,
-    followers: 32100,
-    following: 980,
-    stories: 89,
-    totalViews: "4.5M",
-  },
-  {
-    id: 12,
-    name: "Robert Chen",
-    username: "@robertchen",
-    avatar: "/male-journalist.png",
-    bio: "Business and economics journalist. Markets, finance, and the economy.",
-    location: "New York, NY",
-    website: "robertchen.biz",
-    joinDate: "August 2020",
-    verified: true,
-    followers: 28300,
-    following: 756,
-    stories: 102,
-    totalViews: "5.1M",
-  },
-  {
-    id: 6,
-    name: "Dr. Emily Watson",
-    username: "@drwatson",
-    avatar: "/female-journalist.png",
-    bio: "Science and health reporter. PhD in Molecular Biology. Making science accessible.",
-    location: "Boston, MA",
-    website: "emilywatson.science",
-    joinDate: "May 2022",
-    verified: true,
-    followers: 19800,
-    following: 543,
-    stories: 54,
-    totalViews: "2.8M",
-  },
-]
-
-// Mock data for allPosts and getUserStories - replace with actual imports if available
-const allPosts = [
-  {
-    id: 1,
-    userId: 1,
-    title: "Iceland Volcano Eruption",
-    location: "Reykjavik, Iceland",
-    views: 45600,
-    likes: 4445,
-    timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
-    thumbnail: "/volcanic-sunset.png",
-  },
-  {
-    id: 2,
-    userId: 1,
-    title: "Arctic Ice Melt",
-    location: "Greenland, Denmark",
-    views: 32100,
-    likes: 2890,
-    timestamp: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
-    thumbnail: "/northern-lights-nature.png",
-  },
-  {
-    id: 3,
-    userId: 2,
-    title: "AI Breakthrough",
-    location: "San Francisco, CA",
-    views: 28900,
-    likes: 2156,
-    timestamp: new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString(),
-    thumbnail: "/climate-summit-meeting.png",
-  },
-  {
-    id: 4,
-    userId: 8,
-    title: "Political Debate",
-    location: "Washington, DC",
-    views: 67800,
-    likes: 5234,
-    timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
-    thumbnail: "/climate-summit-meeting.png",
-  },
-  {
-    id: 5,
-    userId: 12,
-    title: "Market Analysis",
-    location: "New York, NY",
-    views: 41200,
-    likes: 3567,
-    timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
-    thumbnail: "/blue-concert-stage.png",
-  },
-  {
-    id: 6,
-    userId: 6,
-    title: "Cancer Research",
-    location: "Boston, MA",
-    views: 38900,
-    likes: 3124,
-    timestamp: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
-    thumbnail: "/professional-woman-headshot.png",
-  },
-  {
-    id: 7,
-    userId: 6,
-    title: "New Discoveries",
-    location: "Cambridge, MA",
-    views: 52300,
-    likes: 4789,
-    timestamp: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(),
-    thumbnail: "/male-journalist.png",
-  },
-  {
-    id: 8,
-    userId: 1,
-    title: "Ecosystem Health",
-    location: "Iceland",
-    views: 29800,
-    likes: 2456,
-    timestamp: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
-    thumbnail: "/volcanic-sunset.png",
-  },
-  {
-    id: 9,
-    userId: 2,
-    title: "Future of Tech",
-    location: "San Francisco, CA",
-    views: 35600,
-    likes: 2987,
-    timestamp: new Date(Date.now() - 45 * 60 * 1000).toISOString(),
-    thumbnail: "/northern-lights-nature.png",
-  },
-  {
-    id: 10,
-    userId: 8,
-    title: "World News",
-    location: "Washington, DC",
-    views: 48700,
-    likes: 4123,
-    timestamp: new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString(),
-    thumbnail: "/modern-building-news.png",
-  },
-]
-
-const getUserStories = (userId: number | null) => {
-  if (userId === null) return []
-  const baseStories = [
-    {
-      id: 1,
-      title: "Iceland Volcano Emits Smoke",
-      thumbnail: "/volcanic-sunset.png",
-      views: 45600,
-      likes: 4445,
-      duration: "2:34",
-      timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
-    },
-    {
-      id: 2,
-      title: "Arctic Ice Melting Report",
-      thumbnail: "/northern-lights-nature.png",
-      views: 32100,
-      likes: 2890,
-      duration: "3:12",
-      timestamp: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000), // 5 days ago
-    },
-    {
-      id: 3,
-      title: "Renewable Energy Progress",
-      thumbnail: "/climate-summit-meeting.png",
-      views: 28900,
-      likes: 2156,
-      duration: "2:45",
-      timestamp: new Date(Date.now() - 12 * 60 * 60 * 1000), // 12 hours ago
-    },
-    {
-      id: 4,
-      title: "Climate Summit Coverage",
-      thumbnail: "/climate-summit-meeting.png",
-      views: 67800,
-      likes: 5234,
-      duration: "4:21",
-      timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000), // 1 day ago
-    },
-    {
-      id: 5,
-      title: "Ocean Conservation Efforts",
-      thumbnail: "/blue-concert-stage.png",
-      views: 41200,
-      likes: 3567,
-      duration: "3:45",
-      timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000), // 3 days ago
-    },
-    {
-      id: 6,
-      title: "Wildlife Protection Update",
-      thumbnail: "/professional-woman-headshot.png",
-      views: 38900,
-      likes: 3124,
-      duration: "2:58",
-      timestamp: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // 1 week ago
-    },
-    {
-      id: 7,
-      title: "Green Technology Breakthrough",
-      thumbnail: "/male-journalist.png",
-      views: 52300,
-      likes: 4789,
-      duration: "4:12",
-      timestamp: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000), // 2 weeks ago
-    },
-    {
-      id: 8,
-      title: "Environmental Policy Changes",
-      thumbnail: "/volcanic-sunset.png",
-      views: 29800,
-      likes: 2456,
-      duration: "3:33",
-      timestamp: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), // 1 month ago
-    },
-    {
-      id: 9,
-      title: "Sustainable Living Tips",
-      thumbnail: "/northern-lights-nature.png",
-      views: 35600,
-      likes: 2987,
-      duration: "2:21",
-      timestamp: new Date(Date.now() - 45 * 60 * 1000), // 45 minutes ago
-    },
-    {
-      id: 10,
-      title: "Climate Change Impact Study",
-      thumbnail: "/modern-building-news.png",
-      views: 48700,
-      likes: 4123,
-      duration: "5:07",
-      timestamp: new Date(Date.now() - 90 * 24 * 60 * 60 * 1000), // 3 months ago
-    },
-  ]
-  return baseStories.filter((story) => story.id <= 10) // Limit to 10 for mock purposes
-}
+// Removed mock data for allPosts and getUserStories - replace with actual imports if available
 
 export default function ProfilePage() {
   const searchParams = useSearchParams()
@@ -333,20 +57,17 @@ export default function ProfilePage() {
 
   const userStories = useMemo(
     () =>
-      getUserStories(user.id)
-        .slice(0, 10)
-        .map((post) => ({
-          id: post.id,
-          title: post.title,
-          thumbnail: post.thumbnail,
-          views: post.views,
-          likes: post.likes,
-          duration: "2:34", // This should ideally come from post data or be dynamically calculated
-          timestamp: new Date(post.timestamp),
-        })),
+      userPosts.slice(0, 10).map((post) => ({
+        id: post.id,
+        title: post.title,
+        thumbnail: post.thumbnail,
+        views: post.views,
+        likes: post.likes,
+        duration: "2:34", // This should ideally come from post data or be dynamically calculated
+        timestamp: new Date(post.timestamp),
+      })),
     [user.id],
   )
-  // </CHANGE>
 
   const [isFollowing, setIsFollowing] = useState(false)
   const [visibleStories, setVisibleStories] = useState(4)
@@ -366,47 +87,26 @@ export default function ProfilePage() {
   const storySearchInputRef = useRef<HTMLInputElement>(null)
   const sortDropdownRef = useRef<HTMLDivElement>(null)
 
-  console.log("[v0] Profile page loaded for user:", {
-    userId: userId || user.id, // Use memoized user.id for consistency
-    userName: user.name,
-    actualUserId: user.id,
-  })
-
   const getTimeAgo = (timestamp: Date) => {
-    const now = new Date()
-    const diffInSeconds = Math.floor((now.getTime() - timestamp.getTime()) / 1000)
-
-    if (diffInSeconds < 60) {
-      return "just now"
-    }
+    const diffInSeconds = Math.floor((Date.now() - timestamp.getTime()) / 1000)
+    if (diffInSeconds < 60) return "just now"
 
     const diffInMinutes = Math.floor(diffInSeconds / 60)
-    if (diffInMinutes < 60) {
-      return `${diffInMinutes} ${diffInMinutes === 1 ? "minute" : "minutes"} ago`
-    }
+    if (diffInMinutes < 60) return `${diffInMinutes}m ago`
 
     const diffInHours = Math.floor(diffInMinutes / 60)
-    if (diffInHours < 24) {
-      return `${diffInHours} ${diffInHours === 1 ? "hour" : "hours"} ago`
-    }
+    if (diffInHours < 24) return `${diffInHours}h ago`
 
     const diffInDays = Math.floor(diffInHours / 24)
-    if (diffInDays < 7) {
-      return `${diffInDays} ${diffInDays === 1 ? "day" : "days"} ago`
-    }
+    if (diffInDays < 7) return `${diffInDays}d ago`
 
     const diffInWeeks = Math.floor(diffInDays / 7)
-    if (diffInWeeks < 4) {
-      return `${diffInWeeks} ${diffInWeeks === 1 ? "week" : "weeks"} ago`
-    }
+    if (diffInWeeks < 4) return `${diffInWeeks}w ago`
 
     const diffInMonths = Math.floor(diffInDays / 30)
-    if (diffInMonths < 12) {
-      return `${diffInMonths} ${diffInMonths === 1 ? "month" : "months"} ago`
-    }
+    if (diffInMonths < 12) return `${diffInMonths}mo ago`
 
-    const diffInYears = Math.floor(diffInDays / 365)
-    return `${diffInYears} ${diffInYears === 1 ? "year" : "years"} ago`
+    return `${Math.floor(diffInDays / 365)}y ago`
   }
 
   const formatTimestamp = (timestamp: Date) => {
