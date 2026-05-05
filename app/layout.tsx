@@ -36,8 +36,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${urbanist.variable} antialiased`}>
-      <body>
+    <html lang="en" className={`${inter.variable} ${urbanist.variable} antialiased`} suppressHydrationWarning>
+      <body suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="mx-auto max-w-sm min-h-screen bg-background" style={{ position: 'relative' }}>
             {children}
