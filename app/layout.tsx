@@ -38,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${urbanist.variable} antialiased`} suppressHydrationWarning>
       <body suppressHydrationWarning>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} forcedTheme="light">
           <div className="mx-auto max-w-sm min-h-screen bg-background" style={{ position: 'relative' }}>
             {children}
           </div>
